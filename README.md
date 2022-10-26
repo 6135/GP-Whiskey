@@ -4,7 +4,7 @@
 
 * [Python 3.10.8](https://www.python.org/downloads/) (Usamos o 3.10 porque para  algumas packages ainda não existem updates)
 * [PostgreSQL 15](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
-* [Git](https://git-scm.com/downloads)
+* [Git](https://git-scm.com/downloads) (Useful to use VSC outside github desktop)
 
 ### Instalação
 
