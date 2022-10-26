@@ -30,6 +30,7 @@ Atenção: A versão de Python com a qual criar o ambiente do projeto deve ser i
 ```bash
 py -V
 ```
+
 Para criar o ambiente:
 Atenção: Existe a possibilidade de que o comando para linux seja ligeiramente diferente.
 
@@ -40,9 +41,10 @@ py -m venv env
 Isto deve criar uma pasta `env` na diretoria do projeto, esta pasta NAO DEVE ser seguida pelo github, é individual para cada maquina em que seja desenvolvido o projeto.
 
 6. Ativar o ambiente no terminal.
-   
+
 Em linux:
-```bash 
+
+```bash
 source env/bin/activate
 ```
 
@@ -60,15 +62,17 @@ A extensão padrão de Python do VSCode tem a opção de ativar automaticamente 
 py -m pip install --upgrade pip
 pip install --upgrade pip setuptools
 ```
+
 seguido de:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 8. Criar um ficheiro .env dentro da pasta do projeto, a mesma pasta que contem o ficheiro settings.py, este ficheiro contem informações sensiveis ao projeto, como credenciais de acesso. **Nao deve ser partilhado no git.**
 
-
 Um exemplo do conteudo do ficheir env seria:
+
 ```
 DATABASE_HOST=localhost
 DATABASE_NAME=gp_whiskey
@@ -80,21 +84,19 @@ EMAIL_HOST_PASSWORD=password
 ```
 
 9. Gerar uma nova SECRET_KEY aleatória (https://djecrety.ir/) e substituí-la no .env
-
 10. Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
-
 11. Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
 
 Este comando gera as alterações efetuadas aos modelos (Classes do ORM do django) e aplica-as na base de dados. Por exemplo, se criarmos a classe `User`, o django cria a tabela `users` caso ela nao exista, se existir nao o faz. No caso de adicionarmos uma propriedade a classe, ele adiciona uma coluna a tabela. [Ver a documentação](https://docs.djangoproject.com/en/4.1/intro/tutorial02/)
 
-
 (manage.py encontra-se na pasta referida no ponto 11)
+
 ```bash
 py manage.py makemigrations
 ```
 
-12.  Gerar a base de dados
-    
+12. Gerar a base de dados
+
 ```bash
 py manage.py migrate
 ```
@@ -104,8 +106,8 @@ py manage.py migrate
 ```bash
 py manage.py runserver
 ```
-## Comandos fundamentais
 
+## Comandos fundamentais
 
 ### Desativar o ambiente virtual no terminal
 
@@ -116,6 +118,7 @@ deactivate
 ### Iniciar o servidor localmente
 
 Perminte desenvolver sem necessitar deployment.
+
 ```SH
 python manage.py runserver
 ```
@@ -157,16 +160,17 @@ python manage.py startapp nome_da_app
 ### Gerar automaticamente modelos através de tabelas da base de dados
 
 Nao utilizar por favor...
+
 ```SH
 python manage.py inspectdb tabela1 tabela2 > nome_da_app/models.py
 ```
 
 ## Dependências
 
- 
----------
+---
+
 TODO
----------
+----
 
 ### TroubleShooting
 
@@ -183,9 +187,11 @@ Em windows, podem ocorrer erros a quando da instalação das packages.
 Encountered error while trying to install package.
 ╰─> psycopg2
 ```
+
 Se este erro for emitido, [instala as build tools do c++](https://stackoverflow.com/a/49984619)
 
 Em caso de duvida, a arvore de diretorias deve ser [semelhante a esta](gp_tree.txt):
+
 ```
 E:\GP-WHISKEY
 │   .gitattributes
@@ -207,7 +213,7 @@ E:\GP-WHISKEY
     │   │   
     │   └───migrations
     │           __init__.py
-    │           
+    │         
     └───gp_whiskey
         │   .env
         │   .env-example
@@ -225,9 +231,10 @@ E:\GP-WHISKEY
                 wsgi.cpython-310.pyc
                 __init__.cpython-310.pyc
                 __init__.cpython-311.pyc
-                
+              
 
 ```
+
 ### Reference Guide
 
 1. [Django Installation Guide - Official](https://docs.djangoproject.com/en/4.0/intro/install/)
@@ -235,4 +242,4 @@ E:\GP-WHISKEY
 3. [PostegreSQL with django](https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django)
 4. [Django how to use env vars](https://djangocentral.com/environment-variables-in-django) or [here](/https://stackoverflow.com/questions/62925571/how-do-i-use-env-in-django#62925707)
 
-ps: took me 3h.20m to set up
+ps: took me 3h.20m to set up.
