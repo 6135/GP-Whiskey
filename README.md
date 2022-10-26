@@ -134,7 +134,7 @@ python manage.py migrate
 
 A base de dados deve ter as seguintes tabelas apos as migrações iniciais:
 
-![image](ERDAfterMigrations.png)
+![ERD no pgadmin, depois das migrações](ERDAfterMigrations.png)
 
 ### Instalar nova dependência
 
