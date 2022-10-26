@@ -25,7 +25,7 @@ git clone https://github.com/6135/GP-Whiskey
 4. Abrir o terminal na pasta.
 5. Criar o ambiente (virtual) do projeto.
 
-Atenção: A versão de Python com a qual criar o ambiente do projeto deve ser igual para todos (v3.11.0). Para verificar a versao deve-se usar:
+Atenção: A versão de Python com a qual criar o ambiente do projeto deve ser igual para todos (v3.10.8). Para verificar a versao deve-se usar:
 
 ```bash
 py -V
