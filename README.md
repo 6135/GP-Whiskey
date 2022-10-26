@@ -83,20 +83,27 @@ EMAIL_HOST_PASSWORD=password
 
 10. Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
 
-11. Gerar as migrações
+11. Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
 
 Este comando gera as alterações efetuadas aos modelos (Classes do ORM do django) e aplica-as na base de dados. Por exemplo, se criarmos a classe `User`, o django cria a tabela `users` caso ela nao exista, se existir nao o faz. No caso de adicionarmos uma propriedade a classe, ele adiciona uma coluna a tabela. [Ver a documentação](https://docs.djangoproject.com/en/4.1/intro/tutorial02/)
 
+
+(manage.py encontra-se na pasta referida no ponto 11)
 ```bash
 py manage.py makemigrations
 ```
 
-1.  Gerar a base de dados
+12.  Gerar a base de dados
     
 ```bash
 py manage.py migrate
 ```
 
+13. Testar se a setup funcionou
+
+```bash
+py manage.py runserver
+```
 ## Comandos fundamentais
 
 
@@ -137,7 +144,7 @@ pip install nome_da_dependência && pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-### Criar nova app (cada "componente" vai ser uma "app")
+### Criar nova app (cada "componente" vai ser uma "app", neste caso ja existe uma, discutir com equipa caso seja necessaria outra)
 
 ```SH
 python manage.py startapp nome_da_app
