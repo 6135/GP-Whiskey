@@ -132,6 +132,10 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+A base de dados deve ter as seguintes tabelas apos as migrações iniciais:
+
+![image](ERDAfterMigrations.png)
+
 ### Instalar nova dependência
 
 ```SH
@@ -231,4 +235,4 @@ E:\GP-WHISKEY
 3. [PostegreSQL with django](https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django)
 4. [Django how to use env vars](https://djangocentral.com/environment-variables-in-django) or [here](/https://stackoverflow.com/questions/62925571/how-do-i-use-env-in-django#62925707)
 
-ps: took me 2h.55m.50s.980ms to set up
+ps: took me 3h.20m to set up
