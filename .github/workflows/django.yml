@@ -8,7 +8,7 @@ on:
 env:
   USE_REMOTE_DB: false
   LOCAL_DATABASE_HOST: localhost
-  LOCAL_DATABASE_NAMEL: gp_whiskey
+  LOCAL_DATABASE_NAME: gp_whiskey
   LOCAL_DATABASE_USER: postgres
   LOCAL_DATABASE_PASSWORD: postgres
   SECRET_KEY: '0x-et3rr12rh+jzlthsngdoszng5y#z(+3w%$(nufvzssrze06'
