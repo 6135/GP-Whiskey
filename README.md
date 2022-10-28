@@ -1,5 +1,8 @@
 # GP-Whiskey
 
+### Status:
+![Workflow result](https://github.com/6135/GP-Whiskey/actions/workflows/django.yml/badge.svg)
+
 ### Pre-requisitos
 
 * [Python 3.10.8](https://www.python.org/downloads/) (Usamos o 3.10 porque para  algumas packages ainda não existem updates)
