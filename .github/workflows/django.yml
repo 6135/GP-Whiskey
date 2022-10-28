@@ -12,6 +12,16 @@ env:
   LOCAL_DATABASE_USER: postgres
   LOCAL_DATABASE_PASSWORD: postgres
   SECRET_KEY: '0x-et3rr12rh+jzlthsngdoszng5y#z(+3w%$(nufvzssrze06'
+  REMOTE_DATABASE_PROD_NAME: gp_whiskey_prod
+  REMOTE_DATABASE_NAME: gp_whiskey
+  REMOTE_DATABASE_HOST: server
+  REMOTE_DATABASE_PASSWORD: pwd
+  REMOTE_DATABASE_USER: postgres
+
+
+DATABASE_PORT=5432
+
+  
   
 jobs:
   build:
