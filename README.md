@@ -10,7 +10,7 @@
 
 ESTIMATED TIME FOR SETUP -> 1-2 hours
 
-É estritamente necessário ter os pre-requisitos instalados nas versoes mencionadas.
+É estritamente necessário ter os pre-requisitos instalados nas versoes mencionadas. Se nao desejar instalar postgres, pode-se usar uma base de dados remota, disponibilizada por mim. Pff pedir detalhes da DB.
 
 1. Abrir o terminal ou o github desktop.
 2. Clonar o projeto.
@@ -73,19 +73,34 @@ pip install -r requirements.txt
 
 Um exemplo do conteudo do ficheir env seria:
 
+   
 ```
-DATABASE_HOST=localhost
-DATABASE_NAME=gp_whiskey
-DATABASE_USER=postgres
-DATABASE_PASSWORD=postgres
+USE_REMOTE_DB=false
+
+LOCAL_DATABASE_HOST=localhost
+LOCAL_DATABASE_NAME=gp_whiskey
+LOCAL_DATABASE_USER=postgres
+LOCAL_DATABASE_PASSWORD=postgres
+
+REMOTE_DATABASE_PROD_NAME=gp_whiskey_prod
+REMOTE_DATABASE_NAME=gp_whiskey
+REMOTE_DATABASE_HOST=server
+REMOTE_DATABASE_PASSWORD=pwd
+REMOTE_DATABASE_USER=postgres
+
+
+DATABASE_PORT=5432
+
 SECRET_KEY=q1^j3mv#y9-n&^*j)-rd3@lqqu@jv49p_99$mefzljeuz#fra3
 EMAIL_HOST_USER=some_email@gmail.com
 EMAIL_HOST_PASSWORD=password
 ```
+```USE_REMOTE_DB=false``` usado para indicar se pretende usar a db remota ou a local.
 
-9. Gerar uma nova SECRET_KEY aleatória (https://djecrety.ir/) e substituí-la no .env
-10. Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
-11. Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
+
+1. Gerar uma nova SECRET_KEY aleatória (https://djecrety.ir/) e substituí-la no .env
+2.  Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
+3.  Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
 
 Este comando gera as alterações efetuadas aos modelos (Classes do ORM do django) e aplica-as na base de dados. Por exemplo, se criarmos a classe `User`, o django cria a tabela `users` caso ela nao exista, se existir nao o faz. No caso de adicionarmos uma propriedade a classe, ele adiciona uma coluna a tabela. [Ver a documentação](https://docs.djangoproject.com/en/4.1/intro/tutorial02/)
 
