@@ -77,11 +77,12 @@ WSGI_APPLICATION = 'gp_whiskey.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+ENGINE = 'django.db.backends.postgresql'
 if DEBUG:
     if env('USE_REMOTE_DB') == 'false':
         DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.postgresql',
+                'ENGINE': ENGINE,
                 'NAME': env("LOCAL_DATABASE_NAME"),
                 'USER': env("LOCAL_DATABASE_USER"),
                 'PASSWORD': env("LOCAL_DATABASE_PASSWORD"),
@@ -92,7 +93,7 @@ if DEBUG:
     else:
         DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.postgresql',
+                'ENGINE': ENGINE,
                 'NAME': env("REMOTE_DATABASE_NAME"),
                 'USER': env("REMOTE_DATABASE_USER"),
                 'PASSWORD': env("REMOTE_DATABASE_PASSWORD"),
@@ -103,7 +104,7 @@ if DEBUG:
 else:
     DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.postgresql',
+                'ENGINE': ENGINE,
                 'NAME': env("REMOTE_DATABASE_PROD_NAME"),
                 'USER': env("REMOTE_DATABASE_USER"),
                 'PASSWORD': env("REMOTE_DATABASE_PASSWORD"),
