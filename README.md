@@ -101,9 +101,9 @@ EMAIL_HOST_PASSWORD=password
 ```USE_REMOTE_DB=false``` usado para indicar se pretende usar a db remota ou a local.
 
 
-1. Gerar uma nova SECRET_KEY aleatória (https://djecrety.ir/) e substituí-la no .env
-2.  Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
-3.  Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
+9. Gerar uma nova SECRET_KEY aleatória (https://djecrety.ir/) e substituí-la no .env
+10.  Gerar uma nova BD vazia com o nome igual ao definido no ficheiro .env
+11.  Navegar para a pasta GP-WHISKEY\gp_whiskey\ e gerar as migrações
 
 Este comando gera as alterações efetuadas aos modelos (Classes do ORM do django) e aplica-as na base de dados. Por exemplo, se criarmos a classe `User`, o django cria a tabela `users` caso ela nao exista, se existir nao o faz. No caso de adicionarmos uma propriedade a classe, ele adiciona uma coluna a tabela. [Ver a documentação](https://docs.djangoproject.com/en/4.1/intro/tutorial02/)
 
