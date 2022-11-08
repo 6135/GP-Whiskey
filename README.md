@@ -192,6 +192,8 @@ TODO
 
 ### TroubleShooting
 
+#### **Windows 10/11**
+
 Em windows, podem existir problemas de segurança ao executar o ambiente, para isso devem desativar a verificação da seguinte forma:
 
 ```powershell
@@ -252,6 +254,96 @@ E:\GP-WHISKEY
               
 
 ```
+
+
+#### **Ubuntu 22.04**
+
+1. Ao criar o ambiente virtual de ***python*** com o comando `python -m venv env` é possível obter o seguinte erro:
+
+    ![Erro ao criar ambiente virtual](create_venv_error.png)
+
+    Para corrigir este erro, temos de instalar o *package* `python3.10-venv` com o *package manager*:
+
+    ```SH
+    $ sudo apt install python3.10-venv
+    ```
+
+2. Durante a instalação das dependências para o ambiente virtual e para o projeto, com o comando `pip install -r requirements.txt`, pode não ser possível instalar o package `psycopg2`: 
+
+    ![Erro durante a instalação dos packages presentes no ficheiro requirements.txt](install_psycopg2_error.png)
+
+
+    Para o solucionar temos de instalar o package `libpq-dev`:
+
+    ```SH
+    $ sudo apt-get install libpq-dev
+    ```
+
+    E voltar a correr o comando necessário para instalar a lista de dependências do projeto:
+
+    ```SH
+    $ pip install -r requirements.txt
+    ```
+
+3. Se não for possível instalar a package `libpq-dev`:
+
+    ![Erro durante a instalação dos packages presentes no ficheiro requirements.txt](install_psycopg2_solution.png)
+
+    Temos de instalar a versão indicada na mensagem de erro, `14.5-0ubuntu0.22.04.1`, do *package* `libpq5`:
+
+    ```SH
+    $ sudo apt install libpq5=14.5-0ubuntu0.22.04.1
+    ```
+
+    Por fim, instalamos o *package* `libpq-dev` e voltamos a instalar a lista de dependências do projeto:
+
+    ```SH
+    $ sudo apt-get install libpq-dev
+    $ pip install -r requirements.txt
+    ```
+
+4. Ao gerar as migrações automaticamente através do comando `python manage.py makemigrations`, podemos obter a seguinte mensagem de erro:
+
+    ![Erro durante o makemigrations](makemigrations_error.png)
+
+    Este erro surge porque a *password* do utilizador `postgres` não corresponde à *password* definida no campo `LOCAL_DATABASE_PASSWORD` do ficheiro `.env`.
+
+    Para alterarmos a *password* do *superuser* `postgres` através da CLI, temos de fazer *login* com o utilizador `postgres`:
+
+    ```console
+    $ sudo -u postgres psql
+    ```
+
+    E alterar a sua password com o comando `ALTER USER`:
+
+    ```console
+    postgres=# ALTER USER postgres WITH PASSWORD 'postgres';
+    ```
+
+5. Comandos para criar a base de dados através da CLI:
+
+    - Login como *superuser* **postgres**:
+
+        ```console
+        $ sudo -u postgres psql
+        ```
+
+    - Criar base de dados:
+
+        ```console
+        postgres=# CREATE DATABASE gp_whiskey;
+        ```
+    - Listar bases de dados, para verificar se a base de dados foi criada
+
+        ```console
+        postgres=# \l
+        ```
+
+    - Logout:
+
+        ```
+        postgres=# \q
+        ```
 
 ### Reference Guide
 
