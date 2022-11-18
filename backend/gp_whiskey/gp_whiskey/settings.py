@@ -83,12 +83,12 @@ if DEBUG:
     if os.environ.get('docker') == 'true':
         DATABASES = {
             'default': {
-                'ENGINE': ENGINE,
-                'NAME': os.environ.get('POSTGRES_NAME'),
-                'USER': os.environ.get('POSTGRES_USER'),
-                'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-                'HOST': 'db',
-                'PORT': 5432,
+                "ENGINE": ENGINE,
+                "NAME": os.environ.get("SQL_DATABASE", 'gp_whiskey'),
+                "USER": os.environ.get("SQL_USER", "postgres"),
+                "PASSWORD": os.environ.get("SQL_PASSWORD", "postgres"),
+                "HOST": os.environ.get("SQL_HOST", "localhost"),
+                "PORT": os.environ.get("SQL_PORT", "5432"),
             }
         }
     elif env('USE_REMOTE_DB') == 'false':

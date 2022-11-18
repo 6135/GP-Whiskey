@@ -1,12 +1,18 @@
-FROM python:3.9
+FROM python:3.9.6-alpine
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV docker=true
 
-WORKDIR /backend
+WORKDIR /app
 
-COPY requirements.txt /backend/
-RUN python -m pip install --upgrade pip
+# install psycopg2 dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+# install dependencies
+RUN pip install --upgrade pip
+COPY requirements.txt /app/
 RUN pip install -r requirements.txt
-COPY . /backend/
+
+# copy project
+COPY . /app/
