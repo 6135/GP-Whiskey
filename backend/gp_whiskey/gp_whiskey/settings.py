@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 import environ
 
@@ -30,7 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','*']
 
 
 # Application definition
@@ -79,7 +80,18 @@ WSGI_APPLICATION = 'gp_whiskey.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 ENGINE = 'django.db.backends.postgresql'
 if DEBUG:
-    if env('USE_REMOTE_DB') == 'false':
+    if os.environ.get('docker') == 'true':
+        DATABASES = {
+            'default': {
+                'ENGINE': ENGINE,
+                'NAME': os.environ.get('POSTGRES_NAME'),
+                'USER': os.environ.get('POSTGRES_USER'),
+                'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+                'HOST': 'db',
+                'PORT': 5432,
+            }
+        }
+    elif env('USE_REMOTE_DB') == 'false':
         DATABASES = {
             'default': {
                 'ENGINE': ENGINE,
