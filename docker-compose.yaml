@@ -15,6 +15,7 @@ services:
     # tail -f /dev/null
     volumes:
       - ./backend/gp_whiskey:/app
+      - ./backend/requirements.txt:/app/requirements.txt
     ports:
       - "8000:8000"
     env_file:
