@@ -39,9 +39,9 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r gp_whiskey/requirements.txt
     - name: Run Tests
       run: |
         pwd
         ls -la
-        python gp_whiskey/manage.py test
+        python backend/gp_whiskey/manage.py test
