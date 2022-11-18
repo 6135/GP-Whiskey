@@ -7,5 +7,6 @@ ENV docker=true
 WORKDIR /backend
 
 COPY requirements.txt /backend/
+RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY . /backend/
