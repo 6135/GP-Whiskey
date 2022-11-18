@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=gp_whiskey
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pwd
+    restart: always
+  web:
+    build: ./backend
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # tail -f /dev/null
+    volumes:
+      - ./backend/gp_whiskey:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+volumes:
+  postgres_data:
