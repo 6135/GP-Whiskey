@@ -119,7 +119,7 @@ backend/**/venv/
 backend/**/ENV/
 backend/**/env.bak/
 backend/**/venv.bak/
-
+backend/gp_whiskey/requirements.txt
 .env
 .venv
 env/
