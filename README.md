@@ -107,9 +107,9 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-O mesmo acontece para o frontend, ou seja, instalar as dependências dentro do container.
+O mesmo acontece para o *frontend*, ou seja, instalar as dependências dentro do container.
 
-Para entrar dentro do container **frontend**:
+Para entrar dentro deste container:
 
 ```
 docker exec -it frontend /bin/sh
