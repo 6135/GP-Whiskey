@@ -30,10 +30,21 @@ npm -v  # for example 9.1.2
 
 Se usarem terminal:
 
-```sh
+### Clonar o repositorio
+```
 git clone https://github.com/6135/GP-Whiskey
+```
+### Entrar dentro do projeto, dentro do ficheiro frontend e instalar pacotes
+```
 cd GP-Whiskey/frontend && npm install
+```
+### Correr o projeto
+```
 npm run start
+```
+### Instalarem nova dependência
+```
+npm install <package-name>
 ```
 
 ## Using Docker (Alternative)
@@ -64,7 +75,7 @@ git clone https://github.com/6135/GP-Whiskey
 1. Entrar na pasta do projeto.
 2. Correr `docker-compose up -d --build`
 
-Após isto o projeto já deve estar a correr. Enquanto o projeto estiver a correr, qualquer comando deve ser feito dentro do container **backend**.
+Após isto o projeto já deve estar a correr. Enquanto o projeto estiver a correr, qualquer comando no **DJANGO** deve ser feito dentro do container **backend**.
 
 Portanto no terminal e para entrar dentro do container, escrever o seguinte:
 
@@ -94,6 +105,20 @@ python manage.py makemigrations
 
 ```
 python manage.py migrate
+```
+
+O mesmo acontece para o **frontend**, ou seja, instalar as dependências dentro do container.
+
+Para entrar dentro deste container:
+
+```
+docker exec -it frontend /bin/sh
+```
+
+### Instalar nova dependência
+
+```
+npm install <package-name>
 ```
 
 ### Other Commands outside container
