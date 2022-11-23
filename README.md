@@ -64,7 +64,7 @@ git clone https://github.com/6135/GP-Whiskey
 1. Entrar na pasta do projeto.
 2. Correr `docker-compose up -d --build`
 
-Após isto o projeto já deve estar a correr. Enquanto o projeto estiver a correr, qualquer comando deve ser feito dentro do container **backend**.
+Após isto o projeto já deve estar a correr. Enquanto o projeto estiver a correr, qualquer comando no **DJANGO** deve ser feito dentro do container **backend**.
 
 Portanto no terminal e para entrar dentro do container, escrever o seguinte:
 
