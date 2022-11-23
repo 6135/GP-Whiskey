@@ -6,11 +6,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=gp_whiskey
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=pwd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: gp_whiskey
+      TZ: Europe/Lisbon
     restart: always
-  web:
+  backend:
     container_name: backend
     build:
       context: ./backend # specify the directory of the Dockerfile
@@ -18,8 +19,8 @@ services:
     command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     # tail -f /dev/null
     volumes:
-      - ./backend/gp_whiskey:/app
-      - ./backend/requirements.txt:/app/requirements.txt
+      - ./backend/gp_whiskey:/backend
+      - ./backend/requirements.txt:/backend/requirements.txt
     ports:
       - "8000:8000"
     env_file:
@@ -29,5 +30,24 @@ services:
     depends_on:
       - db
     restart: always
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend # specify the directory of the Dockerfile
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+      - "/etc/timezone:/etc/timezone:ro"  
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://localhost:8080/
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=dev
+      - TZ=Europe/Lisbon
+    restart: always
+
 volumes:
   postgres_data:
