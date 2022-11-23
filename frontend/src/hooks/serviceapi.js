@@ -56,3 +56,22 @@ export const usePutApi = (url, data) => {
     
     return { response, error, loading, fetchData };
     }
+// write a delete api service
+export const useDeleteApi = (url, data) => {
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    
+    const fetchData = useCallback(async () => {
+        setLoading(true);
+        try {
+        const response = await axios.delete(url, data);
+        setResponse(response.data);
+        } catch (error) {
+        setError(error);
+        }
+        setLoading(false);
+    }, [url, data]);
+    
+    return { response, error, loading, fetchData };
+    }
