@@ -35,6 +35,10 @@ git clone https://github.com/6135/GP-Whiskey
 cd GP-Whiskey/frontend && npm install
 npm run start
 ```
+### Instalarem nova dependência
+```
+npm install <package-name>
+```
 
 ## Using Docker (Alternative)
 
@@ -94,6 +98,19 @@ python manage.py makemigrations
 
 ```
 python manage.py migrate
+```
+
+O mesmo acontece para o frontend, ou seja, para instalar as dependências dentro do container.
+Para entrar dentro do container **frontend**:
+
+```
+docker exec -it frontend /bin/sh
+```
+
+### Instalar nova dependência
+
+```
+npm install <package-name>
 ```
 
 ### Other Commands outside container
