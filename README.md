@@ -30,9 +30,16 @@ npm -v  # for example 9.1.2
 
 Se usarem terminal:
 
-```sh
+### Clonar o repositorio
+```
 git clone https://github.com/6135/GP-Whiskey
+```
+### Entrar dentro do projeto, dentro do ficheiro frontend e instalar pacotes
+```
 cd GP-Whiskey/frontend && npm install
+```
+### Correr o projeto
+```
 npm run start
 ```
 ### Instalarem nova dependência
@@ -100,7 +107,8 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-O mesmo acontece para o frontend, ou seja, para instalar as dependências dentro do container.
+O mesmo acontece para o frontend, ou seja, instalar as dependências dentro do container.
+
 Para entrar dentro do container **frontend**:
 
 ```
