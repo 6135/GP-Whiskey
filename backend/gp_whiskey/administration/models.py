@@ -47,32 +47,13 @@ class Equipamento(models.Model):
         return self.fornecedor.nome
 
 # o return está correcto?
-class Fornecedor_Obra(models.Model):
+class FornecedorObra(models.Model):
     fornecedor_id = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     obra_id = models.ForeignKey(Obra, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.fornecedor_id.nome, self.obra_id
         
-        
-#CREATE TABLE fornecedor_obra (
-#	equipamentos_fornecedor_id BIGINT,
-#	obra_id BIGINT,
-#	PRIMARY KEY(equipamentos_fornecedor_id, obra_id)
-#);
-
-#CREATE TABLE carro (
-#	id		 BIGSERIAL,
-#	matricula	 VARCHAR(512) NOT NULL,
-#	marca	 VARCHAR(512) NOT NULL,
-#	ano	 INTEGER NOT NULL,
-#	seguradora	 VARCHAR(512) NOT NULL,
-#	data_inicio DATE NOT NULL,
-#	data_fim	 DATE NOT NULL,
-#	created_at	 TIMESTAMP NOT NULL,
-#	updated_at	 TIMESTAMP,
-#	PRIMARY KEY(id)
-#);
 
 
 
