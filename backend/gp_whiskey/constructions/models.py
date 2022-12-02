@@ -4,7 +4,6 @@ from django.db import models
 #Basically the main models go here (e.g. obra, medicoes, gastos, etc)
 
 class Obra(models.Model):
-    id = models.BigAutoField(primary_key=True)
     #client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
     nome = models.CharField()
     data_inicio = models.DateTimeField()
