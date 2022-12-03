@@ -3,7 +3,7 @@ FROM python:3.9.6-alpine
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /backend
+WORKDIR /app
 
 # install psycopg2 dependencies
 RUN apk update \
@@ -11,8 +11,8 @@ RUN apk update \
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY requirements.txt ./
+COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
 # copy project
-COPY . ./
+COPY . /app/

@@ -1,5 +1,0 @@
-../.venv
-../.git
-../.gitignore
-.dockerignore
-gp_whiskey/requirements.txt
