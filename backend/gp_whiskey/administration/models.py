@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
-from constructions.models import Obra
+from constructions.models import Obra, Fornecedor
+
 
 # Create your models here.
 # All models related to admin (can be empty, e.g Funcionario, Cliente)
