@@ -1,77 +1,12 @@
-// write a post api Service
-export const usePostApi = (url, data) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(url, data);
-      setResponse(response.data);
-    } catch (error) {
-      setError(error);
+import axios from "axios";
+const API_URL = "http://localhost:8000/api/";
+class ServiceAPI {
+    getObra(){
+        return axios.get(API_URL + "obra")
+        .then(response => {
+            return response.data;
+        });
+      }
     }
-    setLoading(false);
-  }, [url, data]);
 
-  return { response, error, loading, fetchData };
-}
-// write a get api service
-export const useGetApi = (url, data) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(url, data);
-      setResponse(response.data);
-    } catch (error) {
-      setError(error);
-    }
-    setLoading(false);
-  }, [url, data]);
-
-  return { response, error, loading, fetchData };
-}
-
-// write a put api service
-export const usePutApi = (url, data) => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    
-    const fetchData = useCallback(async () => {
-        setLoading(true);
-        try {
-        const response = await axios.put(url, data);
-        setResponse(response.data);
-        } catch (error) {
-        setError(error);
-        }
-        setLoading(false);
-    }, [url, data]);
-    
-    return { response, error, loading, fetchData };
-    }
-// write a delete api service
-export const useDeleteApi = (url, data) => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    
-    const fetchData = useCallback(async () => {
-        setLoading(true);
-        try {
-        const response = await axios.delete(url, data);
-        setResponse(response.data);
-        } catch (error) {
-        setError(error);
-        }
-        setLoading(false);
-    }, [url, data]);
-    
-    return { response, error, loading, fetchData };
-    }
+export default new ServiceAPI();
