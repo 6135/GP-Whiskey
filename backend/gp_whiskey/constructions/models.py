@@ -1,19 +1,26 @@
 from django.db import models
 
+from backend.gp_whiskey.administration.models import Funcionario
+
 # Create your models here.
 #Basically the main models go here (e.g. obra, medicoes, gastos, etc)
 
 class Obra(models.Model):
     # One-to-Many Relationship with Cliente
-    #client_id = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    client_id = models.ForeignKey('Cliente', on_delete=models.CASCADE)
+    # Many-to-Many Relationship with Funcionario
+    funcionarios = models.ManyToManyField(Funcionario)
+    # Many-to-Many Relationship with Fornecedor
+    fornecedores = models.ManyToManyField('Fornecedor')
+    # Many-to-Many Relationship with Carro
+    carros = models.ManyToManyField('Carro')
+    # Many-to-Many Relationship with Restaurante
+    restaurantes = models.ManyToManyField('Restaurante')
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.nome
 
 
 # UniqueConstraint: https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.ManyToManyField.through
@@ -27,8 +34,6 @@ class Restaurante(models.Model):
     localizacao = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
 
 
 class GastosExtra(models.Model):
