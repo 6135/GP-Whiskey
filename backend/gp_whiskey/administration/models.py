@@ -1,6 +1,6 @@
 from django.db import models
 
-from backend.gp_whiskey.constructions.models import Obra
+from constructions.models import Obra
 
 # Create your models here.
 # All models related to admin (can be empty, e.g Funcionario, Cliente)

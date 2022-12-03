@@ -20,14 +20,23 @@ class Obra(models.Model):
 class Restaurante(models.Model):
     # Many-to-Many Relationship with Obra
     obras = models.ManyToManyField(Obra)
+    nome = models.CharField(max_length=512)
+    mail = models.CharField(max_length=512)
+    telefone = models.BigIntegerField()
+    morada = models.CharField(max_length=512)
+    localizacao = models.CharField(max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
-class Relatorio(models.Model):
-    # One-to-Many Relationship with Obra
-    obra_id = models.ForeignKey(Obra, on_delete=models.CASCADE)
 
 
 class GastosExtra(models.Model):
     # One-to-Many Relationship with Obra
     obra_id = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    descricao = models.TextField()
+    data = models.DateField()
+    preco = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
