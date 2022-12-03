@@ -21,6 +21,7 @@ class Carro(models.Model):
 
 class Obra(models.Model):
     # One-to-Many Relationship with Cliente
+    # TODO Uncomment next line when class Cliente is available
     #client_id = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
@@ -68,8 +69,6 @@ class Restaurante(models.Model):
     localizacao = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
 
 
 class GastosExtra(models.Model):
