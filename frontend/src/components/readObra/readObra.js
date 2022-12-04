@@ -1,28 +1,17 @@
-import ServiceAPI from '../../hooks/serviceapi';
-import React, { useEffect, useState } from 'react';
-
-
+import {GetAPI} from '../../hooks/serviceapi';
+import React from 'react';
 
 
 function ReadObra() {
-    const [item_list, setItem_list] = useState({});
 
-    useEffect( () => {
-        async function getData() {
-          try{
-            const obra = await ServiceAPI.getObra();
-            setItem_list(obra);
-          } catch(err){
-            console.log(err);
-          }
-        }
-        getData();
-      }, {});
+    //const obra = Request("http://127.0.0.1:8000/api/obra")
+    const obra = GetAPI("http://127.0.0.1:8000/api/obra");
+    //console.log(obra);
 
     return (
         <div className="ReadObra">
           <div className='list-container'>
-            {Object.entries(item_list)
+            {Object.entries(obra)
             .map(([key, value]) => (
             <p>{value}</p>
             ))}
