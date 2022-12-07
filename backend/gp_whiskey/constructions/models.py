@@ -49,10 +49,10 @@ class Fornecedor(models.Model):
 
 # Forecedor de Equipamentos? Devia ser mais explícito.
 class Equipamento(models.Model):
-    fornecedor_id = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.fornecedor_id.nome
+        return self.fornecedor.nome
 
 
 # UniqueConstraint: https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.ManyToManyField.through
