@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 class Obra(models.Model):
-    cliente_id = models.ForeignKey('administration.Cliente', on_delete=models.CASCADE)
+    cliente_id = models.ForeignKey('administration.Cliente')
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from constructions.models import Obra, Fornecedor
+
 # Create your models here.
 # All models related to admin (can be empty, e.g Funcionario, Cliente)
 
@@ -19,14 +21,14 @@ class Cliente(models.Model):
 
 class RecursosHumanos(models.Model):
     especializacao = models.CharField(max_length=512, blank=False)
-    fornecedor_id = models.ForeignKey('constructions.Fornecedor', on_delete=models.CASCADE)
+    fornecedor_id = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.fornecedor.nome
 
 
 class Funcionario(models.Model):
-    obras = models.ManyToManyField('constructions.Obra')
+    obras = models.ManyToManyField(Obra)
     nome = models.CharField(max_length=512)
     email = models.CharField(max_length=512)
     cargo = models.CharField(max_length=512)
