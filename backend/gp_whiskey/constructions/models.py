@@ -73,7 +73,6 @@ class GastosExtra(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class MedicaoEquip(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     medicao = models.FloatField()
     unidade_medida = models.CharField(max_length=255)
     
@@ -90,7 +89,6 @@ class RegEquipamento(MedicaoEquip):
         return str(self.id)
 
 class Hotel(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     nome = models.CharField(max_length=255)
     mail = models.EmailField(max_length=255)
     telefone = models.BigIntegerField()
@@ -111,7 +109,6 @@ class ReservaHotel(Hotel):
         return str(self.id)
 
 class Foto(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     foto_bin = models.BinaryField()
     tipo = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
