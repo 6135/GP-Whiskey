@@ -6,7 +6,8 @@ from django.utils import timezone
 
 
 class Obra(models.Model):
-    cliente_id = models.ForeignKey('administration.Cliente',on_delete=models.DO_NOTHING)
+    cliente = models.ForeignKey(
+        'administration.Cliente', on_delete=models.DO_NOTHING)
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()
@@ -15,6 +16,7 @@ class Obra(models.Model):
 
     def __str__(self):
         return self.nome
+
 
 class Carro(models.Model):
     obras = models.ManyToManyField(Obra)
@@ -26,7 +28,7 @@ class Carro(models.Model):
     data_fim = models.DateField(blank=False)
     created_at = models.DateTimeField(blank=False)
     updated_at = models.DateTimeField(blank=False)
-    
+
     def __str__(self):
         return self.matricula
 
@@ -35,21 +37,22 @@ class Fornecedor(models.Model):
     obras = models.ManyToManyField(Obra)
     nome = models.CharField(max_length=512, blank=False)
     telefone = models.BigIntegerField(blank=False)
-    mail = models.CharField(max_length=512,blank=False)
-    morada = models.CharField(max_length=512,blank=False)
-    localizacao = models.CharField(max_length=512,blank=False)
+    mail = models.CharField(max_length=512, blank=False)
+    morada = models.CharField(max_length=512, blank=False)
+    localizacao = models.CharField(max_length=512, blank=False)
     created_at = models.DateTimeField(blank=False)
-    updated_at =  models.DateTimeField(blank=False)
-    
+    updated_at = models.DateTimeField(blank=False)
+
     def __str__(self):
         return self.nome
 
 
+# Forecedor de Equipamentos? Devia ser mais explícito.
 class Equipamento(models.Model):
     fornecedor_id = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
-    
+
     def __str__(self):
-        return self.fornecedor.nome
+        return self.fornecedor_id.nome
 
 
 # UniqueConstraint: https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.ManyToManyField.through
@@ -65,28 +68,33 @@ class Restaurante(models.Model):
 
 
 class GastosExtra(models.Model):
-    obra_id = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
     descricao = models.TextField()
     data = models.DateField()
     preco = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class MedicaoEquip(models.Model):
-    medicao = models.FloatField()
-    unidade_medida = models.CharField(max_length=255)
-    
-    def __str__(self):
-        return str(self.id)
 
-
-class RegEquipamento(MedicaoEquip):
+class RegEquipamento(models.Model):
     nome_equip = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
-    
+
     def __str__(self):
         return str(self.id)
+
+
+class MedicaoEquip(models.Model):
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    reg_equipamento = models.ForeignKey(
+        RegEquipamento, on_delete=models.CASCADE)
+    medicao = models.FloatField()
+    unidade_medida = models.CharField(max_length=255)
+
+    def __str__(self):
+        return str(self.id)
+
 
 class Hotel(models.Model):
     nome = models.CharField(max_length=255)
@@ -95,24 +103,29 @@ class Hotel(models.Model):
     morada = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
-    obra = models.OneToOneField(Obra, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return str(self.id)
 
 
-class ReservaHotel(Hotel):
+class ReservaHotel(models.Model):
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     reserva_inicio = models.DateField()
     reserva_fim = models.DateField()
-    
+
     def __str__(self):
         return str(self.id)
 
+
 class Foto(models.Model):
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(
+        'administration.Funcionario', on_delete=models.CASCADE)
     foto_bin = models.BinaryField()
     tipo = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
-    
+
     def __str__(self):
         return str(self.id)
