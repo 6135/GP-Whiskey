@@ -7,7 +7,7 @@ from django.utils import timezone
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=512, blank=False)
-    mail = models.CharField(max_length=512, blank=False)
+    email = models.CharField(max_length=512, blank=False)
     publico = models.BooleanField(default=False, null=False)
     morada = models.CharField(max_length=512, blank=False)
     arquivado = models.BooleanField(default=False, null=False)

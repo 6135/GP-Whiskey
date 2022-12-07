@@ -36,7 +36,7 @@ class Fornecedor(models.Model):
     obras = models.ManyToManyField(Obra)
     nome = models.CharField(max_length=512, blank=False)
     telefone = models.BigIntegerField(blank=False)
-    mail = models.CharField(max_length=512, blank=False)
+    email = models.CharField(max_length=512, blank=False)
     morada = models.CharField(max_length=512, blank=False)
     localizacao = models.CharField(max_length=512, blank=False)
     created_at = models.DateTimeField(blank=False)
@@ -58,7 +58,7 @@ class Equipamento(models.Model):
 class Restaurante(models.Model):
     obras = models.ManyToManyField(Obra)
     nome = models.CharField(max_length=512)
-    mail = models.CharField(max_length=512)
+    email = models.CharField(max_length=512)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=512)
     localizacao = models.CharField(max_length=512)
@@ -99,7 +99,7 @@ class MedicaoEquip(models.Model):
 
 class Hotel(models.Model):
     nome = models.CharField(max_length=255)
-    mail = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
