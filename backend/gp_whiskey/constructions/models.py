@@ -85,9 +85,11 @@ class RegEquipamento(models.Model):
 
 
 class MedicaoEquip(models.Model):
-    obra = models.ForeignKey(Obra, on_delete=models.CASCADE, null=False)
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
     reg_equipamento = models.ForeignKey(
         RegEquipamento, on_delete=models.CASCADE, null=False)
+    funcionario = models.ForeignKey(
+        'administration.Funcionario', on_delete=models.CASCADE)
     medicao = models.FloatField()
     unidade_medida = models.CharField(max_length=255)
 
