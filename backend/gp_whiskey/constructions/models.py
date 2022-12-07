@@ -16,7 +16,6 @@ class Obra(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Carro(models.Model):
     obras = models.ManyToManyField(Obra)
     matricula = models.CharField(max_length=512, blank=False)
@@ -73,3 +72,50 @@ class GastosExtra(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class MedicaoEquip(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    medicao = models.FloatField()
+    unidade_medida = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return str(self.id)
+
+
+class RegEquipamento(MedicaoEquip):
+    nome_equip = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True, null=True)
+    
+    def __str__(self):
+        return str(self.id)
+
+class Hotel(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    nome = models.CharField(max_length=255)
+    mail = models.EmailField(max_length=255)
+    telefone = models.BigIntegerField()
+    morada = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True, null=True)
+    obra = models.OneToOneField(Obra, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.id)
+
+
+class ReservaHotel(Hotel):
+    reserva_inicio = models.DateField()
+    reserva_fim = models.DateField()
+    
+    def __str__(self):
+        return str(self.id)
+
+class Foto(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    foto_bin = models.BinaryField()
+    tipo = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True, null=True)
+    
+    def __str__(self):
+        return str(self.id)
