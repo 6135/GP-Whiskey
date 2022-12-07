@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 # Create your models here.
 # Basically the main models go here (e.g. obra, medicoes, gastos, etc)
@@ -86,9 +85,9 @@ class RegEquipamento(models.Model):
 
 
 class MedicaoEquip(models.Model):
-    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE, null=False)
     reg_equipamento = models.ForeignKey(
-        RegEquipamento, on_delete=models.CASCADE)
+        RegEquipamento, on_delete=models.CASCADE, null=False)
     medicao = models.FloatField()
     unidade_medida = models.CharField(max_length=255)
 
