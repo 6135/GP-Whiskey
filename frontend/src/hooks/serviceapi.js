@@ -45,24 +45,26 @@ export const PutAPI = (url, data) => {
     //console.log(response);
 }
 
-export const PostAPI = (url, data) => {
-    const [response, setResponse] = useState({});
+export const postAPI = (url, data) => {
 
+    console.log(data);
     async function getData(url, data){
         await axios.post(url, data)
         .then(response => {
             //here
-    
-            setResponse(response.data);
+
+            return response.data;
             //console.log(response.data);
         });
     }
 
-    useEffect(() => {
+    var r = getData(url, data);
+
+    /*useEffect(() => {
         getData(url, data);
-    }, [url, data]);
-    
-    return response;
+    }, [url, data]);*/
+    //console.log(r)
+    return r;
     //console.log(response);
 }
 

@@ -59,8 +59,8 @@ class ClienteAPIView(APIView):
 
         return Response(content)
     def delete(self, request):
-        #key = request.data.get('id')
-        key = 1
+        key = request.data.get('id')
+        #key = 1
         record = Client.objects.get(id=key)
 
         record.delete()

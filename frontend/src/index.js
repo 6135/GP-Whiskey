@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css';
 import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
+import UploadFile from './components/uploadFile/uploadFile';
 import reportWebVitals from './tests/reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="readobra" element={<ReadObra />} />
+        <Route path="uploadFile" element={<UploadFile />} />   
       </Routes>
     </BrowserRouter>
   );
