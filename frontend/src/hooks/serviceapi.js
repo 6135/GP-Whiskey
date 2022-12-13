@@ -1,90 +1,71 @@
 import axios from "axios";
-import { useState, useEffect} from 'react';
 
 //colocar auth headers, dentro da area comentada
 
-export const GetAPI = (url) => {
-    const [response, setResponse] = useState({});
+export const getAPI = (url) => {
 
     async function getData(url){
-        await axios.get(url)
+        return await axios.get(url)
         .then(response => {
             //here
-    
-            setResponse(response.data);
             //console.log(response.data);
+            return response.data;
+
         });
     }
 
-    useEffect(() => {
-        getData(url);
-    }, [url]);
-    
-    return response;
-    //console.log(response);
-}
-
-export const PutAPI = (url, data) => {
-    const [response, setResponse] = useState({});
-
-    async function getData(url, data){
-        await axios.put(url, data)
-        .then(response => {
-            //here
-    
-            setResponse(response.data);
-            //console.log(response.data);
-        });
-    }
-
-    useEffect(() => {
-        getData(url, data);
-    }, [url, data]);
-    
-    return response;
-    //console.log(response);
+    var r = getData(url);
+    //console.log(r);
+    return r;
 }
 
 export const postAPI = (url, data) => {
 
-    console.log(data);
+    //console.log(data);
     async function getData(url, data){
-        await axios.post(url, data)
+        return await axios.post(url, data)
         .then(response => {
             //here
 
             return response.data;
-            //console.log(response.data);
         });
     }
 
     var r = getData(url, data);
 
-    /*useEffect(() => {
-        getData(url, data);
-    }, [url, data]);*/
-    //console.log(r)
     return r;
-    //console.log(response);
 }
 
-export const DeleteAPI = (url, data) => {
-    const [response, setResponse] = useState({});
+export const putAPI = (url, data) => {
 
+    //console.log(data);
     async function getData(url, data){
-        await axios.delete(url, data)
+        return await axios.put(url, data)
         .then(response => {
             //here
-    
-            setResponse(response.data);
-            //console.log(response.data);
+
+            return response.data;
         });
     }
 
-    useEffect(() => {
-        getData(url, data);
-    }, [url, data]);
-    
-    return response;
-    //console.log(response);
+    var r = getData(url, data);
+
+    return r;
+}
+
+export const deleteAPI = (url, data) => {
+
+    //console.log(data);
+    async function getData(url, data){
+        return await axios.delete(url, data)
+        .then(response => {
+            //here
+
+            return response.data;
+        });
+    }
+
+    var r = getData(url, data);
+
+    return r;
 }

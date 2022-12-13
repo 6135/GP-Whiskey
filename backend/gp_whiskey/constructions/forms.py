@@ -6,9 +6,11 @@ from django.core.exceptions import ValidationError
 from .models import *
 
 class ObraForm(forms.ModelForm):
-    id = forms.BigIntegerField(label="Id", widget=forms.TextInput())
-    data_inicio = forms.DateField(label="Data de inicio", widget=forms.DateTimeInput)
-    data_conclusao = forms.DateField(label="Data de conclusao", widget=forms.DateTimeInput)
+    cliente_id = forms.BigIntegerField(label="Cliente_id", widget=forms.TextInput())
+    nome = forms.CharField(label="Nome", widget=forms.TextInput())
+    data_inicio = forms.DateField(label="Data de inicio", widget=forms.DateTimeInput())
+    data_conclusao = forms.DateField(label="Data de conclusao", widget=forms.DateTimeInput())
+    encerrada = forms.BooleanField(label="Encerrada", widget=forms.TextInput())
 
 class FotoForm(forms.ModelForm):
     id = forms.BigIntegerField(label="Id", widget=forms.TextInput())

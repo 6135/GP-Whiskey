@@ -7,9 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from distutils.util import strtobool
+
 from .serializers import *
 from .models import *
-from django.db.models import Count
+from administration.models import *
 
 class FotoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -90,17 +92,6 @@ class HotelAPIView(APIView):
             }
             return Response(content)
 
-
-class TesteAPIView(APIView):
-    permission_classes = (AllowAny,)
-    
-    def get(self, request, format=None):
-        content = {
-            'teste': 'isto e um teste'
-        }
-
-        return Response(content)
-
 class ReservaHotelAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = ReservaHotelSerializer
@@ -137,8 +128,20 @@ class ObraAPIView(APIView):
     serializer_class = ObraSerializer
 
     def post(self, request):
-        """o = Obra(id=request.data.get('id'), data_inicio=request.data.get('data_inicio'), data_conclusao=request.data.get('data_conclusao'))
-        o.save()"""
+
+        bool_e = request.data.get('encerrada')
+
+        if bool_e == None:
+            bool_e = "False"
+
+        c = Cliente.objects.get(id = request.data.get('cliente_id'))
+        
+        #if(c.exists())
+
+        o = Obra(cliente_id = c, nome = request.data.get('nome'), 
+        data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'),
+        encerrada = strtobool(bool_e))
+        o.save()
 
         content = {
             'status':'obra criada com sucesso'
@@ -151,6 +154,7 @@ class ObraAPIView(APIView):
             dic = {}
             for o in Obra.objects.all():
                 dic["id"] = o.id
+                dic["nome"] = o.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
             return Response(dic)

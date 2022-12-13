@@ -1,11 +1,11 @@
-import {GetAPI} from '../../hooks/serviceapi';
+import {getAPI} from '../../hooks/serviceapi';
 import React from 'react';
 
 
 function ReadObra() {
 
     //const obra = Request("http://127.0.0.1:8000/api/obra")
-    const obra = GetAPI("http://127.0.0.1:8000/api/obra");
+    const obra = getAPI("http://127.0.0.1:8000/api/obra");
     //console.log(obra);
 
     return (

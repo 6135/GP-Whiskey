@@ -5,6 +5,7 @@ import './index.css';
 import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
 import UploadFile from './components/uploadFile/uploadFile';
+import DownloadFile from './components/downloadFile/downloadFile';
 import reportWebVitals from './tests/reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +16,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="readobra" element={<ReadObra />} />
-        <Route path="uploadFile" element={<UploadFile />} />   
+        <Route path="uploadFile" element={<UploadFile />} /> 
+        <Route path="downloadFile" element={<DownloadFile />} />  
       </Routes>
     </BrowserRouter>
   );

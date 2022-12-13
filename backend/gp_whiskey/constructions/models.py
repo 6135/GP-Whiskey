@@ -10,6 +10,7 @@ class Obra(models.Model):
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()
+    encerrada = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

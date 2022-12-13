@@ -16,16 +16,17 @@ class RelatorioAPIView(APIView):
     serializer_class = RelatorioSerializer
 
     def get(self, request):
-
         if Relatorio.objects.exists():
-            dic = {}
+            l = []
             for r in Relatorio.objects.all():
+                dic = {}
                 dic["id"] = r.id
+                dic["obra_id"] = r.obra_id.id
                 dic["nome"] = r.nome
                 dic["report_bin"] = r.report_bin
                 dic["tipo"] = r.tipo
-
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem relatorios na obra'
@@ -33,16 +34,20 @@ class RelatorioAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-        dic = {}
+
+        o = Obra.objects.get(id=1)
+        
+        r = Relatorio(obra_id = o, nome = request.data['nome'], report_bin = request.data['report_bin'], tipo = request.data['tipo'])
+        r.save()
 
         #print(request.data['report_bin'])
-
+        """dic = {}
         dic["nome"] = request.data['nome']
         dic["report_bin"] = request.data['report_bin']
-        dic["tipo"] = request.data['tipo']
+        dic["tipo"] = request.data['tipo']"""
 
         content = {
             'status':'relatorio printado'
         }
 
-        return Response(dic)
+        return Response(content)
