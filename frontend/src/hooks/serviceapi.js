@@ -3,7 +3,6 @@ import axios from "axios";
 //colocar auth headers, dentro da area comentada
 
 export const getAPI = (url) => {
-
     async function getData(url){
         return await axios.get(url)
         .then(response => {

@@ -7,10 +7,26 @@ class Upload extends Component {
     state = {
         // Initially, no file is selected
         selectedFile: null,
-        report_bin: "",
+        report_bin: null,
         nome: "",
         tipo: ""
     };
+
+    binaryUpload = () => {
+        const file = this.state.selectedFile;
+        console.log(file); //I can see the file's info
+
+        this.setState({
+            nome: file.name,
+            report_bin: this.state.selectedFile,
+            tipo: this.state.selectedFile.type
+        },
+            function () {
+                postAPI("http://127.0.0.1:8000/filetransfer/api/relatorio", this.state)
+            }
+        )
+        
+    }
 
     base64 = selectedFile => {
         return new Promise(resolve => {
@@ -69,7 +85,7 @@ class Upload extends Component {
         this.setState({ selectedFile: event.target.files[0] });
 
     };
-    
+
     // File content to be displayed after
     // file upload is complete
     fileData = () => {
@@ -92,6 +108,7 @@ class Upload extends Component {
             );
         }
     };
+
     render() {
         return (
             <div>

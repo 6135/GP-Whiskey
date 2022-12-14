@@ -21,10 +21,10 @@ class RelatorioAPIView(APIView):
             for r in Relatorio.objects.all():
                 dic = {}
                 dic["id"] = r.id
-                dic["obra_id"] = r.obra_id.id
+                #dic["obra_id"] = r.obra_id.id
                 dic["nome"] = r.nome
-                dic["report_bin"] = r.report_bin
-                dic["tipo"] = r.tipo
+                #dic["report_bin"] = r.report_bin
+                #dic["tipo"] = r.tipo
                 l.append(dic)
             return Response(l)
         else:
@@ -34,10 +34,13 @@ class RelatorioAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-
-        o = Obra.objects.get(id=1)
         
-        r = Relatorio(obra_id = o, nome = request.data['nome'], report_bin = request.data['report_bin'], tipo = request.data['tipo'])
+        #print(request.data['report_bin'])
+        #alterar isto
+        o = Obra.objects.get(id=1)
+        #print(request.data['report_bin'])
+        
+        r = Relatorio(obra_id = o, nome = request.data['nome'], tipo = request.data['tipo'], report_bin = request.data['report_bin'])
         r.save()
 
         #print(request.data['report_bin'])
@@ -47,7 +50,21 @@ class RelatorioAPIView(APIView):
         dic["tipo"] = request.data['tipo']"""
 
         content = {
-            'status':'relatorio printado'
+            'status':'relatorio guardado'
         }
 
         return Response(content)
+
+class DownloadRelatorioAPIView(APIView):
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        dic = {}
+        key = request.data["id"]
+        
+        r = Relatorio.objects.get(id=key)
+
+        dic["nome"] = r.nome
+        dic["report_bin"] = r.report_bin
+
+        return Response(dic)
