@@ -7,7 +7,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pwd
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: gp_whiskey
       TZ: Europe/Lisbon
     restart: always
@@ -25,6 +25,8 @@ services:
       - "8000:8000"
     env_file:
       - ./.env.dev
+    environment:
+      - docker=true
     links:
       - db
     depends_on:
