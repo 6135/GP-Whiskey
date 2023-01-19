@@ -1,4 +1,4 @@
-import { getAPI } from '../../hooks/serviceapi';
+import { postAPI } from '../../hooks/serviceapi';
 import React, { useState, useEffect } from 'react';
 import {useLocation} from 'react-router-dom';
 
@@ -32,6 +32,13 @@ function DetailsObra() {
     //reserva_hotel
 
     //cliente
+
+    return (
+
+        <div>
+            <h1>Detalhes da Obra</h1>
+        </div>
+    );
 
 }
 

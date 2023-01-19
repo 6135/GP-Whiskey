@@ -61,7 +61,7 @@ class ClienteAPIView(APIView):
     def delete(self, request):
         key = request.data.get('id')
         #key = 1
-        record = Client.objects.get(id=key)
+        record = Cliente.objects.get(id=key)
 
         record.delete()
 

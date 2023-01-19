@@ -172,10 +172,31 @@ class DetailsObraAPIView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
-        dic = {}
         #o = Obra.objects.get(id = request.data.get('obraid'))
         o = Obra.objects.get(id = 1)
 
-        print(o.cliente_id)
+        dic = {}
+        
+        dic["cliente_nome"] = o.cliente_id.nome
+
+        #Funcionarios
+
+        carroList = Carro.obras.values_list('pk', flat=True)
+
+        print(carroList)
+        
+
+
+        """dic["funcionarios"] = o.("")
+        dic["carros"]
+        dic["relatorios"]
+        dic["gastos_extra"]
+        dic["fotos"]
+        dic["restaurantes"]
+        dic["hoteis"]
+        dic["equipamento"]
+        dic["fornecedores"]
+        """
+        #print(o.cliente_id)
 
         return Response(dic)
