@@ -1,5 +1,4 @@
 from django.core.exceptions import BadRequest
-import json
 
 from rest_framework import status
 from rest_framework.permissions import AllowAny

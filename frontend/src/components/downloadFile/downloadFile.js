@@ -6,8 +6,9 @@ function DownloadFile() {
     const [value, setValue] = useState();
 
     useEffect(() => {
-        getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio").then(result => {
-            //console.log(result);
+        //console.log(getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio"));
+        getAPI("http://127.0.0.1:8000/filetransfer/relatorio").then(result => {
+            console.log(result);
             setReport(result);
             //put first report in value as default
             setValue(result[0].id);
@@ -16,21 +17,21 @@ function DownloadFile() {
     }, []);
 
     const handleChange = (event) => {
-        //console.log(event.target.value);
-        setValue(event.target.value);   
+        console.log(event.target.value);
+        setValue(event.target.value);
     }
-    
+
     const download = () => {
         var a = document.createElement("a"); //Create <a>
         //a.click();
-        postAPI("http://127.0.0.1:8000/filetransfer/api/downloadRelatorio", {"id": value})
-        .then(result => {
-            console.log("ENVIADO");
-            a.href = result.report_bin;
-            a.download = result.nome;
-            a.click();
-        })
-        
+        postAPI("http://127.0.0.1:8000/filetransfer/downloadRelatorio", { "id": value })
+            .then(result => {
+                console.log("ENVIADO");
+                a.href = result.report_bin;
+                a.download = result.nome;
+                a.click();
+            })
+
         /*var a = document.createElement("a"); //Create <a>
         a.href = value; //Image Base64 Goes here
         a.download = "novo.txt"; //File name Here

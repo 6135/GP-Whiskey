@@ -2,6 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('api/relatorio', RelatorioAPIView.as_view()),
-    path('api/downloadRelatorio', DownloadRelatorioAPIView.as_view()),
+    path('relatorio', RelatorioAPIView.as_view()),
+    path('downloadRelatorio', DownloadRelatorioAPIView.as_view()),
 ]

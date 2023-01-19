@@ -51,11 +51,13 @@ class RegEquipamentoAPIView(APIView):
     def get(self, request):
 
         if RegEquipamento.objects.exists():
-            dic = {}
+            l = []
             for equip in RegEquipamento.objects.all():
+                dic = {}
                 dic["id"] = equip.id
                 dic["nome_equip"] = f.nome_equip
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem equipamentos na obra'
@@ -151,15 +153,29 @@ class ObraAPIView(APIView):
 
     def get(self, request):
         if Obra.objects.exists():
-            dic = {}
+            l = []
             for o in Obra.objects.all():
+                dic = {}
                 dic["id"] = o.id
                 dic["nome"] = o.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem obras'
             }
         return Response(content)
+
+class DetailsObraAPIView(APIView):
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        dic = {}
+        #o = Obra.objects.get(id = request.data.get('obraid'))
+        o = Obra.objects.get(id = 1)
+
+        print(o.cliente_id)
+
+        return Response(dic)

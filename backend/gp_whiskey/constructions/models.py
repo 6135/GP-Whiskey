@@ -4,7 +4,6 @@ from django.utils import timezone
 # Create your models here.
 # Basically the main models go here (e.g. obra, medicoes, gastos, etc)
 
-
 class Obra(models.Model):
     cliente_id = models.ForeignKey('administration.Cliente',on_delete=models.DO_NOTHING)
     nome = models.CharField(max_length=512)
@@ -30,7 +29,6 @@ class Carro(models.Model):
     
     def __str__(self):
         return self.matricula
-
 
 class Fornecedor(models.Model):
     obras = models.ManyToManyField(Obra)

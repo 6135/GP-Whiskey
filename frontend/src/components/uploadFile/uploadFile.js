@@ -15,6 +15,8 @@ class Upload extends Component {
     binaryUpload = () => {
         const file = this.state.selectedFile;
         console.log(file); //I can see the file's info
+        
+        console.log(file instanceof Blob);
 
         this.setState({
             nome: file.name,
@@ -22,7 +24,7 @@ class Upload extends Component {
             tipo: this.state.selectedFile.type
         },
             function () {
-                postAPI("http://127.0.0.1:8000/filetransfer/api/relatorio", this.state)
+                postAPI("http://127.0.0.1:8000/filetransfer/relatorio", this.state)
             }
         )
         
@@ -120,7 +122,7 @@ class Upload extends Component {
                 </h3>
                 <div>
                     <input type="file" onChange={this.onFileChange} />
-                    <button onClick={this.handleUploadFile}>
+                    <button onClick={this.binaryUpload}>
                         Upload!
                     </button>
                 </div>

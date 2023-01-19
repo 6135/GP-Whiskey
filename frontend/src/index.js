@@ -6,18 +6,21 @@ import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
 import UploadFile from './components/uploadFile/uploadFile';
 import DownloadFile from './components/downloadFile/downloadFile';
+import DetailsObra from './components/detailsObra/detailsObra';
 import reportWebVitals from './tests/reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 export default function App() {
-  return(
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="readobra" element={<ReadObra />} />
-        <Route path="uploadFile" element={<UploadFile />} /> 
-        <Route path="downloadFile" element={<DownloadFile />} />  
+        <Route path="readobra" element={<ReadObra />}>
+        </Route>
+        <Route path="detailsobra" element={<DetailsObra />} /> 
+        <Route path="uploadFile" element={<UploadFile />} />
+        <Route path="downloadFile" element={<DownloadFile />} />
       </Routes>
     </BrowserRouter>
   );
