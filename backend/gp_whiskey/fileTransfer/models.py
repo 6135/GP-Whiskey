@@ -1,8 +1,9 @@
 from django.db import models
 
 # Create your models here.
-#Entities related to files (e.g. foto)
-from constructions.models import Obra
+# Entities related to files (e.g. foto)
+
+
 class Relatorio(models.Model):
     # One-to-Many Relationship with Obra
     obra_id = models.ForeignKey(Obra, on_delete=models.CASCADE)
@@ -11,4 +12,3 @@ class Relatorio(models.Model):
     report_bin = models.CharField(max_length=2732)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    

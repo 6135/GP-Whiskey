@@ -14,6 +14,7 @@ function ReadObra() {
       setObra(result);
     })
 
+
   }, []);
 
   function handleDetails(event) {
