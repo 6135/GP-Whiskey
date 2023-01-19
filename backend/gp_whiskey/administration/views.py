@@ -13,6 +13,7 @@ from .serializers import *
 from .models import *
 from django.db.models import Count
 
+
 class ClienteAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = ClienteSerializer
@@ -31,11 +32,11 @@ class ClienteAPIView(APIView):
                 dic["arquivado"] = c.arquivado
 
                 l.append(dic)
-            
+
             return Response(l)
         else:
             content = {
-                'status':'nao existem clientes registados'
+                'status': 'nao existem clientes registados'
             }
 
             return Response(content)
@@ -49,24 +50,25 @@ class ClienteAPIView(APIView):
         if bool_a == None:
             bool_a = "False"
 
-        c = Cliente(nome=request.data.get('nome'), mail=request.data.get('mail'), publico=strtobool(bool_p), 
-        morada=request.data.get('morada'), arquivado=strtobool(bool_a))
+        c = Cliente(nome=request.data.get('nome'), mail=request.data.get('mail'), publico=strtobool(bool_p),
+                    morada=request.data.get('morada'), arquivado=strtobool(bool_a))
         c.save()
 
         content = {
-            'status':'cliente registado com sucesso'
+            'status': 'cliente registado com sucesso'
         }
 
         return Response(content)
+
     def delete(self, request):
         key = request.data.get('id')
         #key = 1
-        record = Client.objects.get(id=key)
+        record = Cliente.objects.get(id=key)
 
         record.delete()
 
         content = {
-            'status':'cliente apagado com sucesso'
+            'status': 'cliente apagado com sucesso'
         }
 
         return Response(content)

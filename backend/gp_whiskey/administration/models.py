@@ -7,21 +7,22 @@ from django.utils import timezone
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=512, blank=False)
-    mail = models.CharField(max_length=512, blank=False)
+    email = models.CharField(max_length=512, blank=False)
     publico = models.BooleanField(default=False, null=False)
     morada = models.CharField(max_length=512, blank=False)
     arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.nome
 
 
 class RecursosHumanos(models.Model):
+    fornecedor = models.ForeignKey(
+        'constructions.Fornecedor', on_delete=models.CASCADE)
     especializacao = models.CharField(max_length=512, blank=False)
-    fornecedor_id = models.ForeignKey('constructions.Fornecedor', on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.fornecedor.nome
 
@@ -39,4 +40,3 @@ class Funcionario(models.Model):
 
     def __str__(self):
         return self.nome
-
