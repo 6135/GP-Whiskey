@@ -137,8 +137,6 @@ class ObraAPIView(APIView):
             bool_e = "False"
 
         c = Cliente.objects.get(id = request.data.get('cliente_id'))
-        
-        #if(c.exists())
 
         o = Obra(cliente_id = c, nome = request.data.get('nome'), 
         data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'),
@@ -172,19 +170,17 @@ class DetailsObraAPIView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
-        #o = Obra.objects.get(id = request.data.get('obraid'))
         o = Obra.objects.get(id = 1)
 
-        dic = {}
+        """dic = {}
         
         dic["cliente_nome"] = o.cliente_id.nome
 
         #Funcionarios
 
-        carroList = Carro.obras.values_list('pk', flat=True)
+        carroList = Carro.objects.values_list('id', flat=True)
 
-        print(carroList)
-        
+        print(carroList)"""
 
 
         """dic["funcionarios"] = o.("")
