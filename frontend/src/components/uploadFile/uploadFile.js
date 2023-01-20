@@ -36,11 +36,11 @@ class Upload extends Component {
             //console.log(selFile);
 
             let file = null;
-            let fileName = "";
+            //let fileName = "";
             //Check File is not Empty
             if (selFile.size > 0) {
                 // Select the very first file from list
-                fileName = selFile.name;
+                //fileName = selFile.name;
                 // FileReader function for read the file.
                 let fileReader = new FileReader();
                 fileReader.readAsDataURL(selFile);

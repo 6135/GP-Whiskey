@@ -136,9 +136,9 @@ class ObraAPIView(APIView):
         if bool_e == None:
             bool_e = "False"
 
-        c = Cliente.objects.get(id = request.data.get('cliente_id'))
+        c = Cliente.objects.get(id = request.data.get('cliente'))
 
-        o = Obra(cliente_id = c, nome = request.data.get('nome'), 
+        o = Obra(cliente = c, nome = request.data.get('nome'), 
         data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'),
         encerrada = strtobool(bool_e))
         o.save()
@@ -156,6 +156,7 @@ class ObraAPIView(APIView):
                 dic = {}
                 dic["id"] = o.id
                 dic["nome"] = o.nome
+                dic["cliente"] = o.cliente.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
                 l.append(dic)
@@ -196,3 +197,140 @@ class DetailsObraAPIView(APIView):
         #print(o.cliente_id)
 
         return Response(dic)
+
+class CarroAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = CarroSerializer
+
+    def get(self, request): 
+
+        if Carro.objects.exists():
+            l = []
+            for h in Carro.objects.all():
+                dic = {}
+                dic["matricula"] = h.matricula
+                dic["marca"] = h.marca
+                dic["ano"] = h.ano
+                dic["seguradora"] = h.seguradora
+                dic["data_inicio"] = h.data_inicio
+                dic["data_fim"] = h.data_fim
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem carros associados a obra'
+            }
+            return Response(content)
+
+    def post(self, request):
+
+        c = Carro(matricula = request.data.get('matricula'), marca = request.data.get('marca'), ano = request.data.get('ano'),seguradora = request.data.get('seguradora'),data_inicio = request.data.get('data_inicio'),data_fim = request.data.get('data_fim'))
+        c.save()
+
+        content = {
+            'status':'carro registada na base de dados'
+        }
+
+        return Response(content)
+
+    def delete(self, request):
+        key = request.data.get('id')
+        #key = 1
+        record = Carro.objects.get(id=key)
+
+        record.delete()
+
+        content = {
+            'status': 'carro apagado com sucesso'
+        }
+
+        return Response(content)
+
+class GastosExtraAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = GastosExtraSerializer
+
+    def get(self, request): 
+        if GastosExtra.objects.exists():
+            l = []
+            for h in GastosExtra.objects.all():
+                dic = {}
+                dic["descricao"] = h.descricao
+                dic["data"] = h.data
+                dic["preco"] = h.preco
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem GastosExtra associados a obra'
+            }
+            return Response(content)
+
+    def post(self, request):
+
+        g = GastosExtra(descricao = request.data.get('descricao'), data = request.data.get('data'), preco = request.data.get('preco'))
+        g.save()
+
+        content = {
+            'status':'GastosExtra registada na base de dados'
+        }
+
+        return Response(content)
+
+    def delete(self, request):
+        key = request.data.get('id')
+        #key = 1
+        record = GastosExtra.objects.get(id=key)
+
+        record.delete()
+
+        content = {
+            'status': 'GastosExtra apagado com sucesso'
+        }
+
+        return Response(content)
+
+class RestauranteAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = RestauranteSerializer
+
+    def get(self, request): 
+        if Restaurante.objects.exists():
+            l = []
+            for h in Restaurante.objects.all():
+                dic = {}
+                dic["nome"] = h.nome
+                dic["email"] = h.email
+                dic["telefone"] = h.telefone
+                dic["morada"] = h.morada
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem Restaurante associados a obra'
+            }
+            return Response(content)
+
+    def post(self, request):
+
+        r = Restaurante(nome = request.data.get('nome'), email = request.data.get('email'), telefone = request.data.get('telefone'), morada = request.data.get('morada'), localizacao = request.data.get('localizacao'))
+        r.save()
+
+        content = {
+            'status':'Restaurante registada na base de dados'
+        }
+
+        return Response(content)
+
+    def delete(self, request):
+        key = request.data.get('id')
+        #key = 1
+        record = Restaurante.objects.get(id=key)
+
+        record.delete()
+
+        content = {
+            'status': 'Restaurante apagado com sucesso'
+        }
+
+        return Response(content)

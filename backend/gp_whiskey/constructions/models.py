@@ -57,7 +57,6 @@ class Restaurante(models.Model):
     email = models.CharField(max_length=512)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=512)
-    localizacao = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
