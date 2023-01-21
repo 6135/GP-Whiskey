@@ -171,30 +171,59 @@ class DetailsObraAPIView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
+        
+        print("TESTE: " + request.data['obraid'])
         o = Obra.objects.get(id = 1)
 
-        """dic = {}
+        dic = {}
         
-        dic["cliente_nome"] = o.cliente_id.nome
+        #OBRA_DETALHES
+        dic["obra_nome"] = o.nome
+        dic["obra_data_inicio"] = o.data_inicio
+        dic["obra_data_conclusao"] = o.data_conclusao
 
-        #Funcionarios
+        if o.encerrada == False:
+            dic["encerrada"] = "Nao"
+        else:
+            dic["encerrada"] = "Sim"
 
-        carroList = Carro.objects.values_list('id', flat=True)
+        #CLIENTE
+        dic["cliente_nome"] = o.cliente.nome
 
-        print(carroList)"""
+        #FUNCIONARIOS
+        #dicionario de dicionario
+        try:
+            dic["funcionarios"] = o.funcionarios_set.all()
+        except:
+            print("Nao existem funcionarios")
+            dic["funcionarios"] = []
+        
+        #CARROS
+        #dicionario de dicionario
+        try:
+            dic["carros"] = o.carros_set.all()
+        except:
+            print("Nao existem carros")
+            dic["carros"] = []
+        
+        #RESTAURANTES
+        #dicionario de dicionario
+        try:
+            dic["restaurantes"] = o.restaurantes_set.all()
+        except:
+            print("Nao existem restaurantes")
+            dic["restaurantes"] = []
+        
+        #FORNECEDORES
+        #dicionario de dicionario
+        try:
+            dic["fornecedores"] = o.fornecedores_set.all()
+        except:
+            print("Nao existem fornecedores")
+            dic["fornecedores"] = []
 
-
-        """dic["funcionarios"] = o.("")
-        dic["carros"]
-        dic["relatorios"]
-        dic["gastos_extra"]
-        dic["fotos"]
-        dic["restaurantes"]
-        dic["hoteis"]
-        dic["equipamento"]
-        dic["fornecedores"]
-        """
-        #print(o.cliente_id)
+        #dic["hoteis"]
+        #dic["equipamento"]
 
         return Response(dic)
 
@@ -218,7 +247,7 @@ class CarroAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem carros associados a obra'
+                'status':'nao existem carros'
             }
             return Response(content)
 
@@ -228,7 +257,7 @@ class CarroAPIView(APIView):
         c.save()
 
         content = {
-            'status':'carro registada na base de dados'
+            'status':'carro registado na base de dados'
         }
 
         return Response(content)
@@ -307,7 +336,7 @@ class RestauranteAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem Restaurante associados a obra'
+                'status':'nao existem Restaurantes'
             }
             return Response(content)
 

@@ -92,7 +92,7 @@ class FuncionarioAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem funcionarios associados a obra'
+                'status':'nao existem funcionarios'
             }
             return Response(content)
 

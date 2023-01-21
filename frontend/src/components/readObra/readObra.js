@@ -8,7 +8,6 @@ function ReadObra() {
   const [obra, setObra] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    //console.log(getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio"));
     getAPI("http://127.0.0.1:8000/constructions/obra").then(result => {
       console.log(result);
       setObra(result);
