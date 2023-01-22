@@ -72,3 +72,50 @@ class ClienteAPIView(APIView):
         }
 
         return Response(content)
+
+class FuncionarioAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = FuncionarioSerializer
+
+    def get(self, request): 
+        if Funcionario.objects.exists():
+            l = []
+            for f in Funcionario.objects.all():
+                dic = {}
+                dic["nome"] = f.nome
+                dic["email"] = f.email
+                dic["cargo"] = f.cargo
+                dic["seguro_saude"] = f.seguro_saude
+                dic["data_inicio"] = f.data_inicio
+                dic["data_conclusao"] = f.data_conclusao
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem funcionarios'
+            }
+            return Response(content)
+
+    def post(self, request):
+
+        f = Funcionario(nome = request.data.get('nome'), email = request.data.get('email'), cargo = request.data.get('cargo'), seguro_saude = request.data.get('seguro_saude'), data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'))
+        f.save()
+
+        content = {
+            'status':'funcionario registado na base de dados'
+        }
+
+        return Response(content)
+
+    def delete(self, request):
+        key = request.data.get('id')
+        #key = 1
+        record = Funcionario.objects.get(id=key)
+
+        record.delete()
+
+        content = {
+            'status': 'funcionario apagado com sucesso'
+        }
+
+        return Response(content)
