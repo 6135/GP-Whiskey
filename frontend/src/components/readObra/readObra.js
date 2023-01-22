@@ -5,38 +5,21 @@ import React, { useState, useEffect } from 'react';
 
 
 function ReadObra() {
-  const [obra, setObra] = useState([]);
+  const [obra, setObra] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     getAPI("http://127.0.0.1:8000/constructions/obra").then(result => {
       console.log(result);
-      setObra(result);
+      if(result.status !== "nao existem obras")
+        setObra(result);
     })
-
 
   }, []);
 
   function handleDetails(event) {
     let v = event.target.value;
-    //console.log(v);
-    navigate('/detailsobra', {state: {obraid: v,}});
+    navigate('/detailsobra', { state: { obraid: v, } });
   }
-
-  const printObraTable = obra.map(item => {
-
-    return (
-      <tr>
-        <td>{item.nome}</td>
-        <td>{item.data_inicio}</td>
-        <td>{item.data_conclusao}</td>
-        <td>
-          <button className="button" value={item.id} onClick={handleDetails}>Details</button>
-          <button className="button_delete" value={item.id}>Delete</button>
-        </td>
-      </tr>
-    )
-  })
-
   return (
     <div>
       <h1>
@@ -50,7 +33,20 @@ function ReadObra() {
               <th>Data de Início</th>
               <th>Data de Conclusão</th>
             </tr>
-            {printObraTable}
+            {obra && obra.map(item => {
+
+              return (
+                <tr key={item.id}>
+                  <td>{item.nome}</td>
+                  <td>{item.data_inicio}</td>
+                  <td>{item.data_conclusao}</td>
+                  <td>
+                    <button className="button" value={item.id} onClick={handleDetails}>Details</button>
+                    <button className="button_delete" value={item.id}>Delete</button>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

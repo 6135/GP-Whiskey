@@ -46,7 +46,7 @@ services:
       - "3000:3000"
     environment:
       - API_URL=http://localhost:8080/
-      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
       - NODE_ENV=dev
       - TZ=Europe/Lisbon
     restart: always
