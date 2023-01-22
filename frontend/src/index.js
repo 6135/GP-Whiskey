@@ -8,6 +8,7 @@ import UploadFile from './components/uploadFile/uploadFile';
 import DownloadFile from './components/downloadFile/downloadFile';
 import DetailsObra from './components/detailsObra/detailsObra';
 import reportWebVitals from './tests/reportWebVitals';
+import LoginPage from './components/Login/login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,6 +16,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="readobra" element={<ReadObra />}>
         </Route>

@@ -10,9 +10,9 @@ export const useAuth = () => {
     const [tokenExpirationDate, setTokenExpirationDate] = useState();
     const [user, setUser] = useState(null);
     const { response, error, loading, fetchData } = useGetApi(
-        "http://localhost:5000/api/users/me",
+        "http://localhost:8000/api/users/me",
         {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `JWT ${token}` },
         }
     );
 

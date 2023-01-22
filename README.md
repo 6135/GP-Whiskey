@@ -143,3 +143,5 @@ https://mherman.org/blog/dockerizing-a-react-app/
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
 
 https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
+
+https://python.plainenglish.io/role-based-authentication-and-authorization-with-djangorestframework-and-simplejwt-d9614d79995c
