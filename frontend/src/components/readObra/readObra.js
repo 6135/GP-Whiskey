@@ -10,7 +10,7 @@ function ReadObra() {
   useEffect(() => {
     getAPI("http://127.0.0.1:8000/constructions/obra").then(result => {
       console.log(result);
-      if(result.status != "nao existem obras")
+      if(result.status !== "nao existem obras")
         setObra(result);
     })
 
