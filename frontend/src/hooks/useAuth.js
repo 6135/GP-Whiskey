@@ -10,7 +10,7 @@ export const useAuth = () => {
     const [tokenExpirationDate, setTokenExpirationDate] = useState();
     const [user, setUser] = useState(null);
     const { response, error, loading, fetchData } = useGetApi(
-        "http://localhost:8000/api/users/me",
+        "http://localhost:8000/administration/login",
         {
         headers: { Authorization: `JWT ${token}` },
         }
