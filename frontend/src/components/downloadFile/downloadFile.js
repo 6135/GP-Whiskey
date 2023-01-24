@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getAPI, postAPI } from '../../hooks/serviceapi';
+import { downloadBytes, getAPI } from '../../hooks/serviceapi';
 
 function DownloadFile() {
     const [report, setReport] = useState([]);
     const [value, setValue] = useState();
 
     useEffect(() => {
-        //console.log(getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio"));
         getAPI("http://127.0.0.1:8000/filetransfer/relatorio").then(result => {
             console.log(result);
             setReport(result);
@@ -22,25 +21,22 @@ function DownloadFile() {
     }
 
     const download = () => {
-        var a = document.createElement("a"); //Create <a>
+        //var a = document.createElement("a"); //Create <a>
         //a.click();
-        postAPI("http://127.0.0.1:8000/filetransfer/downloadRelatorio", { "id": value })
+        let dic = JSON.parse(value);
+        downloadBytes("http://127.0.0.1:8000/filetransfer/downloadRelatorio", { "id": dic.id, "filename": dic.nome })
             .then(result => {
                 console.log("ENVIADO");
-                a.href = result.report_bin;
-                a.download = result.nome;
-                a.click();
+                //a.href = result.file;
+                //a.download = result.nome;
+                //console.log(result.status);
+                //a.click();
             })
-
-        /*var a = document.createElement("a"); //Create <a>
-        a.href = value; //Image Base64 Goes here
-        a.download = "novo.txt"; //File name Here
-        a.click(); //Downloaded file*/
     }
 
     const l = report.map(item => {
         return (
-            <option value={item.id}>{item.nome}</option>
+            <option key={item.id} value={JSON.stringify(item)}>{item.nome}</option>
         )
     })
 

@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'constructions',
     'administration',
-    'fileTransfer',
+    'filetransfer',
     'rest_framework',
     'corsheaders',
 ]
