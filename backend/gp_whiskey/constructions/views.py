@@ -12,6 +12,7 @@ from distutils.util import strtobool
 from .serializers import *
 from .models import *
 from administration.models import *
+from administration.serializers import FuncionarioSerializer
 
 class FotoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -159,6 +160,9 @@ class ObraAPIView(APIView):
                 dic["cliente"] = o.cliente.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
+                #dic["funcionarios"] = o.funcionario_set.all()
+                dic["funcionarios"] = FuncionarioSerializer(o.funcionario_set.all(), many=True).data
+
                 l.append(dic)
             return Response(l)
         else:

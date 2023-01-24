@@ -30,7 +30,6 @@ class ClienteAPIView(APIView):
                 dic["publico"] = c.publico
                 dic["morada"] = c.morada
                 dic["arquivado"] = c.arquivado
-
                 l.append(dic)
 
             return Response(l)
