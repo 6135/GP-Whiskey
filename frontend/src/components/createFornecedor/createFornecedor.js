@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postAPI } from '../../hooks/serviceapi';
 
 class FornecedorForm extends Component {
 
@@ -18,8 +19,6 @@ class FornecedorForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    this.onChangeValueTipo = this.onChangeValueTipo.bind(this); // tipo
 
     // Parte da heranca do Fornecedor
     this.handleOptionChange = this.handleOptionChange.bind(this);
@@ -41,53 +40,19 @@ class FornecedorForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state);
   }
 
-  handleSubmit(event) {
-
-    /*
-    event.preventDefault();
-    const newFornecedor = {
-        nome: this.state.nome,
-        telefone: this.state.telefone,
-        email: this.state.email,
-        tipo: this.state.tipo,
-        morada: this.state.morada,
-        localizacao: this.state.localizacao
-    };
-
-    // Send newClient data to your server or database
-    url = 'http://127.0.0.1:8000/construction/fornecedor'; // Temos de ver isto com o Fevereiro!
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            newFornecedor // the data you want to send in the request body
-        }),
+  handleSubmit() {
+    console.log(this.state);
+    postAPI("http://127.0.0.1:8000/constructions/fornecedor", this.state).then(result => {
+        console.log(result.status);
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Novo fornecedor registado com sucesso " + newClient.nome);
-            // handle the response from the server
-        })
-        .catch(error => {
-            // handle any errors that occur
-            console.error("Nao foi possivel registar o novo fornecedor");
-        });
-
-    */
-  }
-
-  /* Verificar a especializacao */
-  onChangeValueTipo(event) {
-    console.log(event.target.value);
   }
 
   render() {
     return (
-      <><div><h1>Registar Fornecedor</h1></div><form onSubmit={this.handleSubmit}>
+      <><div><h1>Registar Fornecedor</h1></div><form>
         <label>
           Nome do fornecedor:
           <input type="text" name="nome" value={this.state.nome} onChange={this.handleChange} />
@@ -110,7 +75,7 @@ class FornecedorForm extends Component {
         <br />
         <label>
           Endereço de e-mail:
-          <input type="email" name="mail" value={this.state.email} onChange={this.handleChange} />
+          <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
         </label>
         <br />
         <label>
@@ -132,7 +97,7 @@ class FornecedorForm extends Component {
           </div>
         )}
         <br />
-        <input class="button" type="submit" value="Submeter" />
+        <input class="button" value="Submeter" onClick={this.handleSubmit}/>
       </form></>
     );
   }

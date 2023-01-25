@@ -12,8 +12,8 @@ class Carro(models.Model):
     seguradora = models.CharField(max_length=512, blank=False)
     data_inicio = models.DateField(blank=False)
     data_fim = models.DateField(blank=False)
-    created_at = models.DateTimeField(blank=False)
-    updated_at = models.DateTimeField(blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.matricula
@@ -24,8 +24,8 @@ class Fornecedor(models.Model):
     email = models.CharField(max_length=512, blank=False)
     morada = models.CharField(max_length=512, blank=False)
     localizacao = models.CharField(max_length=512, blank=False)
-    created_at = models.DateTimeField(blank=False)
-    updated_at = models.DateTimeField(blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.nome

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postAPI } from '../../hooks/serviceapi';
 
 class CarroForm extends Component {
 
@@ -19,52 +20,19 @@ class CarroForm extends Component {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+        console.log(this.state);
     }
 
-    handleSubmit(event) {
-
-        // Descomentar isto
-
-        /*
-
-        event.preventDefault();
-        const newCarro = {
-            matricula: this.state.matricula,
-            marca: this.state.marca,
-            ano: this.state.ano,
-            seguradora: this.state.seguradora,
-            data_inicio: this.state.data_inicio,
-            data_fim: this.state.data_fim
-        };
-        
-        // Send newClient data to your server or database
-        url = 'http://127.0.0.1:8000/construction/carro'; //postAPI("http://127.0.0.1:8000/filetransfer/relatorio", this.state)
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                newCarro // the data you want to send in the request body
-            }),
+    handleSubmit() {
+        console.log(this.state);
+        postAPI("http://127.0.0.1:8000/constructions/carro", this.state).then(result => {
+            console.log(result.status);
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Novo carro registado com sucesso " + newCarro.matricula);
-                // handle the response from the server
-            })
-            .catch(error => {
-                // handle any errors that occur
-                console.error("Nao foi possivel registar o novo carro");
-            });
-            
-            */
-
     }
 
     render() {
         return (
-            <><div><h1>Registar uma nova Viatura</h1></div><form onSubmit={this.handleSubmit}>
+            <><div><h1>Registar uma nova Viatura</h1></div><form>
                 <label>
                     Matrícula:
                     <input type="text" name="matricula" value={this.state.matricula} onChange={this.handleChange} />
@@ -73,23 +41,22 @@ class CarroForm extends Component {
                 <label>
                     <div>
                         <div><label for="select-choice">Marca:</label>
-                            <div><select name="select-choice-publico" id="select-choice-publico">
-                                <option value={this.state.marca}>BMW</option>
-                                <option value={this.state.marca}>Citroen</option>
-                                <option value={this.state.marca}>Dacia</option>
-                                <option value={this.state.marca}>Fiat</option>
-                                <option value={this.state.marca}>Ford</option>
-                                <option value={this.state.marca}>Jaguar</option>
-                                <option value={this.state.marca}>Nissan</option>
-                                <option value={this.state.marca}>Opel</option>
-                                <option value={this.state.marca}>Peugeot</option>
-                                <option value={this.state.marca}>Renault</option>
-                                <option value={this.state.marca}>Seat</option>
-                                <option value={this.state.marca}>Tesla</option>
-                                <option value={this.state.marca}>Toyota</option>
-                                <option value={this.state.marca}>VW</option>
-                                
-                                <option value={this.state.marca}>Outra</option>
+                            <div><select name="marca" id="marca" onChange={this.handleChange}>
+                                <option value={'BMW'}>BMW</option>
+                                <option value={'Citroen'}>Citroen</option>
+                                <option value={'Dacia'}>Dacia</option>
+                                <option value={'Fiat'}>Fiat</option>
+                                <option value={'Ford'}>Ford</option>
+                                <option value={'Jaguar'}>Jaguar</option>
+                                <option value={'Nissan'}>Nissan</option>
+                                <option value={'Opel'}>Opel</option>
+                                <option value={'Peugeout'}>Peugeot</option>
+                                <option value={'Renault'}>Renault</option>
+                                <option value={'Seat'}>Seat</option>
+                                <option value={'Tesla'}>Tesla</option>
+                                <option value={'Toyota'}>Toyota</option>
+                                <option value={'VW'}>VW</option>
+                                <option value={'Outra'}>Outra</option>
                             </select></div>
                         </div>
                     </div>
@@ -116,7 +83,7 @@ class CarroForm extends Component {
                 </label>
                 <br />
 
-                <input class="button" type="submit" value="Submit" />
+                <input class="button" value="Submit" onClick={this.handleSubmit} />
             </form></>
         );
     }

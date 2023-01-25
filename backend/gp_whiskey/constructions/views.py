@@ -266,7 +266,6 @@ class CarroAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-
         c = Carro(matricula = request.data.get('matricula'), marca = request.data.get('marca'), ano = request.data.get('ano'),seguradora = request.data.get('seguradora'),data_inicio = request.data.get('data_inicio'),data_fim = request.data.get('data_fim'))
         c.save()
 
@@ -374,6 +373,46 @@ class RestauranteAPIView(APIView):
 
         content = {
             'status': 'Restaurante apagado com sucesso'
+        }
+
+        return Response(content)
+
+
+class FornecedorAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = FornecedorSerializer
+
+    def get(self, request): 
+        if Fornecedor.objects.exists():
+            l = []
+            for h in Fornecedor.objects.all():
+                dic = {}
+                dic["nome"] = h.nome
+                dic["email"] = h.email
+                dic["telefone"] = h.telefone
+                dic["morada"] = h.morada
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem Fornecedores'
+            }
+            return Response(content)
+
+    def post(self, request):
+        
+        if(request.data.get('tipo') == "Recursos Humanos"):
+            f = RecursosHumanos(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
+            morada = request.data.get('morada'), especializacao = request.data.get('especializacao'))
+            f.save()
+            
+        elif(request.data.get('tipo') == "Equipamentos"):
+            f = Equipamento(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
+            morada = request.data.get('morada'))
+            f.save()
+
+        content = {
+            'status':'Fornecedor registado na base de dados'
         }
 
         return Response(content)

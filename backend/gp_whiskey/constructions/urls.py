@@ -9,4 +9,5 @@ urlpatterns = [
     path('carro', CarroAPIView.as_view()),
     path('gastosextra', GastosExtraAPIView.as_view()),
     path('restaurante', RestauranteAPIView.as_view()),
+    path('fornecedor', FornecedorAPIView.as_view()),
 ]

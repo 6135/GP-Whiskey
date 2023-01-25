@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postAPI } from '../../hooks/serviceapi';
 
 class ClientForm extends Component {
 
@@ -8,71 +9,30 @@ class ClientForm extends Component {
             nome: '',
             mail: '',
             telefone: '',
-            publico: '',
+            publico: 'True',
             morada: '',
-            arquivado: '' // O cliente diz que quer 'fechado' em vez de 'arquivado'
+            arquivado: 'True' // O cliente diz que quer 'fechado' em vez de 'arquivado'
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.onChangeValuePublico = this.onChangeValuePublico.bind(this);
-        this.onChangeValueArquivado = this.onChangeValueArquivado.bind(this);
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+        console.log(this.state);
     }
 
-    handleSubmit(event) {
-
-        /*
-        event.preventDefault();
-        const newClient = {
-            nome: this.state.nome,
-            mail: this.state.mail,
-            telefone: this.state.telefone,
-            publico: this.state.publico,
-            morada: this.state.morada,
-            arquivado: this.state.arquivado
-        };
-
-        // Send newClient data to your server or database
-        url = 'http://127.0.0.1:8000/construction/client'; // Temos de ver isto com o Fevereiro!
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                newClient // the data you want to send in the request body
-            }),
+    handleSubmit() {
+        console.log(this.state);
+        postAPI("http://127.0.0.1:8000/administration/cliente", this.state).then(result => {
+            console.log(result.status);
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Novo cliente registado com sucesso " + newClient.nome);
-                // handle the response from the server
-            })
-            .catch(error => {
-                // handle any errors that occur
-                console.error("Nao foi possivel registar o novo cliente");
-            });
-
-        */
-    }
-
-    /* Verificar se e' publico ou privado */
-    onChangeValuePublico(event) {
-        console.log(event.target.value);
-    }
-    /* Verificar se e' publico ou privado */
-    onChangeValueArquivado(event) {
-        console.log(event.target.value);
     }
 
     render() {
         return (
-            <><div><h1>Registar Cliente</h1></div><form onSubmit={this.handleSubmit}>
+            <><div><h1>Registar Cliente</h1></div><form>
                 <label>
                     Nome do cliente:
                     <input type="text" name="nome" value={this.state.nome} onChange={this.handleChange} />
@@ -86,9 +46,9 @@ class ClientForm extends Component {
                 <label>
                     <div>
                         <div><label for="select-choice">Público ou privado:</label>
-                            <div><select name="select-choice-publico" id="select-choice-publico">
-                                <option value={this.state.publico}>Público</option>
-                                <option value={!this.state.publico}>Privado</option>
+                            <div><select name="publico" id="publico" onChange={this.handleChange}>
+                                <option value={"True"}>Público</option>
+                                <option value={"False"}>Privado</option>
                             </select></div>
                         </div>
                     </div>
@@ -107,15 +67,15 @@ class ClientForm extends Component {
                 <label>
                     <div>
                         <div><label for="select-choice">Fechado:</label>
-                            <div><select name="select-choice-arquivado" id="select-choice-arquivado">
-                                <option value={this.state.arquivado}>Sim</option>
-                                <option value={this.state.arquivado}>Não</option>
+                            <div><select name="arquivado" id="arquivado" onChange={this.handleChange}>
+                                <option value={"True"}>Sim</option>
+                                <option value={"False"}>Não</option>
                             </select></div>
                         </div>
                     </div>
                 </label>
                 <br />
-                <input class="button" type="submit" value="Submit" />
+                <input class="button" type="submit" value="Submit" onClick={this.handleSubmit}/>
             </form></>
         );
     }
