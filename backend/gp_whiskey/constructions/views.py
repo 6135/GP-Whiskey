@@ -162,14 +162,13 @@ class ObraAPIView(APIView):
                 dic["data_conclusao"] = o.data_conclusao
                 #dic["funcionarios"] = o.funcionario_set.all()
                 dic["funcionarios"] = FuncionarioSerializer(o.funcionario_set.all(), many=True).data
-
                 l.append(dic)
-            return Response(l)
+            return Response(l, status=status.HTTP_200_OK)
         else:
             content = {
                 'status':'nao existem obras'
             }
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
 class DetailsObraAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -177,7 +176,7 @@ class DetailsObraAPIView(APIView):
     def post(self, request):
         
         print("TESTE: " + request.data['obraid'])
-        o = Obra.objects.get(id = 1)
+        o = Obra.objects.get(id = request.data['obraid'])
 
         dic = {}
         
@@ -229,7 +228,7 @@ class DetailsObraAPIView(APIView):
         #dic["hoteis"]
         #dic["equipamento"]
 
-        return Response(dic)
+        return Response(dic, status=status.HTTP_200_OK)
 
 class CarroAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -248,12 +247,12 @@ class CarroAPIView(APIView):
                 dic["data_inicio"] = h.data_inicio
                 dic["data_fim"] = h.data_fim
                 l.append(dic)
-            return Response(l)
+            return Response(l, status=status.HTTP_200_OK)
         else:
             content = {
                 'status':'nao existem carros'
             }
-            return Response(content)
+            return Response(content, status=status.HTTP_200_OK)
 
     def post(self, request):
 
@@ -264,7 +263,7 @@ class CarroAPIView(APIView):
             'status':'carro registado na base de dados'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
     def delete(self, request):
         key = request.data.get('id')
@@ -277,7 +276,7 @@ class CarroAPIView(APIView):
             'status': 'carro apagado com sucesso'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
 class GastosExtraAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -292,12 +291,12 @@ class GastosExtraAPIView(APIView):
                 dic["data"] = h.data
                 dic["preco"] = h.preco
                 l.append(dic)
-            return Response(l)
+            return Response(l, status=status.HTTP_200_OK)
         else:
             content = {
                 'status':'nao existem GastosExtra associados a obra'
             }
-            return Response(content)
+            return Response(content, status=status.HTTP_200_OK)
 
     def post(self, request):
 
@@ -308,7 +307,7 @@ class GastosExtraAPIView(APIView):
             'status':'GastosExtra registada na base de dados'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
     def delete(self, request):
         key = request.data.get('id')
@@ -321,7 +320,7 @@ class GastosExtraAPIView(APIView):
             'status': 'GastosExtra apagado com sucesso'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
 class RestauranteAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -337,12 +336,12 @@ class RestauranteAPIView(APIView):
                 dic["telefone"] = h.telefone
                 dic["morada"] = h.morada
                 l.append(dic)
-            return Response(l)
+            return Response(l, status=status.HTTP_200_OK)
         else:
             content = {
                 'status':'nao existem Restaurantes'
             }
-            return Response(content)
+            return Response(content, status=status.HTTP_200_OK)
 
     def post(self, request):
 
@@ -353,7 +352,7 @@ class RestauranteAPIView(APIView):
             'status':'Restaurante registada na base de dados'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
     def delete(self, request):
         key = request.data.get('id')
@@ -366,4 +365,4 @@ class RestauranteAPIView(APIView):
             'status': 'Restaurante apagado com sucesso'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)

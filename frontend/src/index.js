@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import './index.css';
 import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
@@ -9,6 +9,7 @@ import DownloadFile from './components/downloadFile/downloadFile';
 import DetailsObra from './components/detailsObra/detailsObra';
 import reportWebVitals from './tests/reportWebVitals';
 import LoginPage from './components/Login/login';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="detailsobra" element={<DetailsObra />} /> 
         <Route path="uploadFile" element={<UploadFile />} />
         <Route path="downloadFile" element={<DownloadFile />} />
+        <Route path="*" element={<Navigate replace to="/"/>}/>
       </Routes>
     </BrowserRouter>
   );

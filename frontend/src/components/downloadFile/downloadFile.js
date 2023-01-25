@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { getAPI, postAPI } from '../../hooks/serviceapi';
+import { useFetch, postAPI } from '../../hooks/serviceapi';
 
 function DownloadFile() {
-    const [report, setReport] = useState([]);
     const [value, setValue] = useState();
 
-    useEffect(() => {
-        //console.log(getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio"));
-        getAPI("http://127.0.0.1:8000/filetransfer/relatorio").then(result => {
-            console.log(result);
-            setReport(result);
-            //put first report in value as default
-            setValue(result[0].id);
-        })
 
-    }, []);
+    //console.log(getAPI("http://127.0.0.1:8000/filetransfer/api/relatorio"));
+    const { data: report, error } = useFetch("http://127.0.0.1:8000/filetransfer/relatorio");
+    console.log(report);
+    //put first report in value as default
+    // setValue(report[0].id);
+
+
+
 
     const handleChange = (event) => {
         console.log(event.target.value);
@@ -38,14 +36,6 @@ function DownloadFile() {
         a.click(); //Downloaded file*/
     }
 
-    const l = report.map(item => {
-        return (
-            <option value={item.id}>{item.nome}</option>
-        )
-    })
-
-    //console.log(report);
-
     return (
         <div>
             <h1>
@@ -55,7 +45,11 @@ function DownloadFile() {
                 File Download using React!
             </h3>
             <div>
-                <select value={value} onChange={handleChange}>{l}</select>
+                {report && <select value={value} onChange={handleChange}>{report.map(item => {
+                    return (
+                        <option key={item.id} value={item.id}>{item.nome}</option>
+                    )
+                })}</select>}
             </div>
             <button onClick={download}>Download File</button>
         </div>

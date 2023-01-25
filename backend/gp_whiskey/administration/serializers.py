@@ -1,6 +1,7 @@
 from .models import *
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 
@@ -19,7 +20,8 @@ class AuthUserRegistrationSerializer(serializers.ModelSerializer):
         model = UserEmployer
         fields = (
             'email',
-            'password'
+            'password',
+            'role'
         )
 
     def create(self, validated_data):
@@ -49,6 +51,7 @@ class AuthUserLoginSerializer(serializers.Serializer):
 
         try:
             refresh = RefreshToken.for_user(user)
+            
             refresh_token = str(refresh)
             access_token = str(refresh.access_token)
 

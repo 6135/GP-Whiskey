@@ -25,12 +25,12 @@ class RelatorioAPIView(APIView):
                 #dic["report_bin"] = r.report_bin
                 #dic["tipo"] = r.tipo
                 l.append(dic)
-            return Response(l)
+            return Response(l, status=status.HTTP_200_OK)
         else:
             content = {
                 'status':'nao existem relatorios na obra'
             }
-            return Response(content)
+            return Response(content, status=status.HTTP_200_OK)
 
     def post(self, request):
         
@@ -52,7 +52,7 @@ class RelatorioAPIView(APIView):
             'status':'relatorio guardado'
         }
 
-        return Response(content)
+        return Response(content, status=status.HTTP_200_OK)
 
 class DownloadRelatorioAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -66,4 +66,4 @@ class DownloadRelatorioAPIView(APIView):
         dic["nome"] = r.nome
         dic["report_bin"] = r.report_bin
 
-        return Response(dic)
+        return Response(dic, status=status.HTTP_200_OK)
