@@ -71,3 +71,36 @@ export const postAPI = async (url, data) => {
 
   return { response, err, authenticated }
 }
+
+export const downloadBytes = (url, data) => {
+
+    async function getData(url, data) {
+        return await axios(url, {
+            url: url,
+            method: 'POST',
+            responseType: 'blob',
+            data: data
+        })
+            .then(response => {
+                console.log(response);
+                console.log(response.data);
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', data["filename"]); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+
+            });
+    }
+
+    var r = getData(url, data);
+    //console.log(r);
+    return r;
+}

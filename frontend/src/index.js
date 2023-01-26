@@ -4,6 +4,14 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import './index.css';
 import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
+import CreateObra from './components/createObra/createObra';
+import CreateRestaurant from './components/createRestaurant/createRestaurant';
+import CreateHotel from './components/createHotel/createHotel';
+import CreateClient from './components/createClient/createClient';
+import CreateGastos from './components/createGastosExtra/createGastosExtra';
+import CreateCarro from './components/createCarro/createCarro';
+import CreateRegEquip from './components/createRegEquipamentos/createRegEquipamentos';
+import CreateFornecedor from './components/createFornecedor/createFornecedor';
 import UploadFile from './components/uploadFile/uploadFile';
 import DownloadFile from './components/downloadFile/downloadFile';
 import DetailsObra from './components/detailsObra/detailsObra';
@@ -19,9 +27,34 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="readobra" element={<ReadObra />}>
-        </Route>
+        
+        {/* ----- OBRA ---- */}
+        <Route path="readobra" element={<ReadObra />} /> 
+        <Route path="createobra" element={<CreateObra />} /> 
         <Route path="detailsobra" element={<DetailsObra />} /> 
+        
+        {/* ----- RESTAURANTE ---- */}
+        <Route path="createrestaurant" element={<CreateRestaurant />} /> 
+
+        {/* ----- RESTAURANTE ---- */}
+        <Route path="createhotel" element={<CreateHotel />} /> 
+
+        {/* ----- CLIENTE ---- */}
+        <Route path="createclient" element={<CreateClient />} /> 
+
+        {/* ----- GASTOS_EXTRA ---- */}
+        <Route path="creategastos" element={<CreateGastos />} />
+
+        {/* ----- CARRO ---- */}
+        <Route path="createcarro" element={<CreateCarro />} />
+
+        {/* ----- REG_EQUIPAMENTOS ---- */}
+        <Route path="createregequip" element={<CreateRegEquip />} />
+
+        {/* ----- FORNECEDORES ---- */}
+        <Route path="createfornecedor" element={<CreateFornecedor />} />
+
+        {/* ----- FICHEIROS ---- */}
         <Route path="uploadFile" element={<UploadFile />} />
         <Route path="downloadFile" element={<DownloadFile />} />
         <Route path="*" element={<Navigate replace to="/"/>}/>

@@ -25,6 +25,9 @@ function DetailsObra() {
     //data de inicio
     //data de conclusao
     //flag encerrada
+    
+    /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Numero do processo'!!!!!*/
+    /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Transportadora'!!!!!*/
 
     //gastos_extra
 

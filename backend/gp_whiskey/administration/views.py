@@ -41,6 +41,7 @@ class ClienteAPIView(APIView):
             return Response(content)
 
     def post(self, request):
+        print("FODASS")
         bool_p = request.data.get('publico')
         bool_a = request.data.get('arquivado')
 

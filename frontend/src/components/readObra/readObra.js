@@ -31,6 +31,8 @@ function ReadObra() {
           <tbody>
             <tr>
               <th>Nome</th>
+              {/*<th>Número do processo</th>*/}
+              {/*<th>Transportadora</th>*/}
               <th>Data de Início</th>
               <th>Data de Conclusão</th>
             </tr>
@@ -39,6 +41,8 @@ function ReadObra() {
               return (
                 <tr key={item.id}>
                   <td>{item.nome}</td>
+                  {/*<td>{item.n_processo}</td>*/}
+                  {/*<td>{item.transportadora}</td>*/}
                   <td>{item.data_inicio}</td>
                   <td>{item.data_conclusao}</td>
                   <td>
