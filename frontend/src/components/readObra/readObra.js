@@ -1,12 +1,23 @@
-import { useFetch } from '../../hooks/serviceapi';
+import { getAPI } from '../../hooks/serviceapi';
 import './readObra.css';
-import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 function ReadObra() {
-  const {data: obra, error } = useFetch("http://localhost:8000/constructions/obra");
+  const [obra, setObra] = useState();
   const navigate = useNavigate();
+  useEffect(() => {
+    async function func() {
+      const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
+      if (!authenticated)
+        navigate("/Login");
+
+      setObra(response);
+    }
+    func();
+  }, [])
+
   function handleDetails(event) {
     let v = event.target.value;
     navigate('/detailsobra', { state: { obraid: v, } });

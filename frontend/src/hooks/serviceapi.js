@@ -1,69 +1,73 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getToken , authlogout} from "../services/AuthService";
+import { getToken, authlogout } from "../services/AuthService";
 //colocar auth headers, dentro da area comentada
 
-export const useFetch = (url) => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-        const abortCont = new AbortController();
-    
-      fetch(url, {
-        signal: abortCont.signal, 
-        headers: {
-            'Authorization': getToken(),
-            'Accept': "application/json",
-            "Content-Type": "application/json",
-        },
-    })
+export const getAPI = async (url) => {
+  const abortCont = new AbortController();
+  let response = null;
+  let err = "";
+  let authenticated = true;
+  let token = getToken();
+  let headers = {
+    'Authorization': token,
+    'Accept': "application/json",
+    "Content-Type": "application/json",
+  };
+  let data = token !== null ? {
+    signal: abortCont.signal,
+    headers: headers
+  } : { signal: abortCont.signal };
+
+  await axios.get(url, data)
     .then((res) => {
-        if (!res.ok) {
-          if (res.status === 403 || res.status === 401)
-          {
-            authlogout();
-            navigate("/Login");
-          }
-            // error coming back from server
-            throw Error("Could not fetch the data for that resource");
-          }
-          
-          return res.json();
-        })
-        .then((data) => {
-          // console.log(data)
-          setData(data);
-          // setData(JSON.parse(data));
-          setError(null);
-        })
-        .catch((err) => {
-          if (err.name === "AbortError") {
-            console.log("fetch aborted");
-          } else {
-            setError(err.message);
-          }
-        });
-   // abort the fetch
-   return () => abortCont.abort();
-}, [url]);
+      if (res.status !== 200) {
+        // error coming back from server
+        throw Error("Could not fetch the data for that resource");
+      }
 
-return { data, error };
+      response = res.data;
+    })
+    .catch((error) => {
+      if (error.name === "AbortError") {
+        console.log("fetch aborted");
+        return () => abortCont.abort();
+      } else {
+        if (error.response.status === 403 || error.response.status === 401) {
+          authlogout();
+          authenticated = false;
+        }
+        err = error.message;
+      }
+    });
 
+  return { response, err, authenticated }
 }
 
 export const postAPI = async (url, data) => {
+  let token = getToken();
+  let headers = {
+    'Authorization': token,
+    'Accept': "application/json",
+    "Content-Type": "application/json",
+  };
+  let response = null;
+  let err = "";
+  let authenticated = true;
 
-    //console.log(data);
+  await axios.post(url, data, token !== null ? {headers:headers} : null)
+    .then((res) => {
+      if (res.status !== 200) {
+        throw Error("Could not fetch the data for that resource");
+      }
+      response = res.data;
+    }).catch(function (error) {
+      
+      if (error.response.status === 403 || error.response.status === 401) {
+        authlogout();
+        authenticated = false;
+      }
+      err = error.message;
+    });
 
-    return await axios.post(url, data)
-        .then(response => {
-            //here
-            return response.data;
-        }).catch(function (error) {
-            console.log(error);
-        });
-
+  return { response, err, authenticated }
 }

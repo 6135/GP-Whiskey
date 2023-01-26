@@ -1,6 +1,6 @@
 // Path: frontend/src/hooks/useAuth.js
 import { useState, useEffect, useContext } from "react";
-import { useGetApi } from "./serviceapi";
+import { useGetAPI } from "./serviceapi";
 import { AuthContext } from "../context/auth-context";
 
 export const useAuth = () => {
@@ -9,7 +9,7 @@ export const useAuth = () => {
     const [token, setToken] = useState(null);
     const [tokenExpirationDate, setTokenExpirationDate] = useState();
     const [user, setUser] = useState(null);
-    const { response, error, loading, fetchData } = useGetApi(
+    const { response, error, loading, fetchData } = useGetAPI(
         "http://localhost:8000/administration/login",
         {
         headers: { Authorization: `JWT ${token}` },

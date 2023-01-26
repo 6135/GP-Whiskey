@@ -47,8 +47,8 @@ export const isLoggedIn  = () => {
 }
 
 export const login_api = async (email, password) => {
-  var success = "";
-  var err = "";
+  let success = "";
+  let err = "";
 
   const abortCont = new AbortController();
   await fetch(

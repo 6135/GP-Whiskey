@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login_api } from "../../services/AuthService";
 
-
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   // const [validPass, setValidPass] = useState(false);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
   //to check if the employees password meets certain criterias
   // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   //state to store the outcome of our regex test

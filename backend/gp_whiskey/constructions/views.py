@@ -171,7 +171,7 @@ class ObraAPIView(APIView):
         return Response(content, status=status.HTTP_200_OK)
 
 class DetailsObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         
