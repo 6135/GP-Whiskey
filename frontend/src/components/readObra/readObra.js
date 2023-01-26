@@ -17,7 +17,6 @@ function ReadObra() {
     }
     func();
   }, [])
-
   function handleDetails(event) {
     let v = event.target.value;
     navigate('/detailsobra', { state: { obraid: v, } });

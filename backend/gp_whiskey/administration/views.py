@@ -187,6 +187,5 @@ class AuthUserListView(APIView):
                 'status_code': status.HTTP_200_OK,
                 'message': 'Successfully fetched users',
                 'users': serializer.data
-
             }
             return Response(response, status=status.HTTP_200_OK)
