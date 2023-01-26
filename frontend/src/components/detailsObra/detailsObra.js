@@ -15,6 +15,7 @@ function DetailsObra() {
             if (!authenticated)
               navigate("/Login");
       
+              
             setObra(response);
           }
           func();
