@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { downloadBytes, getAPI } from '../../hooks/serviceapi';
+import { downloadBytes, getAPI } from '../../services/serviceapi';
 
 function DownloadFile() {
     const [report, setReport] = useState([]);

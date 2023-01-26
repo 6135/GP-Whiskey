@@ -1,4 +1,4 @@
-import { getAPI } from '../../hooks/serviceapi';
+import { getAPI } from '../../services/serviceapi';
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 

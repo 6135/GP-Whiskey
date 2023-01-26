@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { postAPI } from '../../hooks/serviceapi';
+import { postAPI } from '../../services/serviceapi';
 
 const CreateRestaurant = () => {
     const [formData, setFormData] = useState({});
