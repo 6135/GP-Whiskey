@@ -1,19 +1,19 @@
-import { getAPI } from '../../hooks/serviceapi';
+import { getAPI } from '../../services/serviceapi';
 import './readObra.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
 function ReadObra() {
-  const [obra, setObra] = useState();
+  const [obra, setObra] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     async function func() {
       const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
       if (!authenticated)
         navigate("/Login");
-
-      setObra(response);
+      if(response.status != "nao existem obras")
+        setObra(response);
     }
     func();
   }, [])

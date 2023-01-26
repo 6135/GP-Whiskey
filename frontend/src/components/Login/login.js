@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { login_api } from "../../services/AuthService";
+import { getCurrentRole, login_api } from "../../services/AuthService";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,23 +20,22 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email.trim() !== "" && password.trim() !== "") {
-      const {success,err} = await login_api(email, password);
-     if(success === "")
-     {
-       setMessage(err);
-     }
-     else{
-       setMessage("");
-       navigate("/");
-     }
+      const { success, err } = await login_api(email, password);
+      if (success === "") {
+        setMessage(err);
       }
-     else {
+      else {
+        setMessage("");
+        navigate("/");
+      }
+    }
+    else {
       setMessage("Preencha todos os campos!");
     }
   };
 
-    return (
-      <div
+  return (
+    <div
       style={{
         width: "400px",
         margin: "auto",
@@ -83,8 +82,7 @@ function LoginPage() {
         <div style={{ margin: "1em", color: "red" }}>{message}</div>
       </form>
     </div>
-    );
-  }
-  
-  export default LoginPage;
-  
+  );
+}
+
+export default LoginPage;

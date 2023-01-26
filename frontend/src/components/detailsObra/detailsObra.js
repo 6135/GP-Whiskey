@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { postAPI } from '../../hooks/serviceapi';
+import { postAPI } from '../../services/serviceapi';
 
 function DetailsObra() {
     //Neste ecra, entramos no scope de apenas UMA obra

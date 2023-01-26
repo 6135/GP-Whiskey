@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, authlogout } from "../services/AuthService";
+import { getToken, authlogout } from "./AuthService";
 //colocar auth headers, dentro da area comentada
 
 export const getAPI = async (url) => {
@@ -56,7 +56,7 @@ export const postAPI = async (url, data) => {
 
   await axios.post(url, data, token !== null ? {headers:headers} : null)
     .then((res) => {
-      if (res.status !== 200) {
+      if (res.status !== 200 && res.status !== 201) {
         throw Error("Could not fetch the data for that resource");
       }
       response = res.data;
