@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import './index.css';
 import HomePage from './components/homepage/homepage';
 import ReadObra from './components/readObra/readObra';
@@ -57,6 +57,7 @@ export default function App() {
         {/* ----- FICHEIROS ---- */}
         <Route path="uploadFile" element={<UploadFile />} />
         <Route path="downloadFile" element={<DownloadFile />} />
+        <Route path="*" element={<Navigate replace to="/"/>}/>
       </Routes>
     </BrowserRouter>
   );
