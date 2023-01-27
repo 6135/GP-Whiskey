@@ -28,7 +28,7 @@ import { cilPencil, cilUserX,cilPlus,cilSearch} from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
 
 
-function ReadFuncionarios  ()  {
+function ReadRestaurantes  ()  {
    
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
@@ -40,22 +40,24 @@ function ReadFuncionarios  ()  {
                 <CCardBody>
                     <CRow >
                         <CHeaderNav >
-                            <h1>Funcionários</h1>
-                            <CForm className="d-flex" style={{ maxHeight: '75%' , marginLeft: '5Rem' }}>
+                            <h1>Restaurantes</h1>
+                            <CForm className="d-flex" style={{ maxHeight: '75%' , marginLeft: '10Rem' }}>
                                 <CFormInput type="search" placeholder="Search" />
                                 <CButton type="submit" color="dark" variant="outline">
                                     <CIcon icon={cilSearch} size="xl"/>
                                 </CButton>
                             </CForm>
 
-                            <CNavLink to="/addFuncionarios" component={NavLink} style={{ marginLeft: '1Rem' }}>
+                            <CNavLink to="/addRestaurante" component={NavLink} style={{ marginLeft: '1Rem' }}>
                                 <CCard className= {`mb-3 border-${"dark"}`}>
                                         <CIcon icon={cilPlus} size="3xl"/>
                                 </CCard>
                             </CNavLink>
-                                <CFormCheck id="flexCheckDefault" label="Arquivadas" style={{ marginLeft: '1Rem' }} />
-                        </CHeaderNav>
+{/*                                 <CFormCheck id="flexCheckDefault" label="Arquivadas" style={{ marginLeft: '1Rem' }} />
+ */}                        </CHeaderNav>
                     </CRow>
+
+                    <p className="text-medium-emphasis">Restaurantes relativos à Obra X</p>
                     
                                     <>
                 {[
@@ -66,8 +68,8 @@ function ReadFuncionarios  ()  {
                     { color: 'warning', textColor: 'warning' },
                     { color: 'info', textColor: 'info' }, 
                     colocar array de funcionarios */
-                    { color: 'light' },
-                    { color: 'dark' },
+                    { color: 'light' , nome: 'Restaurante A'},
+                    { color: 'dark' , nome: 'Restaurante B'},
                 ].map((item, index) => (
                     <CCard
                     // textColor={item.textColor}
@@ -77,42 +79,26 @@ function ReadFuncionarios  ()  {
                     >
                     <CCardHeader>
                         <CHeaderNav>
-                        <h5>Adelaide</h5>
+                        <h5>{item.nome}</h5>
                             <CNavLink to="/dashboard" component={NavLink}>
                                 <CIcon icon={cilPencil} size="xl"/>
                                 {/* editar utilizador somehow passar dados do user p la 
                                     usar item.? */}
                             </CNavLink>
-                                <CIcon icon={cilUserX} size="xl"/>
-                                {/* arquivar utilizador */}
                         </CHeaderNav>
                     </CCardHeader>
                     <CCardBody>
                         {/* <CCardTitle>{item.color} card title</CCardTitle> */}
                         <h6>Nome </h6>
                         <h6>Email </h6>
+                        <h6>telefone</h6>
+                        <h6>Morada</h6>
                     </CCardBody>
                     </CCard>
                 ))}
                 </>
                 </CCardBody>
               </CCard>
-              {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard> */}
             </CCardGroup>
           </CCol>
         </CRow>
@@ -121,4 +107,4 @@ function ReadFuncionarios  ()  {
   )
 }
 
-export default ReadFuncionarios
+export default ReadRestaurantes

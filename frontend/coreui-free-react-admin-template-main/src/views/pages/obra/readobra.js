@@ -20,6 +20,7 @@ import {
   CFormInput,
   CButton,
   CHeaderNav,
+  CButtonGroup,
   CFormCheck,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -27,6 +28,8 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import { cilPencil, cilTrash ,cilPlus,cilSearch} from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
 import { CListGroupItem,CListGroup } from '@coreui/react' 
+import moment from 'moment';
+
 
 function Readobra  ()  {
     const [obra, setObra] = useState(null);
@@ -39,7 +42,7 @@ function Readobra  ()  {
       })
   
     }, []);
-  return (
+    return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
       <CContainer>
         <CRow className="justify-content-center">
@@ -48,7 +51,7 @@ function Readobra  ()  {
               <CCard className="p-4">
                 <CCardBody>
                     <CRow >
-                        <CHeaderNav >
+                        <CHeaderNav>
                             <h1>Listagem de Obras</h1>
                             <CForm className="d-flex" style={{ maxHeight: '75%' , marginLeft: '5Rem' }}>
                                 <CFormInput type="search" placeholder="Search" />
@@ -57,7 +60,7 @@ function Readobra  ()  {
                                 </CButton>
                             </CForm>
 
-                            <CNavLink to="/addFuncionarios" component={NavLink} style={{ marginLeft: '1Rem' }}>
+                            <CNavLink to="/addobra" component={NavLink} style={{ marginLeft: '1Rem' }}>
                                 <CCard className= {`mb-3 border-${"dark"}`}>
                                         <CIcon icon={cilPlus} size="3xl"/>
                                 </CCard>
@@ -71,38 +74,68 @@ function Readobra  ()  {
                     // textColor={item.textColor}
                     className={`mb-3 border-top-${'dark'} border-top-3`}
                     style={{ maxWidth: '100%' }}
-                    key={obra.id}
+                    key={item.id}
                     >
                     <CCardHeader>
                         <CHeaderNav>
-                        <h5>{item.nome}</h5>
-                            <CNavLink to="/dashboard" component={NavLink}>
-                                <CIcon icon={cilPencil} size="xl"/>
-                                {/* editar utilizador somehow passar dados do user p la 
-                                    usar item.? */}
+                            <h5>{item.nome}</h5>
+                            <CNavLink to="/readmedicoes" component={NavLink} style={{ marginLeft: '40%' }}>
+                                <CButton color="light">
+                                    Medições 
+                                </CButton>
                             </CNavLink>
-                                <CIcon icon={cilTrash} size="xl"/>
-                                {/* arquivar utilizador */}
+                            <CButton color="light"  style={{marginLeft: '3%'}}>
+                                Upload photo
+                            </CButton>
+                            <CIcon icon={cilTrash} size="xl" style={{marginLeft: '3%'}}/>
+                                {/* arquivar obra */}
                         </CHeaderNav>
                     </CCardHeader>
                     <CCardBody>
                         {/* <CCardTitle>{item.color} card title</CCardTitle> */}
+                        <CButtonGroup style={{padding : '2%'}}>
+                            <CNavLink to="/gastosextra" component={NavLink} style={{ marginLeft: '1Rem' }}>
+                                <CButton  color="light">
+                                    Gastos Extra
+                                </CButton>
+                            </CNavLink>
+                            <CNavLink to="/readhotel" component={NavLink}>
+                                <CButton color="light">
+                                    Hoteis 
+                                </CButton>
+                            </CNavLink>
+                            <CNavLink to="/readrestaurante" component={NavLink}>
+                                <CButton color="light">
+                                    Restaurantes
+                                </CButton>
+                            </CNavLink>
+                            <CNavLink to="/readviaturas" component={NavLink}>
+                                <CButton color="light">
+                                    Viaturas
+                                </CButton>
+                            </CNavLink>  
+                            <CNavLink to="/readfornecedores" component={NavLink}>
+                                <CButton color="light">
+                                    Fornecedores
+                                </CButton>
+                            </CNavLink>          
+                         </CButtonGroup>
                             <CContainer fluid>
                                 <CListGroup>
                                     <CListGroupItem>
-                                        <CCardText>
-                                            {item.cliente}
-                                        </CCardText>
+                                            <h6>Cliente </h6> {item.cliente}
                                     </CListGroupItem>
                                     <CListGroupItem>
-                                        <CCardText>
-                                        {item.funcionarios.map(item => {return (
+                                            <h6>Funcionários </h6> {item.funcionarios.map(item => {return (
                                             item.nome 
                                             )})}
-                                        </CCardText>
                                     </CListGroupItem>
-                                    <CListGroupItem><CCardText>{item.data_inicio}</CCardText></CListGroupItem>
-                                    <CListGroupItem><CCardText>{item.data_conclusao}</CCardText></CListGroupItem>
+                                    <CListGroupItem>
+                                        {moment(item.data_inicio).format('MM/DD/YYYY')} - {moment(item.data_conclusao).format('MM/DD/YYYY') }
+                                    </CListGroupItem>
+                                    <CListGroupItem>
+                                            <h6>Relatório </h6> <CButton color="link">relatorio.pdf</CButton>
+                                    </CListGroupItem>
                                 </CListGroup>
                             </CContainer>
                     </CCardBody>
