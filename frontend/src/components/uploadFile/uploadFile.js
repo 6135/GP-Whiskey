@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { postAPI } from '../../hooks/serviceapi';
+import { postAPI } from '../../services/serviceapi';
 
 
 class Upload extends Component {
@@ -48,8 +48,9 @@ class Upload extends Component {
                 // Onload of file read the file content
                 fileReader.onload = function (fileLoadedEvent) {
                     file = fileLoadedEvent.target.result;
-                    //coconsole.log("B64: " + file);
+                    //console.log("B64: " + file);
                     resolve(file);
+                    
                     // Print data in console
                     //console.log(file);
                 };
@@ -64,14 +65,14 @@ class Upload extends Component {
             .then(result => {
                 let fileName = file.name;
                 //console.log("File Is", file);
-                //console.log("B64: " + file);
+                console.log("B64: " + result);
                 this.setState({
                     nome: fileName,
                     report_bin: result,
                     tipo: this.state.selectedFile.type
                 },
                     function () {
-                        postAPI("http://127.0.0.1:8000/filetransfer/api/relatorio", this.state)
+                        postAPI("http://127.0.0.1:8000/filetransfer/relatorio", this.state)
                     }
                 )
             })
@@ -122,7 +123,7 @@ class Upload extends Component {
                 </h3>
                 <div>
                     <input type="file" onChange={this.onFileChange} />
-                    <button onClick={this.binaryUpload}>
+                    <button onClick={this.handleUploadFile}>
                         Upload!
                     </button>
                 </div>

@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { postAPI } from '../../hooks/serviceapi';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { postAPI } from '../../services/serviceapi';
 
 function DetailsObra() {
     //Neste ecra, entramos no scope de apenas UMA obra
     const [obra, setObra] = useState([]);
     const location = useLocation();
-    console.log("TESTE: " + location.state.obraid);
+    const navigate = useNavigate();
+    // console.log("TESTE: " + location.state.obraid);
 
     useEffect(() => {
-        postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid }).then(result => {
-            console.log(result);
-            setObra(result);
-        })
-        // eslint-disable-next-line
+        async function func() {
+            const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid });
+            if (!authenticated)
+              navigate("/Login");
+      
+              
+            setObra(response);
+          }
+          func();
     }, []);
 
     //nome
     //data de inicio
     //data de conclusao
     //flag encerrada
+    
+    /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Numero do processo'!!!!!*/
+    /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Transportadora'!!!!!*/
 
     //gastos_extra
 

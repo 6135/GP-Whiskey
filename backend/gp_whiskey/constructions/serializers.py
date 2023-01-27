@@ -45,4 +45,18 @@ class RestauranteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurante
         fields = ('nome', 'email', 'telefone', 'morada')
-    
+        
+class FornecedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fornecedor        
+        fields = ('nome', 'telefone', 'email', 'morada', 'localizacao')
+
+class RecursosHumanosSerializer(FornecedorSerializer):
+    class Meta:
+        model = RecursosHumanos
+        fields = FornecedorSerializer.Meta.fields + ('especializacao',)
+
+class EquipamentoSerializer(FornecedorSerializer):
+    class Meta:
+        model = Equipamento
+        fields = FornecedorSerializer.Meta.fields

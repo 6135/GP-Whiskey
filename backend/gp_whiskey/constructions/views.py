@@ -12,7 +12,6 @@ from distutils.util import strtobool
 from .serializers import *
 from .models import *
 from administration.models import *
-from administration.serializers import FuncionarioSerializer
 
 class FotoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -160,9 +159,6 @@ class ObraAPIView(APIView):
                 dic["cliente"] = o.cliente.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
-                #dic["funcionarios"] = o.funcionario_set.all()
-                dic["funcionarios"] = FuncionarioSerializer(o.funcionario_set.all(), many=True).data
-
                 l.append(dic)
             return Response(l)
         else:
@@ -170,14 +166,28 @@ class ObraAPIView(APIView):
                 'status':'nao existem obras'
             }
         return Response(content)
+    
+    def delete(self, request):
+        #key = request.data.get('id')
+        key = 1
+        record = Obra.objects.get(id=key)
+
+        record.delete()
+
+        content = {
+            'status': 'Obra apagada com sucesso'
+        }
+
+        return Response(content)
+
 
 class DetailsObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         
         print("TESTE: " + request.data['obraid'])
-        o = Obra.objects.get(id = 1)
+        o = Obra.objects.get(id = request.data['obraid'])
 
         dic = {}
         
@@ -197,7 +207,7 @@ class DetailsObraAPIView(APIView):
         #FUNCIONARIOS
         #dicionario de dicionario
         try:
-            dic["funcionarios"] = o.funcionarios_set.all()
+            dic["funcionarios"] = o.funcionarios.all()
         except:
             print("Nao existem funcionarios")
             dic["funcionarios"] = []
@@ -205,7 +215,7 @@ class DetailsObraAPIView(APIView):
         #CARROS
         #dicionario de dicionario
         try:
-            dic["carros"] = o.carros_set.all()
+            dic["carros"] = o.carros.all()
         except:
             print("Nao existem carros")
             dic["carros"] = []
@@ -213,7 +223,7 @@ class DetailsObraAPIView(APIView):
         #RESTAURANTES
         #dicionario de dicionario
         try:
-            dic["restaurantes"] = o.restaurantes_set.all()
+            dic["restaurantes"] = o.restaurantes.all()
         except:
             print("Nao existem restaurantes")
             dic["restaurantes"] = []
@@ -221,7 +231,7 @@ class DetailsObraAPIView(APIView):
         #FORNECEDORES
         #dicionario de dicionario
         try:
-            dic["fornecedores"] = o.fornecedores_set.all()
+            dic["fornecedores"] = o.fornecedores.all()
         except:
             print("Nao existem fornecedores")
             dic["fornecedores"] = []
@@ -256,7 +266,6 @@ class CarroAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-
         c = Carro(matricula = request.data.get('matricula'), marca = request.data.get('marca'), ano = request.data.get('ano'),seguradora = request.data.get('seguradora'),data_inicio = request.data.get('data_inicio'),data_fim = request.data.get('data_fim'))
         c.save()
 
@@ -364,6 +373,46 @@ class RestauranteAPIView(APIView):
 
         content = {
             'status': 'Restaurante apagado com sucesso'
+        }
+
+        return Response(content)
+
+
+class FornecedorAPIView(APIView):
+    permission_classes = (AllowAny, )
+    serializer_class = FornecedorSerializer
+
+    def get(self, request): 
+        if Fornecedor.objects.exists():
+            l = []
+            for h in Fornecedor.objects.all():
+                dic = {}
+                dic["nome"] = h.nome
+                dic["email"] = h.email
+                dic["telefone"] = h.telefone
+                dic["morada"] = h.morada
+                l.append(dic)
+            return Response(l)
+        else:
+            content = {
+                'status':'nao existem Fornecedores'
+            }
+            return Response(content)
+
+    def post(self, request):
+        
+        if(request.data.get('tipo') == "Recursos Humanos"):
+            f = RecursosHumanos(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
+            morada = request.data.get('morada'), especializacao = request.data.get('especializacao'))
+            f.save()
+            
+        elif(request.data.get('tipo') == "Equipamentos"):
+            f = Equipamento(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
+            morada = request.data.get('morada'))
+            f.save()
+
+        content = {
+            'status':'Fornecedor registado na base de dados'
         }
 
         return Response(content)

@@ -65,18 +65,7 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nome
 
-
-class RecursosHumanos(models.Model):
-    fornecedor = models.ForeignKey(
-        'constructions.Fornecedor', on_delete=models.CASCADE)
-    especializacao = models.CharField(max_length=512, blank=False)
-
-    def __str__(self):
-        return self.fornecedor.nome
-
-
 class Funcionario(models.Model):
-    obras = models.ManyToManyField('constructions.Obra')
     nome = models.CharField(max_length=512)
     email = models.CharField(max_length=512)
     cargo = models.CharField(max_length=512)
