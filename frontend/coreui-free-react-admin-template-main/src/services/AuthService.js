@@ -30,6 +30,7 @@ export const getCurrentRole = () => {
 export const saveToken = (token) => {
   bake_cookie(TOKEN_KEY, token);
 }
+
 export const getToken = () => {
   return read_cookie(TOKEN_KEY);
 }
