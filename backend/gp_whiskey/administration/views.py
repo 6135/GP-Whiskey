@@ -22,15 +22,27 @@ class ClienteAPIView(APIView):
 
         if Cliente.objects.exists():
             l = []
-            for c in Cliente.objects.all():
-                dic = {}
-                dic["id"] = c.id
-                dic["nome"] = c.nome
-                dic["mail"] = c.mail
-                dic["publico"] = c.publico
-                dic["morada"] = c.morada
-                dic["arquivado"] = c.arquivado
-                l.append(dic)
+            try:
+                if request.GET['arquivado']: 
+                    for c in Cliente.objects.filter(arquivado=True):
+                        dic = {}
+                        dic["id"] = c.id
+                        dic["nome"] = c.nome
+                        dic["mail"] = c.mail
+                        dic["publico"] = c.publico
+                        dic["morada"] = c.morada
+                        dic["arquivado"] = c.arquivado
+                        l.append(dic)
+            except:                
+                for c in Cliente.objects.filter(arquivado=False):
+                    dic = {}
+                    dic["id"] = c.id
+                    dic["nome"] = c.nome
+                    dic["mail"] = c.mail
+                    dic["publico"] = c.publico
+                    dic["morada"] = c.morada
+                    dic["arquivado"] = c.arquivado
+                    l.append(dic)
 
             return Response(l)
         else:
@@ -41,7 +53,6 @@ class ClienteAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-        print("FODASS")
         bool_p = request.data.get('publico')
         bool_a = request.data.get('arquivado')
 
