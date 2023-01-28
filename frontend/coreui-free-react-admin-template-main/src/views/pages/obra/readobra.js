@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../hooks/serviceapi';
+import { getAPI } from '../../../services/serviceapi';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -37,10 +37,14 @@ function Readobra  ()  {
   useEffect(() => {
     async function func() {
       const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
-      if (!authenticated)
+
+     /*  //login mal
+      if (authenticated)
         navigate("/Login");
-      if(response.status != "nao existem obras")
+      if(response.status != "nao existem obras") */
         setObra(response);
+        console.log(obra)
+
     }
     func();
   }, [])
@@ -124,6 +128,11 @@ function Readobra  ()  {
                                 <CButton color="light">
                                     Fornecedores
                                 </CButton>
+                            </CNavLink>   
+                            <CNavLink to="/readfornecedores" component={NavLink}>
+                                <CButton color="light">
+                                    Funcionários
+                                </CButton>
                             </CNavLink>          
                          </CButtonGroup>
                             <CContainer fluid>
@@ -131,11 +140,7 @@ function Readobra  ()  {
                                     <CListGroupItem>
                                             <h6>Cliente </h6> {item.cliente}
                                     </CListGroupItem>
-                                    <CListGroupItem>
-                                            <h6>Funcionários </h6> {item.funcionarios.map(item => {return (
-                                            item.nome 
-                                            )})}
-                                    </CListGroupItem>
+                                    
                                     <CListGroupItem>
                                         {moment(item.data_inicio).format('MM/DD/YYYY')} - {moment(item.data_conclusao).format('MM/DD/YYYY') }
                                     </CListGroupItem>
