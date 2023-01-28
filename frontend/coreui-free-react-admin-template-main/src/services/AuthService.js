@@ -44,7 +44,7 @@ export const saveRole = (role) => {
 
 export const isLoggedIn = () => {
   const authToken = read_cookie(TOKEN_KEY);
-  return (authToken !== null) ? true : false;
+  return (!Array.isArray(authToken)) ? true : false;
 }
 
 export const login_api = async (email, password) => {
