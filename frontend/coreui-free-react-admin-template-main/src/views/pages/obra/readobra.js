@@ -32,16 +32,22 @@ import moment from 'moment';
 
 
 function Readobra  ()  {
-    const [obra, setObra] = useState(null);
-    const navigate = useNavigate();
-    useEffect(() => {
-      getAPI("http://127.0.0.1:8000/constructions/obra").then(result => {
-        console.log(result);
-        if(result.status !== "nao existem obras")
-          setObra(result);
-      })
-  
-    }, []);
+  const [obra, setObra] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function func() {
+      const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
+      if (!authenticated)
+        navigate("/Login");
+      if(response.status != "nao existem obras")
+        setObra(response);
+    }
+    func();
+  }, [])
+  function handleDetails(event) {
+    let v = event.target.value;
+    navigate('/detailsobra', { state: { obraid: v, } });
+  }
     return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
       <CContainer>

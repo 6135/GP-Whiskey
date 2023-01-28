@@ -82,7 +82,7 @@ const routes = [
   { path: '/readviaturas', name: 'Viaturas', element: ReadViaturas},
   { path: '/addviaturas', name: 'AdicionarViatura', element: AddViatura},
   { path: '/readfornecedores', name: 'Fornecedores', element: ReadFornecedores},
-  {path: '/addfornecedores', name: 'AdiconarFornecedor', element: AddFornecedores}
+  { path: '/addfornecedores', name: 'AdiconarFornecedor', element: AddFornecedores},
 /*   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
