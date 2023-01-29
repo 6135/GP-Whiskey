@@ -67,117 +67,117 @@ const columns = [
 ];
 
 const temp = [{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
-},{
-	matricula: 		"Mat1",
-	marca: 			"BWM",
-	ano: 			"2030",
-	seguradora: 	"Fidelidade",
-	data_inicio: 	"01-01-2023",
-	data_fim: 		"01-01-2024",
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
 }, {
-	matricula: 		"Mat2",
-	marca: 			"Opel",
-	ano: 			"2029",
-	seguradora: 	"Seguros",
-	data_inicio: 	"01-01-2021",
-	data_fim: 		"02-02-2022",
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
+}, {
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
+}, {
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
+}, {
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
+}, {
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
+}, {
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
+}, {
+	matricula: "Mat1",
+	marca: "BWM",
+	ano: "2030",
+	seguradora: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_fim: "01-01-2024",
+}, {
+	matricula: "Mat2",
+	marca: "Opel",
+	ano: "2029",
+	seguradora: "Seguros",
+	data_inicio: "01-01-2021",
+	data_fim: "02-02-2022",
 },];
 function ReadViaturas() {
 	const [viaturaSearch, setViaturaSearch] = useState(null);
@@ -185,9 +185,6 @@ function ReadViaturas() {
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
 
-	// fakeUsers.filter(
-	// 	item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
-	// );
 
 	function handleSearchViatura(event) {
 		setViaturaSearch(event.target.value);
@@ -201,16 +198,12 @@ function ReadViaturas() {
 					(viatura.data_inicio && viatura.data_inicio.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(viatura.data_fim && viatura.data_fim.toLowerCase().includes(event.target.value.toLowerCase()))
 
-
-
 			}));
 	}
 
 	useEffect(() => {
 
-		//getAPI to get viaturas of an obra
 
-		
 		const timeout = setTimeout(() => {
 			setViaturas(temp);
 			setFilteredViaturas(temp);
@@ -246,7 +239,7 @@ function ReadViaturas() {
 											</CNavLink>
 										</CHeaderNav>
 									</CRow>
-									
+
 									<DataTable
 										striped
 										pagination
@@ -257,6 +250,7 @@ function ReadViaturas() {
 										paginationPerPage={5}
 										paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
 									/>
+
 								</CCardBody>
 							</CCard>
 						</CCardGroup>
