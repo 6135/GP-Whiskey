@@ -10,23 +10,12 @@ import {
 	CCol,
 	CContainer,
 	CForm,
-	CCardSubtitle,
-	CCardText,
-	CCardHeader,
 	CNavLink,
-	CNavItem,
 	CRow,
 	CFormInput,
 	CButton,
 	CHeaderNav,
-	CFormCheck,
-	CTable,
-	CTableHead,
-	CTableBody,
-	CTableRow,
-	CTableHeaderCell,
-	CTableDataCell,
-	CCollapse
+
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser, cilPencil, cilUserX, cilPlus, cilSearch } from '@coreui/icons'
@@ -63,7 +52,14 @@ const columns = [
 		selector: row => row.data_fim,
 		sortable: true,
 		reorder: true,
-	},
+	}, {
+		name: 'Ações',
+		cell: row => (
+			<CNavLink type="button" to={`/viaturas/editviaturas/${row.matricula}`}>
+				<CIcon icon={cilPencil} size="xl" />
+			</CNavLink>
+		)
+	}
 ];
 
 const temp = [{
@@ -180,14 +176,12 @@ const temp = [{
 	data_fim: "02-02-2022",
 },];
 function ReadViaturas() {
-	const [viaturaSearch, setViaturaSearch] = useState(null);
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
 
 
 	function handleSearchViatura(event) {
-		setViaturaSearch(event.target.value);
 		console.log(event.target.value);
 		setFilteredViaturas(
 			viaturas.filter(viatura => {
