@@ -215,7 +215,7 @@ function ReadViaturas() {
 			setViaturas(temp);
 			setFilteredViaturas(temp);
 			setPendingViaturas(false);
-		}, 2000);
+		}, 1000);
 		return () => clearTimeout(timeout);
 
 	}, [])
@@ -248,7 +248,6 @@ function ReadViaturas() {
 									</CRow>
 									
 									<DataTable
-									
 										striped
 										pagination
 										columns={columns}
