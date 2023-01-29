@@ -152,14 +152,25 @@ class ObraAPIView(APIView):
     def get(self, request):
         if Obra.objects.exists():
             l = []
-            for o in Obra.objects.all():
-                dic = {}
-                dic["id"] = o.id
-                dic["nome"] = o.nome
-                dic["cliente"] = o.cliente.nome
-                dic["data_inicio"] = o.data_inicio
-                dic["data_conclusao"] = o.data_conclusao
-                l.append(dic)
+            try:
+                if request.GET['encerrada']: 
+                    for o in Obra.objects.filter(encerrada=True):
+                        dic = {}
+                        dic["id"] = o.id
+                        dic["nome"] = o.nome
+                        dic["cliente"] = o.cliente.nome
+                        dic["data_inicio"] = o.data_inicio
+                        dic["data_conclusao"] = o.data_conclusao
+                        l.append(dic)
+            except:
+                for o in Obra.objects.filter(encerrada=False):
+                    dic = {}
+                    dic["id"] = o.id
+                    dic["nome"] = o.nome
+                    dic["cliente"] = o.cliente.nome
+                    dic["data_inicio"] = o.data_inicio
+                    dic["data_conclusao"] = o.data_conclusao
+                    l.append(dic)
             return Response(l)
         else:
             content = {

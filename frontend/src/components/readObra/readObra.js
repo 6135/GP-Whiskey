@@ -9,6 +9,8 @@ function ReadObra() {
   const navigate = useNavigate();
   useEffect(() => {
     async function func() {
+      //TODO: filtro de obras encerradas em baixo
+      // const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra",{"encerrada":true});
       const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
       if (!authenticated)
         navigate("/Login");

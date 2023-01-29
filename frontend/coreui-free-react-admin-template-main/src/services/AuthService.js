@@ -1,9 +1,9 @@
 import axios from "axios";
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 const API_Auth_URL = "http://localhost:8000/administration/login";
-const TOKEN_KEY = "Token";
-const USER_KEY = "User";
-const ROLE_KEY = "Role";
+const TOKEN_KEY = "token";
+const USER_KEY = "user";
+const ROLE_KEY = "role";
 
 export const authlogout = () => {
   delete_cookie(TOKEN_KEY);
@@ -30,6 +30,7 @@ export const getCurrentRole = () => {
 export const saveToken = (token) => {
   bake_cookie(TOKEN_KEY, token);
 }
+
 export const getToken = () => {
   return read_cookie(TOKEN_KEY);
 }
@@ -44,7 +45,7 @@ export const saveRole = (role) => {
 
 export const isLoggedIn = () => {
   const authToken = read_cookie(TOKEN_KEY);
-  return (authToken !== null) ? true : false;
+  return (!Array.isArray(authToken)) ? true : false;
 }
 
 export const login_api = async (email, password) => {
