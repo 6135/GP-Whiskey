@@ -193,7 +193,7 @@ class ObraAPIView(APIView):
 
 
 class DetailsObraAPIView(APIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (AllowAny, ) #TODO: Change back to isAuthenicated when done testing
 
     def post(self, request):
         
@@ -218,7 +218,7 @@ class DetailsObraAPIView(APIView):
         #FUNCIONARIOS
         #dicionario de dicionario
         try:
-            dic["funcionarios"] = o.funcionario_set.all()
+            dic["funcionarios"] = o.funcionarios.all()
         except:
             print("Nao existem funcionarios")
             dic["funcionarios"] = []
@@ -226,7 +226,7 @@ class DetailsObraAPIView(APIView):
         #CARROS
         #dicionario de dicionario
         try:
-            dic["carros"] = o.carro_set.all()
+            dic["carros"] = o.carros.all()
         except:
             print("Nao existem carros")
             dic["carros"] = []
@@ -234,7 +234,7 @@ class DetailsObraAPIView(APIView):
         #RESTAURANTES
         #dicionario de dicionario
         try:
-            dic["restaurantes"] = o.restaurante_set.all()
+            dic["restaurantes"] = o.restaurantes.all()
         except:
             print("Nao existem restaurantes")
             dic["restaurantes"] = []
@@ -242,14 +242,19 @@ class DetailsObraAPIView(APIView):
         #FORNECEDORES
         #dicionario de dicionario
         try:
-            dic["fornecedores"] = o.fornecedore_set.all()
+            dic["fornecedores"] = o.fornecedores.all()
         except:
             print("Nao existem fornecedores")
             dic["fornecedores"] = []
 
         #HOTEIS
         try:
-            dic["hoteis"] = o.hotel_set.all()
+            dic["hoteis"] = o.hoteis.all()
+            #to each hotel add the reserva_hotel object to the dictionary
+            for h in dic["hoteis"]:
+                h.reserva_hotel = h.reserva_hotel_set.all()
+
+                
         except:
             print("Nao existem hoteis")
             dic["hoteis"] = []
