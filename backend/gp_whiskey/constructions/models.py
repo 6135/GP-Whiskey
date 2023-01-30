@@ -6,7 +6,7 @@ from administration.models import Funcionario
 # Basically the main models go here (e.g. obra, medicoes, gastos, etc)
 
 class Carro(models.Model):
-    matricula = models.CharField(max_length=512, blank=False)
+    matricula = models.CharField(max_length=512, blank=False, unique=True)
     marca = models.CharField(max_length=512, blank=False)
     ano = models.IntegerField(null=True, blank=True)
     seguradora = models.CharField(max_length=512, blank=False)

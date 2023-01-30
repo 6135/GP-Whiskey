@@ -1,6 +1,7 @@
 from django.core.exceptions import BadRequest
 import json
-
+from gp_whiskey.settings import SIMPLE_JWT
+import jwt
 from distutils.util import strtobool
 
 from rest_framework import status
@@ -8,7 +9,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .serializers import *
 from .models import *
 from django.db.models import Count
@@ -22,16 +22,27 @@ class ClienteAPIView(APIView):
 
         if Cliente.objects.exists():
             l = []
-            for c in Cliente.objects.all():
-                dic = {}
-                dic["id"] = c.id
-                dic["nome"] = c.nome
-                dic["mail"] = c.mail
-                dic["publico"] = c.publico
-                dic["morada"] = c.morada
-                dic["arquivado"] = c.arquivado
-
-                l.append(dic)
+            try:
+                if request.GET['arquivado']: 
+                    for c in Cliente.objects.filter(arquivado=True):
+                        dic = {}
+                        dic["id"] = c.id
+                        dic["nome"] = c.nome
+                        dic["mail"] = c.mail
+                        dic["publico"] = c.publico
+                        dic["morada"] = c.morada
+                        dic["arquivado"] = c.arquivado
+                        l.append(dic)
+            except:                
+                for c in Cliente.objects.filter(arquivado=False):
+                    dic = {}
+                    dic["id"] = c.id
+                    dic["nome"] = c.nome
+                    dic["mail"] = c.mail
+                    dic["publico"] = c.publico
+                    dic["morada"] = c.morada
+                    dic["arquivado"] = c.arquivado
+                    l.append(dic)
 
             return Response(l)
         else:
@@ -42,7 +53,6 @@ class ClienteAPIView(APIView):
             return Response(content)
 
     def post(self, request):
-        print("FODASS")
         bool_p = request.data.get('publico')
         bool_a = request.data.get('arquivado')
 
@@ -152,7 +162,6 @@ class AuthUserLoginView(APIView):
 
         if valid:
             status_code = status.HTTP_200_OK
-
             response = {
                 'success': True,
                 'statusCode': status_code,
@@ -162,7 +171,7 @@ class AuthUserLoginView(APIView):
                 'authenticatedUser': {
                     'email': serializer.data['email'],
                     'role': serializer.data['role']
-                }
+                },
             }
 
             return Response(response, status=status_code)
@@ -173,7 +182,8 @@ class AuthUserListView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        user = request.user
+        payload = jwt.decode(request.META['HTTP_AUTHORIZATION'].split(' ')[1],SIMPLE_JWT['SIGNING_KEY'],algorithms=[SIMPLE_JWT['ALGORITHM']])
+        user = UserEmployer.objects.get(id=payload['user_id'])
         if user.role != 1:
             response = {
                 'success': False,
@@ -189,6 +199,5 @@ class AuthUserListView(APIView):
                 'status_code': status.HTTP_200_OK,
                 'message': 'Successfully fetched users',
                 'users': serializer.data
-
             }
             return Response(response, status=status.HTTP_200_OK)

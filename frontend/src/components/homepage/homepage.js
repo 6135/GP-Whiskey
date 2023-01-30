@@ -1,3 +1,4 @@
+import { getCurrentUser } from '../../services/AuthService';
 import './homepage.css';
 
 
@@ -6,6 +7,7 @@ function Homepage() {
     <div className="Homepage">
       <p>
         OLA SOU O MAIOR
+        {console.log(getCurrentUser())}
       </p>
     </div>
   );

@@ -1,21 +1,24 @@
-import { getAPI } from '../../hooks/serviceapi';
+import { getAPI } from '../../services/serviceapi';
 import './readObra.css';
-import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 function ReadObra() {
   const [obra, setObra] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    getAPI("http://127.0.0.1:8000/constructions/obra").then(result => {
-      console.log(result);
-      if(result.status !== "nao existem obras")
-        setObra(result);
-    })
-
-  }, []);
-
+    async function func() {
+      //TODO: filtro de obras encerradas em baixo
+      // const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra",{"encerrada":true});
+      const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
+      if (!authenticated)
+        navigate("/Login");
+      if(response.status != "nao existem obras")
+        setObra(response);
+    }
+    func();
+  }, [])
   function handleDetails(event) {
     let v = event.target.value;
     navigate('/detailsobra', { state: { obraid: v, } });
