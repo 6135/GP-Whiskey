@@ -19,92 +19,164 @@ import {
   CRow,
   CFormInput,
   CButton,
-  CHeaderNav,
+  CInputGroup,
   CFormCheck,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { cilPencil, cilUserX,cilPlus,cilSearch} from '@coreui/icons';
+import { cilPencil, cilFolder,cilPlus,cilSearch} from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
+import DataTable from 'react-data-table-component';
+
+const columns = [
+	{
+		name: 'Nome',
+		selector: row => row.nome,
+		sortable: true,
+		reorder: true,
+	},
+	{
+		name: 'Telefone',
+		selector: row => row.telefone,
+		sortable: true,
+		reorder: true,
+	},
+	{
+		name: 'Email',
+		selector: row => row.email,
+		sortable: true,
+		reorder: true,
+	},
+	{
+		name: 'Morada',
+		selector: row => row.morada,
+		sortable: true,
+		reorder: true,
+	},
+  {
+		name: 'Localização',
+		selector: row => row.localizacao,
+		sortable: true,
+		reorder: true,
+	}, {
+		name: 'Ações',
+		cell: row => (
+			<><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
+				<CIcon icon={cilPencil} size="xl" />
+			</CNavLink>
+				<CNavLink type="button" className='mx-1'>
+					{/* onChange={} */}
+					<CIcon icon={cilFolder} size="xl" />
+				</CNavLink></>
+		)
+	}
+];
+
+const temp = [{
+	nome: "obra1",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+}, {
+	nome: "obra2",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+}, {
+	nome: "obra3",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+}, {
+	nome: "obra1",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+}, {
+	nome: "obra1",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+}, {
+	nome: "obra1",
+	telefone: "9999999",
+	email: "4-3-5",
+	morada: "40",
+  localizacao: "local",
+},];
 
 
 function ReadFornecedores  ()  {
    
+  const [pendingData, setPendingData] = React.useState(true);
+	const [data, setData] = React.useState([]);
+	const [filteredData, setFilteredData] = React.useState([]);
+
+  function handleSearchData(event) {
+		setFilteredData(
+			data.filter(data => {
+				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.telefone && data.telefone.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.email && data.email.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.morada && data.morada.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.localizacao && data.localizacao.toLowerCase().includes(event.target.value.toLowerCase()))
+
+			}));
+	}
+
+  useEffect(() => {
+
+
+		const timeout = setTimeout(() => {
+			setData(temp);
+			setFilteredData(temp);
+			setPendingData(false);
+		}, 1000);
+		return () => clearTimeout(timeout);
+
+	}, [])
+
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={9}>
-            <CCardGroup>
+
               <CCard className="p-4">
                 <CCardBody>
-                    <CRow >
-                        <CHeaderNav >
-                            <h1>Fornecedores</h1>
-                            <CForm className="d-flex" style={{ maxHeight: '75%' , marginLeft: '10Rem' }}>
-                                <CFormInput type="search" placeholder="Search" />
-                                <CButton type="submit" color="dark" variant="outline">
-                                    <CIcon icon={cilSearch} size="xl"/>
-                                </CButton>
-                            </CForm>
-
-                            <CNavLink to="/addfornecedores" component={NavLink} style={{ marginLeft: '1Rem' }}>
-                                <CCard className= {`mb-3 border-${"dark"}`}>
-                                        <CIcon icon={cilPlus} size="3xl"/>
-                                </CCard>
-                            </CNavLink>
-{/*                                 <CFormCheck id="flexCheckDefault" label="Arquivadas" style={{ marginLeft: '1Rem' }} />
- */}                        </CHeaderNav>
-                    </CRow>
-
-                    <p className="text-medium-emphasis">Fornecedores relativos à Obra X</p>
                     
-                                    <>
-                {[
-                    /* { color: 'primary', textColor: 'primary' },
-                    { color: 'secondary', textColor: 'secondary' },
-                    { color: 'success', textColor: 'success' },
-                    { color: 'danger', textColor: 'danger' },
-                    { color: 'warning', textColor: 'warning' },
-                    { color: 'info', textColor: 'info' }, 
-                    colocar array de funcionarios */
-                    { color: 'light' , nome: 'Fornecedor A'},
-                    { color: 'dark' , nome: 'Fornecedor B'},
-                ].map((item, index) => (
-                    <CCard
-                    // textColor={item.textColor}
-                    className={`mb-3 border-top-${'dark'} border-top-3`}
-                    style={{ maxWidth: '100%' }}
-                    key={index}
-                    >
-                    <CCardHeader>
-                        <CHeaderNav>
-                        <h5>{item.nome}</h5>
-                            <CNavLink to="/dashboard" component={NavLink}>
-                                <CIcon icon={cilPencil} size="xl"/>
-                                {/* editar utilizador somehow passar dados do user p la 
-                                    usar item.? */}
-                            </CNavLink>
-                        </CHeaderNav>
-                    </CCardHeader>
-                    <CCardBody>
-                        {/* <CCardTitle>{item.color} card title</CCardTitle> */}
-                        <h6>Nome </h6>
-                        <h6>Email </h6>
-                        <h6>Tipo</h6>
-                        <h6>telefone</h6>
-                        <h6>Morada</h6>
-                    </CCardBody>
-                    </CCard>
-                ))}
-                </>
+
+                    <CRow className='pb-4'>
+										<CCol>
+											<h1>Fornecedores</h1>
+										</CCol>
+										<CCol className='justify-content-end'>
+											<CInputGroup>
+												<CFormInput type="search" placeholder="Search" />
+												<CButton type="submit" color="dark" variant="outline">
+													<CIcon icon={cilSearch} size="xl" />
+												</CButton>&nbsp;
+												<CNavLink type="button" to="/addfornecedores" component={NavLink} className="btn btn-outline-dark ">
+													<CIcon icon={cilPlus} size="3xl" />
+												</CNavLink>
+											</CInputGroup>
+										</CCol>
+									</CRow>
+
+                  <DataTable
+                striped
+                pagination
+                columns={columns}
+                data={filteredData}
+                progressPending={pendingData}
+                highlightOnHover
+                paginationPerPage={5}
+                paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
+              />
                 </CCardBody>
               </CCard>
-            </CCardGroup>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
+          
   )
 }
 

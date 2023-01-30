@@ -123,31 +123,6 @@ function Readobra() {
                                                     <CCardBody>
                                                         {/* <CCardTitle>{item.color} card title</CCardTitle> */}
                                                         <CButtonGroup style={{ padding: '2%' }}>
-                                                            <CNavLink to="/gastosextra" component={NavLink} style={{ marginLeft: '1Rem' }}>
-                                                                <CButton color="light">
-                                                                    Gastos Extra
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readhotel" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Hoteis
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readrestaurante" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Restaurantes
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readviaturas" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Viaturas
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readfornecedores" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Fornecedores
-                                                                </CButton>
-                                                            </CNavLink>
                                                             <CNavLink to="/readdetalhes" component={NavLink}>
                                                                 <CButton color="light">
                                                                     Detalhes

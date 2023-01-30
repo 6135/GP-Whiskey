@@ -30,6 +30,9 @@ import { CCollapse } from '@coreui/react'
 import ReadViaturas from '../viaturas/readviaturas';
 import ReadFuncionarios from '../funcionarios/ReadFuncionarios';
 import ReadGastosObra from '../gastosextra/gastosextra';
+import ReadRestaurantes from '../Restaurantes/readrestaurantes';
+import ReadFornecedores from '../fornecedores/fornecedores';
+
 
 function ReadDetalhes() {
 
@@ -46,6 +49,12 @@ function ReadDetalhes() {
                         </CCardGroup>
                         <CCardGroup className='mt-3'>
                             <ReadGastosObra/>
+                        </CCardGroup>
+                        <CCardGroup className='mt-3'>
+                            <ReadRestaurantes/>
+                        </CCardGroup>
+                        <CCardGroup className='mt-3'>
+                            <ReadFornecedores/>
                         </CCardGroup>
 					</CCol>
 				</CRow>

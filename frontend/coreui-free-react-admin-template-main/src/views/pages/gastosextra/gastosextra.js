@@ -102,18 +102,18 @@ const temp = [{
 
 function ReadGastosObra  ()  {
   const [pendingData, setPendingData] = React.useState(true);
-	const [Data, setData] = React.useState([]);
+	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
 
   function handleSearchData(event) {
 		setFilteredData(
-			Data.filter(Data => {
-				return (Data.nome && Data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
-					(Data.email && Data.email.toLowerCase().includes(event.target.value.toLowerCase())) ||
-					(Data.cargo && Data.cargo.toLowerCase().includes(event.target.value.toLowerCase())) ||
-					(Data.seguro_saude && Data.seguro_saude.toLowerCase().includes(event.target.value.toLowerCase())) ||
-					(Data.data_inicio && Data.data_inicio.toLowerCase().includes(event.target.value.toLowerCase())) ||
-					(Data.data_conclusao && Data.data_conclusao.toLowerCase().includes(event.target.value.toLowerCase()))
+			data.filter(data => {
+				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.email && data.email.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.cargo && data.cargo.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.seguro_saude && data.seguro_saude.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.data_inicio && data.data_inicio.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.data_conclusao && data.data_conclusao.toLowerCase().includes(event.target.value.toLowerCase()))
 
 			}));
 	}
