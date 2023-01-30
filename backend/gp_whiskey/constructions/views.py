@@ -17,25 +17,34 @@ class FotoAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = FotoSerializer
 
+    # ---- changes 30/1
     def get(self, request):
-
         if Foto.objects.exists():
-            dic = {}
+            l = []
             for f in Foto.objects.all():
+                dic = {}
                 dic["id"] = f.id
                 dic["tipo"] = f.tipo
-                dic["foto_bin"] = f.foto_bin
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem fotos na obra'
             }
             return Response(content)
 
+    # ---- changes 30/1
     def post(self, request):
+        f = request.data.get("id")
+        format, imgstr = request.data['foto_bin'].split(';base64,')
+        ext = format.split('/')[-1]
+        binary_image = base64.b64decode(imgstr)
+        print(binary_image)
 
-        f = Foto(id = request.data.get('id'), foto_bin = request.data.get('foto_bin'), tipo = request.data.get('tipo'))
+
+        f = Foto(id = request.data.get('id'), tipo = request.data['tipo'], report_bin = None)
         f.save()
+        f.report_bin.save(request.data['id'], ContentFile(binary_image), save=True)
 
         content = {
             'status':'foto registada na base de dados'
@@ -43,6 +52,23 @@ class FotoAPIView(APIView):
 
         return Response(content)
 
+# ---- changes 30/1
+class DownloadFotoAPIView(APIView):
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        print(request.data)
+        key = request.data["id"]
+
+        f = Foto.objects.get(id=key)
+
+        print(f.id)
+        file = f.foto_bin
+
+        response = HttpResponse(file.read(), content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename={}'.format(file.name)
+
+        return response
 
 class RegEquipamentoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -159,6 +185,9 @@ class ObraAPIView(APIView):
                 dic["cliente"] = o.cliente.nome
                 dic["data_inicio"] = o.data_inicio
                 dic["data_conclusao"] = o.data_conclusao
+                # changes stated in dev notes 26/1
+                dic["nr_obra"] = o.nr_obra
+                dic["transportadora"] = o.transportadora
                 l.append(dic)
             return Response(l)
         else:

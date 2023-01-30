@@ -11,6 +11,9 @@ class ObraForm(forms.ModelForm):
     data_inicio = forms.DateField(label="Data de inicio", widget=forms.DateTimeInput())
     data_conclusao = forms.DateField(label="Data de conclusao", widget=forms.DateTimeInput())
     encerrada = forms.BooleanField(label="Encerrada", widget=forms.TextInput())
+    # changes stated in dev notes 26/1
+    nr_obra = forms.CharField(label="Numero de Obra", widget=forms.TextInput())
+    transportadora = forms.CharField(label="Transportadora", widget=forms.TextInput())
 
 class FotoForm(forms.ModelForm):
     id = forms.BigIntegerField(label="Id", widget=forms.TextInput())

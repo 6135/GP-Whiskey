@@ -62,8 +62,11 @@ class Obra(models.Model):
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()
     encerrada = models.BooleanField(default=False, null=False)
+    # changes stated in dev notes 26/1
+    nr_obra = models.CharField(max_length=512)
+    transportadora = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)    
 
     def __str__(self):
         return self.nome

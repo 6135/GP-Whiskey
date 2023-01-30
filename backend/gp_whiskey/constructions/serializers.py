@@ -4,7 +4,7 @@ from rest_framework import serializers
 class ObraSerializer(serializers.ModelSerializer):
     class Meta:
         model = Obra
-        fields = ('cliente', 'nome', 'data_inicio', 'data_conclusao', 'encerrada')
+        fields = ('cliente', 'nome', 'data_inicio', 'data_conclusao', 'encerrada', 'nr_obra', 'transportadora')
 
 class FotoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,7 +14,7 @@ class FotoSerializer(serializers.ModelSerializer):
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = ('nome', 'mail', 'telefone', 'morada' )
+        fields = ('nome', 'mail', 'telefone', 'morada')
 
 class ReservaHotelSerializer(serializers.ModelSerializer):
     class Meta:

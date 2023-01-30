@@ -39,7 +39,7 @@ class RelatorioAPIView(APIView):
     def post(self, request):
         
         #print(request.data['report_bin'])
-        #alterar isto
+        #alterar id para id obra
         o = Obra.objects.get(id=1)
         print(request.data['report_bin'])
 
