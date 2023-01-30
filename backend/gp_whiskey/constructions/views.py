@@ -79,15 +79,16 @@ class HotelAPIView(APIView):
     serializer_class = HotelSerializer
 
     def get(self, request):
-
         if Hotel.objects.exists():
-            dic = {}
+            l = []
             for h in Hotel.objects.all():
+                dic = {}
                 dic["id"] = h.id
                 dic["nome"] = h.nome
                 dic["mail"] = h.mail
                 dic["morada"] = h.morada
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem hoteis associados a obra'
@@ -100,12 +101,14 @@ class ReservaHotelAPIView(APIView):
 
     def get(self, request):
         if ReservaHotel.objects.exists():
-            dic = {}
+            l = []
             for rh in ReservaHotel.objects.all():
+                dic = {}
                 dic["id"] = rh.id
                 dic["reserva_inicio"] = rh.reserva_inicio
                 dic["reserva_fim"] = rh.reserva_fim
-            return Response(dic)
+                l.append(dic)
+            return Response(l)
         else:
             content = {
                 'status':'nao existem reservas hoteis associados a obra'
