@@ -148,9 +148,9 @@ function Readobra() {
                                                                     Fornecedores
                                                                 </CButton>
                                                             </CNavLink>
-                                                            <CNavLink to="/readfornecedores" component={NavLink}>
+                                                            <CNavLink to="/readdetalhes" component={NavLink}>
                                                                 <CButton color="light">
-                                                                    Funcionários
+                                                                    Detalhes
                                                                 </CButton>
                                                             </CNavLink>
                                                         </CButtonGroup>
