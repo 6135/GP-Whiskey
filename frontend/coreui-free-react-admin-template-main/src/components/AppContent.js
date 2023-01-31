@@ -15,18 +15,18 @@ const AppContent = () => {
   useEffect(() =>
   {
     let role = getCurrentRole();
-    if(role == 1)
+    if(role === 1)
     {
       setAdmin("df");
       setEmployer(null);
       setEngineer(null);
     }
-    else if(role==2){
+    else if(role===2){
       setAdmin(null);
       setEmployer(null);
       setEngineer("df");
     }
-    else if(role==3){
+    else if(role===3){
       setAdmin(null);
       setEmployer("df");
       setEngineer(null);

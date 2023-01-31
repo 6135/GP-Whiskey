@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../hooks/serviceapi';
+import { getAPI } from '../../../services/serviceapi';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
