@@ -1,9 +1,9 @@
 import axios from "axios";
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 const API_Auth_URL = "http://localhost:8000/administration/login";
-const TOKEN_KEY = "token";
-const USER_KEY = "user";
-const ROLE_KEY = "role";
+const TOKEN_KEY = "Token";
+const USER_KEY = "User";
+const ROLE_KEY = "Role";
 
 export const authlogout = () => {
   delete_cookie(TOKEN_KEY);

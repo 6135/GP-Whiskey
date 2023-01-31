@@ -109,7 +109,7 @@ const temp = [{
 	data_inicio: "01-01-2021",
 	data_fim: "02-02-2022",
 },];
-function ReadViaturas() {
+function ReadViaturas(detaildata) {
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
@@ -133,8 +133,8 @@ function ReadViaturas() {
 
 
 		const timeout = setTimeout(() => {
-			setViaturas(temp);
-			setFilteredViaturas(temp);
+			setViaturas(detaildata.viaturas);
+			setFilteredViaturas(detaildata.viaturas);
 			setPendingViaturas(false);
 		}, 1000);
 		return () => clearTimeout(timeout);

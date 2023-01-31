@@ -130,6 +130,9 @@ const temp = [{
 
 function ReadFuncionarios() {
 
+
+	
+
   const [pendingFuncionarios, setPendingFuncionarios] = React.useState(true);
 	const [funcionarios, setFuncionarios] = React.useState([]);
 	const [filteredFuncionarios, setFilteredFuncionarios] = React.useState([]);

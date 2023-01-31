@@ -49,19 +49,20 @@ function Readobra() {
         async function func() {
             const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
 
-            /*  //login mal
-             if (authenticated)
+              //login mal
+             if (!authenticated)
                navigate("/Login");
-             if(response.status != "nao existem obras") */
-            setObra(response);
-            console.log(obra)
+             if(response.status != "nao existem obras")
+                setObra(response);
 
         }
         func();
     }, [])
     function handleDetails(event) {
         let v = event.target.value;
-        navigate('/detailsobra', { state: { obraid: v, } });
+        console.log("a minha avo")
+        console.log("Obraid" + v)
+        navigate('/readdetalhes', { state: { obraid: v, } });
     }
 
     function handleSearch(event){
@@ -123,11 +124,9 @@ function Readobra() {
                                                     <CCardBody>
                                                         {/* <CCardTitle>{item.color} card title</CCardTitle> */}
                                                         <CButtonGroup style={{ padding: '2%' }}>
-                                                            <CNavLink to="/readdetalhes" component={NavLink}>
-                                                                <CButton color="light">
+                                                                <CButton onClick={handleDetails} color="light" value={item.id}>
                                                                     Detalhes
                                                                 </CButton>
-                                                            </CNavLink>
                                                         </CButtonGroup>
                                                         <CContainer fluid>
                                                             <CListGroup>
