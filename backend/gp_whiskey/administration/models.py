@@ -69,6 +69,7 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=512)
     email = models.CharField(max_length=512)
     cargo = models.CharField(max_length=512)
+    arquivado = models.BooleanField(default=False, null=False)
     seguro_saude = models.CharField(max_length=512)
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()

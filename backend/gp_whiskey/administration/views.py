@@ -76,10 +76,11 @@ class ClienteAPIView(APIView):
         #key = 1
         record = Cliente.objects.get(id=key)
 
-        record.delete()
+        if(record.arquivado == "False"):
+            record.arquivado = "True"
 
         content = {
-            'status': 'cliente apagado com sucesso'
+            'status': 'cliente arquivado com sucesso'
         }
 
         return Response(content)
@@ -123,10 +124,11 @@ class FuncionarioAPIView(APIView):
         #key = 1
         record = Funcionario.objects.get(id=key)
 
-        record.delete()
+        if(record.arquivado == "False"):
+            record.arquivado = "True"
 
         content = {
-            'status': 'funcionario apagado com sucesso'
+            'status': 'funcionario arquivado com sucesso'
         }
 
         return Response(content)
