@@ -10,4 +10,9 @@ urlpatterns = [
     path('gastosextra', GastosExtraAPIView.as_view()),
     path('restaurante', RestauranteAPIView.as_view()),
     path('fornecedor', FornecedorAPIView.as_view()),
+    path('associarfornecedoraobra', AssociarFornecedorAObraAPIView.as_view()),
+    path('associarviaturaaobra', AssociarViaturaAObraAPIView.as_view()),
+    path('associarrestauranteobra', AssociarRestauranteAObraAPIView.as_view()),
+    path('associarmedicaoequipamento', AssociarMedicaoEquipamentoAPIView.as_view()),
+    path('associarreservahotel', AssociarReservaAPIView.as_view()),
 ]

@@ -17,6 +17,7 @@ class Carro(models.Model):
     seguradora = models.CharField(max_length=512, blank=False)
     data_inicio = models.DateField(blank=False)
     data_fim = models.DateField(blank=False)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -31,6 +32,7 @@ class Fornecedor(models.Model):
     morada = models.CharField(max_length=512, blank=False)
     obra = models.ManyToManyField(OBRA_MODEL)
     localizacao = models.CharField(max_length=512, blank=False)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -63,6 +65,7 @@ class Restaurante(models.Model):
     obra = models.ManyToManyField(OBRA_MODEL)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=512)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -74,17 +77,16 @@ class Obra(models.Model):
     # fornecedores = models.ManyToManyField(Fornecedor)
     # restaurantes = models.ManyToManyField(Restaurante)
     # funcionarios = models.ManyToManyField(Funcionario)
-    # hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
+    hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
     encerrada = models.BooleanField(default=False, null=False)
+    nr_obra = models.CharField(max_length=512, null=True)
+    transportadora = models.CharField(max_length=512, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # @property
-    # def hoteis(self):
-    #     return set(r.hotel for r in self.reservas.all())
     @property
     def hoteis(self):
         return Hotel.objects.filter(reservas__obra=self).distinct()
@@ -104,9 +106,11 @@ class GastosExtra(models.Model):
 
 class RegEquipamento(models.Model):
     nome_equip = models.CharField(max_length=255)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
-
+    
+    #
     def __str__(self):
         return str(self.id)
 
@@ -129,6 +133,9 @@ class Hotel(models.Model):
     email = models.EmailField(max_length=255)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=255)
+
+    arquivado = models.BooleanField(default=False, null=False)
+
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
     obra=models.ManyToManyField(Obra,through='Reserva')
