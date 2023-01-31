@@ -17,7 +17,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
 
 class AuthUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserEmployer
+        model = Funcionario
         fields = (
             'email',
             'password',
@@ -25,7 +25,7 @@ class AuthUserRegistrationSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        auth_user = UserEmployer.objects.create_user(**validated_data)
+        auth_user = Funcionario.objects.create_user(**validated_data)
         return auth_user
 
 class AuthUserLoginSerializer(serializers.Serializer):
@@ -36,9 +36,11 @@ class AuthUserLoginSerializer(serializers.Serializer):
     role = serializers.CharField(read_only=True)
 
     def create(self, validated_date):
+        #TODO: verify
         pass
 
     def update(self, instance, validated_data):
+        #TODO: verify
         pass
 
     def validate(self, data):
@@ -66,14 +68,14 @@ class AuthUserLoginSerializer(serializers.Serializer):
             }
 
             return validation
-        except UserEmployer.DoesNotExist:
+        except Funcionario.DoesNotExist:
             raise serializers.ValidationError("Invalid login credentials")
 
 
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserEmployer
+        model = Funcionario
         fields = (
             'email',
             'role'

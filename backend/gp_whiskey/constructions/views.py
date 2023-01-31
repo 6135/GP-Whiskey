@@ -218,7 +218,7 @@ class DetailsObraAPIView(APIView):
         #FUNCIONARIOS
         #dicionario de dicionario
         try:
-            dic["funcionarios"] = o.funcionario_set.all()
+            dic["funcionarios"] = o.funcionarios.all()
         except:
             print("Nao existem funcionarios")
             dic["funcionarios"] = []
@@ -234,7 +234,7 @@ class DetailsObraAPIView(APIView):
         #RESTAURANTES
         #dicionario de dicionario
         try:
-            dic["restaurantes"] = o.restaurante_set.all()
+            dic["restaurantes"] = o.restaurantes.all()
         except:
             print("Nao existem restaurantes")
             dic["restaurantes"] = []
@@ -242,7 +242,7 @@ class DetailsObraAPIView(APIView):
         #FORNECEDORES
         #dicionario de dicionario
         try:
-            dic["fornecedores"] = o.fornecedore_set.all()
+            dic["fornecedores"] = o.fornecedores.all()
         except:
             print("Nao existem fornecedores")
             dic["fornecedores"] = []
@@ -251,8 +251,8 @@ class DetailsObraAPIView(APIView):
         try:
             dic["hoteis"] = o.hoteis.all()
             #to each hotel add the reserva_hotel object to the dictionary
-            for h in dic["hoteis"]:
-                h.reserva_hotel = h.reserva_hotel_set.all()
+            # for h in dic["hoteis"]:
+            #     h.reserva_hotel = h.reserva_hotel_set.all()
 
                 
         except:
