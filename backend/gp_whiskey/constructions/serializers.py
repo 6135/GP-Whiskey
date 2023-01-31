@@ -15,11 +15,11 @@ class FotoSerializer(serializers.ModelSerializer):
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = ('nome', 'mail', 'telefone', 'morada' )
+        fields = ('nome', 'email', 'telefone', 'morada' )
 
-class ReservaHotelSerializer(serializers.ModelSerializer):
+class ReservaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ReservaHotel
+        model = Reserva
         fields = ('id', 'reserva_inicio', 'reserva_fim')
 
 class RegEquipamentoSerializer(serializers.ModelSerializer):

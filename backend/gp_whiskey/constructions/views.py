@@ -100,14 +100,14 @@ class HotelAPIView(APIView):
             return Response(content)
 
 
-class ReservaHotelAPIView(APIView):
+class ReservaAPIView(APIView):
     permission_classes = (AllowAny, )
-    serializer_class = ReservaHotelSerializer
+    serializer_class = ReservaSerializer
 
     def get(self, request):
-        if ReservaHotel.objects.exists():
+        if Reserva.objects.exists():
             dic = {}
-            for rh in ReservaHotel.objects.all():
+            for rh in Reserva.objects.all():
                 dic["id"] = rh.id
                 dic["reserva_inicio"] = rh.reserva_inicio
                 dic["reserva_fim"] = rh.reserva_fim
@@ -122,7 +122,7 @@ class ReservaHotelAPIView(APIView):
 
         hotel_id = request.data.get("hotel_id")
         hotel = Hotel.objects.filter(id=hotel_id)
-        resHotel = ReservaHotel(request.data.get("id"), request.data.get(
+        resHotel = Reserva(request.data.get("id"), request.data.get(
             "reserva_inicio"), request.data.get("reserva_fim"), hotel=hotel)
         resHotel.save()
 
@@ -229,7 +229,7 @@ class DetailsObraAPIView(APIView):
         # dicionario de dicionario
         try:
             dic["funcionarios"] = [FuncionarioSerializer(
-                f).data for f in o.funcionario_set.all().values()]
+                f).data for f in o.funcionario_set.all()]
         except Exception as e:
             print(e)
             dic["funcionarios"] = []
@@ -238,7 +238,7 @@ class DetailsObraAPIView(APIView):
         # dicionario de dicionario
         try:
             dic["carros"] = [CarroSerializer(
-                c).data for c in o.carro_set.all().values()]
+                c).data for c in o.carro_set.all()]
         except Exception as e:
             print(e)
             dic["carros"] = []
@@ -247,7 +247,7 @@ class DetailsObraAPIView(APIView):
         # dicionario de dicionario
         try:
             dic["restaurantes"] = [RestauranteSerializer(
-                r).data for r in o.restaurante_set.all().values()]
+                r).data for r in o.restaurante_set.all()]
         except Exception as e:
             print(e)
             dic["restaurantes"] = []
@@ -256,15 +256,18 @@ class DetailsObraAPIView(APIView):
         # dicionario de dicionario
         try:
             dic["fornecedores"] = [FornecedorSerializer(
-                f).data for f in o.fornecedor_set.all().values()]
+                f).data for f in o.fornecedor_set.all()]
         except Exception as e:
             print(e)
             dic["fornecedores"] = []
 
         # HOTEIS
         try:
-            dic["hoteis"] = [HotelSerializer(
-                h).data for h in o.hotel_set.all().values()]
+            hoteis = o.hoteis
+            # Conversly, to obtain obras from a hotel, use h.obras
+            dic["hoteis"] = [HotelSerializer(h).data | {"reservas": ReservaSerializer(
+                instance=Reserva.objects.filter(hotel=h, obra=o), many=True).data} for h in hoteis]
+
         except Exception as e:
             print(e)
             dic["hoteis"] = []

@@ -74,13 +74,20 @@ class Obra(models.Model):
     # fornecedores = models.ManyToManyField(Fornecedor)
     # restaurantes = models.ManyToManyField(Restaurante)
     # funcionarios = models.ManyToManyField(Funcionario)
-    # hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.ReservaHotel')
+    # hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
     encerrada = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # @property
+    # def hoteis(self):
+    #     return set(r.hotel for r in self.reservas.all())
+    @property
+    def hoteis(self):
+        return Hotel.objects.filter(reservas__obra=self).distinct()
 
     def __str__(self):
         return self.nome
@@ -122,23 +129,32 @@ class Hotel(models.Model):
     email = models.EmailField(max_length=255)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=255)
-    obra = models.ManyToManyField(
-        OBRA_MODEL, through='constructions.ReservaHotel')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
+    obra=models.ManyToManyField(Obra,through='Reserva')
 
-    def __str__(self):
+    #Hotel e obra nao e uma many to many na realidade, devido ao facto de puder haver varias reservas de um hotel para uma obra, e nao apenas uma.
+    #isto causa problemas porque numa verdadeira many to many apenas poderia haver um par (hotel,obra) na tabela de ligacao, mas como queremos ter varias reservas para um hotel e obra,
+    #A tabela de ligacao tem de ter mais que um par (hotel,obra) para que possamos ter varias reservas para um hotel e obra.
+    #One hotel can have many Reservas for one obra
+    #One obra can have many Reservas for one hotel
+    #One reserva can have one hotel and one obra
+    @property
+    def obras(self):
+        return Obra.objects.filter(reservas__hotel=self).distinct()
+
+    def __str__(self) :
         return str(self.id)
 
 
-class ReservaHotel(models.Model):
-    obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+class Reserva(models.Model):
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE, related_name='reservas')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='reservas')
     reserva_inicio = models.DateField()
     reserva_fim = models.DateField()
 
     def __str__(self):
-        return str(self.id)
+        return str(self.reserva_inicio) + " - " + str(self.reserva_fim)
 
 
 class Foto(models.Model):
