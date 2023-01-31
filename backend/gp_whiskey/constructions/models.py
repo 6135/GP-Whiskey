@@ -82,8 +82,8 @@ class Obra(models.Model):
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
     encerrada = models.BooleanField(default=False, null=False)
-    nr_obra = models.CharField(max_length=512)
-    transportadora = models.CharField(max_length=512)
+    nr_obra = models.CharField(max_length=512, null=True)
+    transportadora = models.CharField(max_length=512, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -135,7 +135,7 @@ class Hotel(models.Model):
     morada = models.CharField(max_length=255)
 
     arquivado = models.BooleanField(default=False, null=False)
-    obras = models.ManyToManyField(Obra,through='ReservaHotel')
+    obras = models.ManyToManyField(Obra,through='Reserva')
 
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)

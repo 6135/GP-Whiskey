@@ -686,7 +686,7 @@ class AssociarMedicaoEquipamentoAPIView(APIView):
         return Response(content)
 
 
-class AssociarReservaHotelAPIView(APIView):
+class AssociarReservaAPIView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
