@@ -1,10 +1,11 @@
+from administration.serializers import FuncionarioSerializer
 from .models import *
 from rest_framework import serializers
 
 class ObraSerializer(serializers.ModelSerializer):
     class Meta:
         model = Obra
-        fields = ('cliente', 'nome', 'data_inicio', 'data_conclusao', 'encerrada')
+        fields = ('id','cliente', 'nome', 'data_inicio', 'data_conclusao', 'encerrada')
 
 class FotoSerializer(serializers.ModelSerializer):
     class Meta:

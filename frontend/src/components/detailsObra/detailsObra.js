@@ -13,19 +13,19 @@ function DetailsObra() {
         async function func() {
             const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid });
             if (!authenticated)
-              navigate("/Login");
-      
-              
+                navigate("/Login");
+
+
             setObra(response);
-          }
-          func();
+        }
+        func();
     }, []);
 
     //nome
     //data de inicio
     //data de conclusao
     //flag encerrada
-    
+
     /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Numero do processo'!!!!!*/
     /* FEVEREIRO -> Temos colocar mais uma variavel com o nome: 'Transportadora'!!!!!*/
 
@@ -37,7 +37,7 @@ function DetailsObra() {
 
     //cliente
 
-    
+
     return (
 
         <div>
@@ -51,36 +51,42 @@ function DetailsObra() {
             <div>
                 <p>Cliente: {obra.cliente_nome}   <button>Details</button></p>
             </div>
-            
+
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar funcionarios */}
-                <p>Funcionarios: {obra.funcionarios} <button>Assign to Obra</button>
-                 <button>De-assign from Obra</button>
-                 <button>Check Funcionarios</button>
-                </p>
+                <div>Funcionarios: {obra.funcionarios && obra.funcionarios.map((item, index) => {
+                    return (
+                        <div key={item.email}>
+                            <p>{item.email}</p>
+                        </div>
+                    )
+                })} <button>Assign to Obra</button>
+                    <button>De-assign from Obra</button>
+                    <button>Check Funcionarios</button>
+                </div>
             </div>
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de carros */}
-                <p>Registo de carros: {obra.carros} <button>Assign to Obra</button>
-                <button>De-assign from Obra</button>
-                <button>Check Carros</button>
-                </p>
+                <div>Registo de carros: {obra.carros} <button>Assign to Obra</button>
+                    <button>De-assign from Obra</button>
+                    <button>Check Carros</button>
+                </div>
             </div>
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de restaurantes */}
-                <p>Registo de restaurantes: {obra.restaurantes} <button>Assign to Obra</button>
-                <button>De-assign from Obra</button>
-                <button>Check Restaurantes</button>
-                </p>
+                <div>Registo de restaurantes: {obra.restaurantes} <button>Assign to Obra</button>
+                    <button>De-assign from Obra</button>
+                    <button>Check Restaurantes</button>
+                </div>
             </div>
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de fornecedores */}
                 <p>Registo de fornecedores: {obra.fornecedores} <button>Assign to Obra</button>
-                <button>De-assign from Obra</button>
-                <button>Check Fornecedores</button>
+                    <button>De-assign from Obra</button>
+                    <button>Check Fornecedores</button>
                 </p>
             </div>
 

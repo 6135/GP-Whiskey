@@ -40,6 +40,7 @@ class Funcionario(AbstractBaseUser, PermissionsMixin):
     seguro_saude = models.CharField(max_length=512)
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
+    obra = models.ManyToManyField('constructions.Obra')
 
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
@@ -60,7 +61,7 @@ class Funcionario(AbstractBaseUser, PermissionsMixin):
 
     @property
     def cargo(self):
-        return self.role
+        return self.ROLE_CHOICES[self.role][1]
 
     def __str__(self):
         return self.get_full_name() 

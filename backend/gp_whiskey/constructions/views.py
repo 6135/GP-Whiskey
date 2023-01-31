@@ -6,12 +6,15 @@ from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from administration.serializers import FuncionarioSerializer
+
 
 from distutils.util import strtobool
 
 from .serializers import *
 from .models import *
 from administration.models import *
+
 
 class FotoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -28,17 +31,18 @@ class FotoAPIView(APIView):
             return Response(dic)
         else:
             content = {
-                'status':'nao existem fotos na obra'
+                'status': 'nao existem fotos na obra'
             }
             return Response(content)
 
     def post(self, request):
 
-        f = Foto(id = request.data.get('id'), foto_bin = request.data.get('foto_bin'), tipo = request.data.get('tipo'))
+        f = Foto(id=request.data.get('id'), foto_bin=request.data.get(
+            'foto_bin'), tipo=request.data.get('tipo'))
         f.save()
 
         content = {
-            'status':'foto registada na base de dados'
+            'status': 'foto registada na base de dados'
         }
 
         return Response(content)
@@ -60,12 +64,12 @@ class RegEquipamentoAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem equipamentos na obra'
+                'status': 'nao existem equipamentos na obra'
             }
             return Response(content)
 
     def post(self, request):
-        equip = RegEquipamento(nome_equip = request.data.get('nome_equip'))
+        equip = RegEquipamento(nome_equip=request.data.get('nome_equip'))
         equip.save()
 
         content = {
@@ -73,6 +77,7 @@ class RegEquipamentoAPIView(APIView):
         }
 
         return Response(content)
+
 
 class HotelAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -90,9 +95,10 @@ class HotelAPIView(APIView):
             return Response(dic)
         else:
             content = {
-                'status':'nao existem hoteis associados a obra'
+                'status': 'nao existem hoteis associados a obra'
             }
             return Response(content)
+
 
 class ReservaHotelAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -108,7 +114,7 @@ class ReservaHotelAPIView(APIView):
             return Response(dic)
         else:
             content = {
-                'status':'nao existem reservas hoteis associados a obra'
+                'status': 'nao existem reservas hoteis associados a obra'
             }
             return Response(content)
 
@@ -116,15 +122,17 @@ class ReservaHotelAPIView(APIView):
 
         hotel_id = request.data.get("hotel_id")
         hotel = Hotel.objects.filter(id=hotel_id)
-        resHotel = ReservaHotel(request.data.get("id"), request.data.get("reserva_inicio"), request.data.get("reserva_fim"), hotel=hotel)
+        resHotel = ReservaHotel(request.data.get("id"), request.data.get(
+            "reserva_inicio"), request.data.get("reserva_fim"), hotel=hotel)
         resHotel.save()
 
         content = {
-            'status':'reserva efetuada com sucesso'
+            'status': 'reserva efetuada com sucesso'
         }
 
         return Response(content)
-    
+
+
 class ObraAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = ObraSerializer
@@ -136,15 +144,15 @@ class ObraAPIView(APIView):
         if bool_e == None:
             bool_e = "False"
 
-        c = Cliente.objects.get(id = request.data.get('cliente'))
+        c = Cliente.objects.get(id=request.data.get('cliente'))
 
-        o = Obra(cliente = c, nome = request.data.get('nome'), 
-        data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'),
-        encerrada = strtobool(bool_e))
+        o = Obra(cliente=c, nome=request.data.get('nome'),
+                 data_inicio=request.data.get('data_inicio'), data_conclusao=request.data.get('data_conclusao'),
+                 encerrada=strtobool(bool_e))
         o.save()
 
         content = {
-            'status':'obra criada com sucesso'
+            'status': 'obra criada com sucesso'
         }
 
         return Response(content)
@@ -153,7 +161,7 @@ class ObraAPIView(APIView):
         if Obra.objects.exists():
             l = []
             try:
-                if request.GET['encerrada']: 
+                if request.GET['encerrada']:
                     for o in Obra.objects.filter(encerrada=True):
                         dic = {}
                         dic["id"] = o.id
@@ -174,12 +182,12 @@ class ObraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem obras'
+                'status': 'nao existem obras'
             }
         return Response(content)
-    
+
     def delete(self, request):
-        #key = request.data.get('id')
+        # key = request.data.get('id')
         key = 1
         record = Obra.objects.get(id=key)
 
@@ -193,16 +201,18 @@ class ObraAPIView(APIView):
 
 
 class DetailsObraAPIView(APIView):
-    permission_classes = (AllowAny, ) #TODO: Change back to isAuthenicated when done testing
+    # TODO: Change back to isAuthenicated when done testing
+    permission_classes = (AllowAny, )
 
     def post(self, request):
-        
+
         print("TESTE: " + str(request.data['obraid']))
-        o = Obra.objects.get(id = request.data['obraid'])
+        o = Obra.objects.prefetch_related(
+            'funcionario_set').get(id=request.data['obraid'])
 
         dic = {}
-        
-        #OBRA_DETALHES
+
+        # OBRA_DETALHES
         dic["obra_nome"] = o.nome
         dic["obra_data_inicio"] = o.data_inicio
         dic["obra_data_conclusao"] = o.data_conclusao
@@ -212,61 +222,61 @@ class DetailsObraAPIView(APIView):
         else:
             dic["encerrada"] = "Sim"
 
-        #CLIENTE
+        # CLIENTE
         dic["cliente_nome"] = o.cliente.nome
 
-        #FUNCIONARIOS
-        #dicionario de dicionario
+        # FUNCIONARIOS
+        # dicionario de dicionario
         try:
-            dic["funcionarios"] = o.funcionarios.all()
-        except:
-            print("Nao existem funcionarios")
+            dic["funcionarios"] = [FuncionarioSerializer(
+                f).data for f in o.funcionario_set.all().values()]
+        except Exception as e:
+            print(e)
             dic["funcionarios"] = []
-        
-        #CARROS
-        #dicionario de dicionario
+
+        # CARROS
+        # dicionario de dicionario
         try:
-            dic["carros"] = o.carro_set.all()
-        except:
-            print("Nao existem carros")
+            dic["carros"] = [CarroSerializer(
+                c).data for c in o.carro_set.all().values()]
+        except Exception as e:
+            print(e)
             dic["carros"] = []
-        
-        #RESTAURANTES
-        #dicionario de dicionario
+
+        # RESTAURANTES
+        # dicionario de dicionario
         try:
-            dic["restaurantes"] = o.restaurantes.all()
-        except:
-            print("Nao existem restaurantes")
+            dic["restaurantes"] = [RestauranteSerializer(
+                r).data for r in o.restaurante_set.all().values()]
+        except Exception as e:
+            print(e)
             dic["restaurantes"] = []
-        
-        #FORNECEDORES
-        #dicionario de dicionario
+
+        # FORNECEDORES
+        # dicionario de dicionario
         try:
-            dic["fornecedores"] = o.fornecedores.all()
-        except:
-            print("Nao existem fornecedores")
+            dic["fornecedores"] = [FornecedorSerializer(
+                f).data for f in o.fornecedor_set.all().values()]
+        except Exception as e:
+            print(e)
             dic["fornecedores"] = []
 
-        #HOTEIS
+        # HOTEIS
         try:
-            dic["hoteis"] = o.hoteis.all()
-            #to each hotel add the reserva_hotel object to the dictionary
-            # for h in dic["hoteis"]:
-            #     h.reserva_hotel = h.reserva_hotel_set.all()
-
-                
-        except:
-            print("Nao existem hoteis")
+            dic["hoteis"] = [HotelSerializer(
+                h).data for h in o.hotel_set.all().values()]
+        except Exception as e:
+            print(e)
             dic["hoteis"] = []
-        #dic["hoteis"]
-        #dic["equipamento"]
 
         return Response(dic)
+
+
 class CarroAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = CarroSerializer
 
-    def get(self, request): 
+    def get(self, request):
 
         if Carro.objects.exists():
             l = []
@@ -282,23 +292,24 @@ class CarroAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem carros'
+                'status': 'nao existem carros'
             }
             return Response(content)
 
     def post(self, request):
-        c = Carro(matricula = request.data.get('matricula'), marca = request.data.get('marca'), ano = request.data.get('ano'),seguradora = request.data.get('seguradora'),data_inicio = request.data.get('data_inicio'),data_fim = request.data.get('data_fim'))
+        c = Carro(matricula=request.data.get('matricula'), marca=request.data.get('marca'), ano=request.data.get(
+            'ano'), seguradora=request.data.get('seguradora'), data_inicio=request.data.get('data_inicio'), data_fim=request.data.get('data_fim'))
         c.save()
 
         content = {
-            'status':'carro registado na base de dados'
+            'status': 'carro registado na base de dados'
         }
 
         return Response(content)
 
     def delete(self, request):
         key = request.data.get('id')
-        #key = 1
+        # key = 1
         record = Carro.objects.get(id=key)
 
         record.delete()
@@ -309,11 +320,12 @@ class CarroAPIView(APIView):
 
         return Response(content)
 
+
 class GastosExtraAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = GastosExtraSerializer
 
-    def get(self, request): 
+    def get(self, request):
         if GastosExtra.objects.exists():
             l = []
             for h in GastosExtra.objects.all():
@@ -325,24 +337,25 @@ class GastosExtraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem GastosExtra associados a obra'
+                'status': 'nao existem GastosExtra associados a obra'
             }
             return Response(content)
 
     def post(self, request):
 
-        g = GastosExtra(descricao = request.data.get('descricao'), data = request.data.get('data'), preco = request.data.get('preco'))
+        g = GastosExtra(descricao=request.data.get('descricao'), data=request.data.get(
+            'data'), preco=request.data.get('preco'))
         g.save()
 
         content = {
-            'status':'GastosExtra registada na base de dados'
+            'status': 'GastosExtra registada na base de dados'
         }
 
         return Response(content)
 
     def delete(self, request):
         key = request.data.get('id')
-        #key = 1
+        # key = 1
         record = GastosExtra.objects.get(id=key)
 
         record.delete()
@@ -353,11 +366,12 @@ class GastosExtraAPIView(APIView):
 
         return Response(content)
 
+
 class RestauranteAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = RestauranteSerializer
 
-    def get(self, request): 
+    def get(self, request):
         if Restaurante.objects.exists():
             l = []
             for h in Restaurante.objects.all():
@@ -370,24 +384,25 @@ class RestauranteAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem Restaurantes'
+                'status': 'nao existem Restaurantes'
             }
             return Response(content)
 
     def post(self, request):
 
-        r = Restaurante(nome = request.data.get('nome'), email = request.data.get('email'), telefone = request.data.get('telefone'), morada = request.data.get('morada'), localizacao = request.data.get('localizacao'))
+        r = Restaurante(nome=request.data.get('nome'), email=request.data.get('email'), telefone=request.data.get(
+            'telefone'), morada=request.data.get('morada'), localizacao=request.data.get('localizacao'))
         r.save()
 
         content = {
-            'status':'Restaurante registada na base de dados'
+            'status': 'Restaurante registada na base de dados'
         }
 
         return Response(content)
 
     def delete(self, request):
         key = request.data.get('id')
-        #key = 1
+        # key = 1
         record = Restaurante.objects.get(id=key)
 
         record.delete()
@@ -403,7 +418,7 @@ class FornecedorAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = FornecedorSerializer
 
-    def get(self, request): 
+    def get(self, request):
         if Fornecedor.objects.exists():
             l = []
             for h in Fornecedor.objects.all():
@@ -416,24 +431,24 @@ class FornecedorAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem Fornecedores'
+                'status': 'nao existem Fornecedores'
             }
             return Response(content)
 
     def post(self, request):
-        
-        if(request.data.get('tipo') == "Recursos Humanos"):
-            f = RecursosHumanos(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
-            morada = request.data.get('morada'), especializacao = request.data.get('especializacao'))
+
+        if (request.data.get('tipo') == "Recursos Humanos"):
+            f = RecursosHumanos(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
+                                morada=request.data.get('morada'), especializacao=request.data.get('especializacao'))
             f.save()
-            
-        elif(request.data.get('tipo') == "Equipamentos"):
-            f = Equipamento(nome = request.data.get('nome'), telefone = request.data.get('telefone'), email = request.data.get('email'), 
-            morada = request.data.get('morada'))
+
+        elif (request.data.get('tipo') == "Equipamentos"):
+            f = Equipamento(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
+                            morada=request.data.get('morada'))
             f.save()
 
         content = {
-            'status':'Fornecedor registado na base de dados'
+            'status': 'Fornecedor registado na base de dados'
         }
 
         return Response(content)
