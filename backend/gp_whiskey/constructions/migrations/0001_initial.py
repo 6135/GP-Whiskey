@@ -115,7 +115,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='hotel',
             name='obra',
-            field=models.ManyToManyField(through='constructions.Reserva', to='constructions.obra'),
+            field=models.ManyToManyField(through='constructions.ReservaHotel', to='constructions.obra'),
         ),
         migrations.CreateModel(
             name='GastosExtra',
