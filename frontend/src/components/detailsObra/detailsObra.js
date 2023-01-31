@@ -68,7 +68,13 @@ function DetailsObra() {
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de carros */}
-                <div>Registo de carros: {obra.carros} <button>Assign to Obra</button>
+                <div>Registo de carros: {obra.carros && obra.carros.map((item,index) => {
+                    return (
+                        <p key={item}>{item}</p>
+                                                // Fix this here please if it errors
+
+                    )
+                })} <button>Assign to Obra</button>
                     <button>De-assign from Obra</button>
                     <button>Check Carros</button>
                 </div>
@@ -76,7 +82,13 @@ function DetailsObra() {
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de restaurantes */}
-                <div>Registo de restaurantes: {obra.restaurantes} <button>Assign to Obra</button>
+                <div>Registo de restaurantes: {obra.restaurantes && obra.restaurantes.map((item,index) => {
+                    return (
+                        <p key={item}>{item}</p>
+                                                // Fix this here please if it errors
+
+                    )
+                })} <button>Assign to Obra</button>
                     <button>De-assign from Obra</button>
                     <button>Check Restaurantes</button>
                 </div>
@@ -84,7 +96,12 @@ function DetailsObra() {
 
             <div>
                 {/* Esta operacao é apenas no scope desta obra. Estamos apenas a associar registo de fornecedores */}
-                <p>Registo de fornecedores: {obra.fornecedores} <button>Assign to Obra</button>
+                <p>Registo de fornecedores: {obra.fornecedores && obra.fornecedores.map((item,index) => {
+                    return (
+                        <p key={item}>{item}</p>
+                        // Fix this here please if it errors
+                    )
+                })} <button>Assign to Obra</button>
                     <button>De-assign from Obra</button>
                     <button>Check Fornecedores</button>
                 </p>
