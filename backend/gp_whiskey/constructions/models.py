@@ -73,11 +73,7 @@ class Restaurante(models.Model):
 class Obra(models.Model):
     cliente = models.ForeignKey(
         'administration.Cliente', on_delete=models.DO_NOTHING)
-    # carros = models.ManyToManyField(Carro)
-    # fornecedores = models.ManyToManyField(Fornecedor)
-    # restaurantes = models.ManyToManyField(Restaurante)
-    # funcionarios = models.ManyToManyField(Funcionario)
-    hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
+
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
