@@ -77,7 +77,7 @@ class Obra(models.Model):
     # fornecedores = models.ManyToManyField(Fornecedor)
     # restaurantes = models.ManyToManyField(Restaurante)
     # funcionarios = models.ManyToManyField(Funcionario)
-    # hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
+    hoteis = models.ManyToManyField('constructions.Hotel',through='constructions.Reserva')
     nome = models.CharField(max_length=512)
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
@@ -135,7 +135,6 @@ class Hotel(models.Model):
     morada = models.CharField(max_length=255)
 
     arquivado = models.BooleanField(default=False, null=False)
-    obras = models.ManyToManyField(Obra,through='Reserva')
 
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
