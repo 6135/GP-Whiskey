@@ -12,6 +12,7 @@ class Carro(models.Model):
     seguradora = models.CharField(max_length=512, blank=False)
     data_inicio = models.DateField(blank=False)
     data_fim = models.DateField(blank=False)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -24,6 +25,7 @@ class Fornecedor(models.Model):
     email = models.CharField(max_length=512, blank=False)
     morada = models.CharField(max_length=512, blank=False)
     localizacao = models.CharField(max_length=512, blank=False)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -49,6 +51,7 @@ class Restaurante(models.Model):
     email = models.CharField(max_length=512)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=512)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -62,9 +65,11 @@ class Obra(models.Model):
     data_inicio = models.DateTimeField()
     data_conclusao = models.DateTimeField()
     encerrada = models.BooleanField(default=False, null=False)
+    nr_obra = models.CharField(max_length=512)
+    transportadora = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    #
     def __str__(self):
         return self.nome
 
@@ -79,9 +84,11 @@ class GastosExtra(models.Model):
 
 class RegEquipamento(models.Model):
     nome_equip = models.CharField(max_length=255)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
-
+    
+    #
     def __str__(self):
         return str(self.id)
 
@@ -104,6 +111,7 @@ class Hotel(models.Model):
     email = models.EmailField(max_length=255)
     telefone = models.BigIntegerField()
     morada = models.CharField(max_length=255)
+    arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
 
