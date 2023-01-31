@@ -10,7 +10,7 @@ from .managers import CustomUserManager
 # Create your models here.
 # All models related to admin (can be empty, e.g Funcionario, Cliente)
 
-class UserEmployer(AbstractBaseUser, PermissionsMixin):
+class Funcionario(AbstractBaseUser, PermissionsMixin):
 
     # These fields tie to the roles!
     ADMIN = 1
@@ -36,6 +36,12 @@ class UserEmployer(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
+
+    seguro_saude = models.CharField(max_length=512)
+    data_inicio = models.DateTimeField(default=timezone.now)
+    data_conclusao = models.DateTimeField(default=timezone.now)
+    obra = models.ManyToManyField('constructions.Obra')
+
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
     created_by = models.EmailField()
@@ -49,9 +55,16 @@ class UserEmployer(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         return self.first_name + " " + self.last_name
 
+    @property
+    def nome(self):
+        return self.get_full_name()
+
+    @property
+    def cargo(self):
+        return self.ROLE_CHOICES[self.role][1]
 
     def __str__(self):
-        return self.email
+        return self.get_full_name() 
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=512, blank=False)
@@ -65,16 +78,15 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nome
 
-class Funcionario(models.Model):
-    nome = models.CharField(max_length=512)
-    email = models.CharField(max_length=512)
-    cargo = models.CharField(max_length=512)
-    arquivado = models.BooleanField(default=False, null=False)
-    seguro_saude = models.CharField(max_length=512)
-    data_inicio = models.DateTimeField()
-    data_conclusao = models.DateTimeField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+# class Funcionario(models.Model):
+#     nome = models.CharField(max_length=512)
+#     email = models.CharField(max_length=512)
+#     cargo = models.CharField(max_length=512)
+#     seguro_saude = models.CharField(max_length=512)
+#     data_inicio = models.DateTimeField(default=timezone.now)
+#     data_conclusao = models.DateTimeField(default=timezone.now)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.nome
+#     def __str__(self):
+#         return self.nome

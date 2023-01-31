@@ -18,7 +18,7 @@ import {
 
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser, cilPencil, cilUserX, cilPlus, cilSearch } from '@coreui/icons'
+import { cilLockLocked, cilUser, cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons'
 import DataTable from 'react-data-table-component';
 
 
@@ -55,9 +55,13 @@ const columns = [
 	}, {
 		name: 'Ações',
 		cell: row => (
-			<CNavLink type="button" to={`/viaturas/editviaturas/${row.matricula}`}>
+			<><CNavLink type="button" to={`/viaturas/editviaturas/${row.matricula}`}>
 				<CIcon icon={cilPencil} size="xl" />
 			</CNavLink>
+				<CNavLink type="button" className='mx-1'>
+					{/* onChange={} */}
+					<CIcon icon={cilFolder} size="xl" />
+				</CNavLink></>
 		)
 	}
 ];
@@ -105,7 +109,7 @@ const temp = [{
 	data_inicio: "01-01-2021",
 	data_fim: "02-02-2022",
 },];
-function ReadViaturas() {
+function ReadViaturas(detaildata) {
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
@@ -129,8 +133,8 @@ function ReadViaturas() {
 
 
 		const timeout = setTimeout(() => {
-			setViaturas(temp);
-			setFilteredViaturas(temp);
+			setViaturas(detaildata.viaturas);
+			setFilteredViaturas(detaildata.viaturas);
 			setPendingViaturas(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
@@ -139,49 +143,41 @@ function ReadViaturas() {
 
 
 	return (
-		<div className="bg-light min-vh-100 d-flex flex-row align-items-top">
-			<CContainer>
-				<CRow className="justify-content-center">
-					<CCol md={9}>
-						<CCardGroup>
-							<CCard className="p-4">
-								<CCardBody>
-									<CRow >
-										<CHeaderNav >
-											<h1>Viaturas</h1>
-											<CForm className="d-flex" style={{ maxHeight: '75%', marginLeft: '10Rem' }}>
-												<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
-												<CButton type="submit" color="dark" variant="outline">
-													<CIcon icon={cilSearch} size="xl" />
-												</CButton>
-											</CForm>
 
-											<CNavLink to="/addviaturas" component={NavLink} style={{ marginLeft: '1Rem' }}>
-												<CCard className={`mb-3 border-${"dark"}`}>
-													<CIcon icon={cilPlus} size="3xl" />
-												</CCard>
-											</CNavLink>
-										</CHeaderNav>
-									</CRow>
+		<CCard className="p-4">
+			<CCardBody>
+				<CRow >
+					<CHeaderNav >
+						<h1>Viaturas</h1>
+						<CForm className="d-flex" style={{ maxHeight: '75%', marginLeft: '10Rem' }}>
+							<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
+							<CButton type="submit" color="dark" variant="outline">
+								<CIcon icon={cilSearch} size="xl" />
+							</CButton>
+						</CForm>
 
-									<DataTable
-										striped
-										pagination
-										columns={columns}
-										data={filteredViaturas}
-										progressPending={pendingViaturas}
-										highlightOnHover
-										paginationPerPage={5}
-										paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
-									/>
-
-								</CCardBody>
+						<CNavLink to="/addviaturas" component={NavLink} style={{ marginLeft: '1Rem' }}>
+							<CCard className={`mb-3 border-${"dark"}`}>
+								<CIcon icon={cilPlus} size="3xl" />
 							</CCard>
-						</CCardGroup>
-					</CCol>
+						</CNavLink>
+					</CHeaderNav>
 				</CRow>
-			</CContainer>
-		</div>
+
+				<DataTable
+					striped
+					pagination
+					columns={columns}
+					data={filteredViaturas}
+					progressPending={pendingViaturas}
+					highlightOnHover
+					paginationPerPage={5}
+					paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
+				/>
+
+			</CCardBody>
+		</CCard>
+
 	)
 }
 

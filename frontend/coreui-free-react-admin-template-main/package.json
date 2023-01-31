@@ -16,8 +16,8 @@
     "build": "react-scripts build",
     "changelog": "auto-changelog --starting-version 4.4.0 --commit-limit false --hide-credit",
     "eject": "react-scripts eject",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
+    "start": "set PORT=7200 && react-scripts start",
+    "test": "set PORT=7200 && react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand"
   },

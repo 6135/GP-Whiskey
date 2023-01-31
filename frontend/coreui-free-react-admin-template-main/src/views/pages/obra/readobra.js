@@ -49,19 +49,20 @@ function Readobra() {
         async function func() {
             const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
 
-            /*  //login mal
-             if (authenticated)
+              //login mal
+             if (!authenticated)
                navigate("/Login");
-             if(response.status != "nao existem obras") */
-            setObra(response);
-            console.log(obra)
+             if(response.status != "nao existem obras")
+                setObra(response);
 
         }
         func();
     }, [])
     function handleDetails(event) {
         let v = event.target.value;
-        navigate('/detailsobra', { state: { obraid: v, } });
+        console.log("a minha avo")
+        console.log("Obraid" + v)
+        navigate('/readdetalhes', { state: { obraid: v, } });
     }
 
     function handleSearch(event){
@@ -123,36 +124,9 @@ function Readobra() {
                                                     <CCardBody>
                                                         {/* <CCardTitle>{item.color} card title</CCardTitle> */}
                                                         <CButtonGroup style={{ padding: '2%' }}>
-                                                            <CNavLink to="/gastosextra" component={NavLink} style={{ marginLeft: '1Rem' }}>
-                                                                <CButton color="light">
-                                                                    Gastos Extra
+                                                                <CButton onClick={handleDetails} color="light" value={item.id}>
+                                                                    Detalhes
                                                                 </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readhotel" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Hoteis
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readrestaurante" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Restaurantes
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readviaturas" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Viaturas
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readfornecedores" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Fornecedores
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CNavLink to="/readfornecedores" component={NavLink}>
-                                                                <CButton color="light">
-                                                                    Funcionários
-                                                                </CButton>
-                                                            </CNavLink>
                                                         </CButtonGroup>
                                                         <CContainer fluid>
                                                             <CListGroup>

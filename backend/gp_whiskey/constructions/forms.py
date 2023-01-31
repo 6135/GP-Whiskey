@@ -26,7 +26,7 @@ class HotelForm(forms.ModelForm):
     telefone = forms.BigIntegerField(label="Telefone", widget=forms.NumberInput)
     morada = forms.CharField(label="Morada", widget=forms.TextInput)
 
-class ReservaHotelForm(forms.ModelForm):
+class ReservaForm(forms.ModelForm):
     id = forms.BigIntegerField(label="Id", widget=forms.TextInput())
     reserva_inicio = forms.DateField(label="Inicio da reserva", widget=forms.DateTimeInput)
     reserva_fim = forms.DateField(label="Inicio da reserva", widget=forms.DateTimeInput)

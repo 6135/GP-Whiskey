@@ -3,7 +3,7 @@ from django.urls import include, path, reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient, URLPatternsTestCase
 
-from .models import UserEmployer as User
+from .models import Funcionario as User
 
 # Create your tests here.
 class UserTest(APITestCase, URLPatternsTestCase):

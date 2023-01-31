@@ -185,7 +185,7 @@ class AuthUserListView(APIView):
 
     def get(self, request):
         payload = jwt.decode(request.META['HTTP_AUTHORIZATION'].split(' ')[1],SIMPLE_JWT['SIGNING_KEY'],algorithms=[SIMPLE_JWT['ALGORITHM']])
-        user = UserEmployer.objects.get(id=payload['user_id'])
+        user = Funcionario.objects.get(id=payload['user_id'])
         if user.role != 1:
             response = {
                 'success': False,
@@ -194,7 +194,7 @@ class AuthUserListView(APIView):
             }
             return Response(response, status.HTTP_403_FORBIDDEN)
         else:
-            users = UserEmployer.objects.all()
+            users = Funcionario.objects.all()
             serializer = self.serializer_class(users, many=True)
             response = {
                 'success': True,

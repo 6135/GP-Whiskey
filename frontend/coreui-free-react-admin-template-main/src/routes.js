@@ -64,6 +64,7 @@ const ReadViaturas = React.lazy(() => import('./views/pages/viaturas/readviatura
 const AddViatura = React.lazy(() => import('./views/pages/viaturas/addviaturas'))
 const ReadFornecedores = React.lazy(() => import('./views/pages/fornecedores/fornecedores'))
 const AddFornecedores = React.lazy(() => import('./views/pages/fornecedores/addfornecedores'))
+const ReadDetails = React.lazy(() => import('./views/pages/Detalhes/detalhes'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -83,6 +84,7 @@ const routes = [
   { path: '/addviaturas', name: 'AdicionarViatura', element: AddViatura},
   { path: '/readfornecedores', name: 'Fornecedores', element: ReadFornecedores},
   { path: '/addfornecedores', name: 'AdiconarFornecedor', element: AddFornecedores},
+  { path: '/readdetalhes', name: 'DetalhesObra', element: ReadDetails},
 /*   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
