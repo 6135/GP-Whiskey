@@ -298,11 +298,11 @@ class ObraAPIView(APIView):
 
 
 class DetailsObraAPIView(APIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (AllowAny, ) #TODO: Change back to isAuthenicated when done testing
 
     def post(self, request):
         
-        print("TESTE: " + request.data['obraid'])
+        print("TESTE: " + str(request.data['obraid']))
         o = Obra.objects.get(id = request.data['obraid'])
 
         dic = {}
@@ -352,11 +352,21 @@ class DetailsObraAPIView(APIView):
             print("Nao existem fornecedores")
             dic["fornecedores"] = []
 
+        #HOTEIS
+        try:
+            dic["hoteis"] = o.hoteis.all()
+            #to each hotel add the reserva_hotel object to the dictionary
+            for h in dic["hoteis"]:
+                h.reserva_hotel = h.reserva_hotel_set.all()
+
+                
+        except:
+            print("Nao existem hoteis")
+            dic["hoteis"] = []
         #dic["hoteis"]
         #dic["equipamento"]
 
         return Response(dic)
-
 class CarroAPIView(APIView):
     permission_classes = (AllowAny, )
     serializer_class = CarroSerializer
