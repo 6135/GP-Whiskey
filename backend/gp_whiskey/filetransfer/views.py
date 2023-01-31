@@ -46,7 +46,7 @@ class RelatorioAPIView(APIView):
         format, imgstr = request.data['report_bin'].split(';base64,')
         ext = format.split('/')[-1]
         binary_image = base64.b64decode(imgstr)
-        print(binary_image)
+        #print(binary_image)
 
         
         r = Relatorio(obra_id = o, nome = request.data['nome'], tipo = request.data['tipo'], report_bin = None)
