@@ -109,13 +109,13 @@ function ReadDetalhes() {
                             <ReadViaturas detaildata= {{carros: obra.carros}}/>
                         </CCardGroup>
                         <CCardGroup className='mt-3'>
-                            <ReadGastosObra/>
+                            <ReadGastosObra detaildata= {{gastos_extra: obra.gastos_extra}}/>
                         </CCardGroup>
                         <CCardGroup className='mt-3'>
-                            <ReadRestaurantes/>
+                            <ReadRestaurantes detaildata= {{restaurantes: obra.restaurantes}}/>
                         </CCardGroup>
                         <CCardGroup className='mt-3'>
-                            <ReadFornecedores/>
+                            <ReadFornecedores detaildata = {{fornecedores: obra.fornecedores}}/>
                         </CCardGroup>
 					</CCol>
 				</CRow>

@@ -99,7 +99,7 @@ const temp = [{
 },];
 
 
-function ReadRestaurantes  ()  {
+function ReadRestaurantes  ({detaildata})  {
   const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
@@ -120,13 +120,13 @@ function ReadRestaurantes  ()  {
 
 
 		const timeout = setTimeout(() => {
-			setData(temp);
-			setFilteredData(temp);
+			setData(detaildata.restaurantes);
+			setFilteredData(detaildata.restaurantes);
 			setPendingData(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
   return (
 
               <CCard className="p-4">
@@ -137,7 +137,7 @@ function ReadRestaurantes  ()  {
 										</CCol>
 										<CCol className='justify-content-end'>
 											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" />
+												<CFormInput type="search" placeholder="Search" onChange={handleSearchData}/>
 												<CButton type="submit" color="dark" variant="outline">
 													<CIcon icon={cilSearch} size="xl" />
 												</CButton>&nbsp;

@@ -173,7 +173,7 @@ function ReadFuncionarios({detaildata}) {
 										</CCol>
 										<CCol className='justify-content-end'>
 											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" />
+												<CFormInput type="search" placeholder="Search" onChange={handleSearchFuncionarios}/>
 												<CButton type="submit" color="dark" variant="outline">
 													<CIcon icon={cilSearch} size="xl" />
 												</CButton>&nbsp;

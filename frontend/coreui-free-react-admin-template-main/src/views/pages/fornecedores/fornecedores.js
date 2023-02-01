@@ -111,7 +111,7 @@ const temp = [{
 },];
 
 
-function ReadFornecedores  ()  {
+function ReadFornecedores  ({detaildata})  {
    
   const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
@@ -133,13 +133,13 @@ function ReadFornecedores  ()  {
 
 
 		const timeout = setTimeout(() => {
-			setData(temp);
-			setFilteredData(temp);
+			setData(detaildata.fornecedores);
+			setFilteredData(detaildata.fornecedores);
 			setPendingData(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
   return (
 

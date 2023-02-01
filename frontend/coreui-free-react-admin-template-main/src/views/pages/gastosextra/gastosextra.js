@@ -100,7 +100,7 @@ const temp = [{
 	preco: "Fidelidade",
 },];
 
-function ReadGastosObra  ()  {
+function ReadGastosObra  ({detaildata})  {
   const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
@@ -122,13 +122,13 @@ function ReadGastosObra  ()  {
 
 
 		const timeout = setTimeout(() => {
-			setData(temp);
-			setFilteredData(temp);
+			setData(detaildata.gastos_extra);
+			setFilteredData(detaildata.gastos_extra);
 			setPendingData(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
   return (
 
@@ -141,7 +141,7 @@ function ReadGastosObra  ()  {
 										</CCol>
 										<CCol className='justify-content-end'>
 											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" />
+												<CFormInput type="search" placeholder="Search" onChange={handleSearchData} />
 												<CButton type="submit" color="dark" variant="outline">
 													<CIcon icon={cilSearch} size="xl" />
 												</CButton>&nbsp;
