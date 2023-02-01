@@ -40,12 +40,12 @@ export const routesAdmin = [
 
 export const routesEmployer = [
   { path: '/', name: 'Obra', element: Readobra },
-  { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
+  // { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
   { path: '*', name: 'Home', element: Readobra },
 ]
 
 export const routesEngineer = [
   { path: '/', name: 'Obra', element: Readobra },
-  { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
+  // { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
   { path: '*', name: 'Home', element: Readobra },
 ]
