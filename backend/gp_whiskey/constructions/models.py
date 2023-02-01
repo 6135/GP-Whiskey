@@ -78,6 +78,7 @@ class Obra(models.Model):
     data_inicio = models.DateTimeField(default=timezone.now)
     data_conclusao = models.DateTimeField(default=timezone.now)
     encerrada = models.BooleanField(default=False, null=False)
+    arquivado = models.BooleanField(default=False, null=False)
     nr_obra = models.CharField(max_length=512, null=True)
     transportadora = models.CharField(max_length=512, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

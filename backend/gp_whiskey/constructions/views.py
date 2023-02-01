@@ -143,7 +143,7 @@ class RegEquipamentoAPIView(APIView):
 
 
     def delete(self, request):
-        key = request.data.get('id')
+        key =  request.GET['id_reg']
         r = RegEquipamento.objects.get(id=key)
 
         if(r.arquivado == "False"):
@@ -184,7 +184,7 @@ class HotelAPIView(APIView):
         return Response(content)        
     
     def delete(self, request):
-        key = request.data.get('id')
+        key =  request.GET['id_hotel']
         r = Fornecedor.objects.get(id=key)
 
         if(r.arquivado == "False"):
@@ -293,10 +293,9 @@ class ObraAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        # key = request.data.get('id')
-        key = 1
+        key =  request.GET['id_obra']
         record = Obra.objects.get(id=key)
-
+    
         if(record.arquivado == "False"):
             record.arquivado = "True"
 
@@ -419,8 +418,7 @@ class CarroAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_carro']
         record = Carro.objects.get(id=key)
 
         if(record.arquivado == "False"):
@@ -466,8 +464,7 @@ class GastosExtraAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_gastos']
         record = GastosExtra.objects.get(id=key)
 
         if(record.arquivado == "False"):
@@ -515,8 +512,8 @@ class RestauranteAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_restaurante']
+
         record = Restaurante.objects.get(id=key)
 
         if(record.arquivado == "False"):
@@ -570,7 +567,7 @@ class FornecedorAPIView(APIView):
 
     
     def delete(self, request):
-        key = request.data.get('id')
+        key =  request.GET['id_fornecedor']
         r = Fornecedor.objects.get(id=key)
 
         if(r.arquivado == "False"):
