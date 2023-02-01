@@ -10,6 +10,7 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CImage,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
@@ -19,12 +20,14 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 
+import LogoInter from 'src/assets/images/logo_inter.png'
+
 const AppHeader = () => {
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  // const dispatch = useDispatch()
+  // const sidebarShow = useSelector((state) => state.sidebarShow)
 
   return (
-    <CHeader position="sticky" className="mb-4">
+    <CHeader position="sticky" className="navbar-color mb-4">
       <CContainer fluid>
         {/* <CHeaderToggler
           className="ps-1"
@@ -35,11 +38,23 @@ const AppHeader = () => {
         <CHeaderBrand className="mx-auto d-md-none" to="/">
           <CIcon icon={logo} height={48} alt="Logo" />
         </CHeaderBrand>
-        <CHeaderNav className="d-none d-md-flex me-auto">
+        <CHeaderNav className="ml-3 d-none d-md-flex me-auto">
+          <CNavItem>
+          <CNavLink to="/" component={NavLink}>
+          <CImage
+                style={{maxWidth: "125px"}}
+                src={LogoInter}
+                alt="Logo_Interagua"
+                draggable="false"
+              />
+               </CNavLink>
+          </CNavItem>
+        </CHeaderNav>
+        <CHeaderNav className="d-none d-md-flex ms-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>
               Dashboard
-            </CNavLink>
+              </CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink to="/funcionarios" component={NavLink}>
@@ -51,10 +66,8 @@ const AppHeader = () => {
             Obras
             </CNavLink>
           </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
 
+{/* 
           <CCollapse className="navbar-collapse" visible={true}>
       <CNavbarNav>
         <CDropdown dark component="li" variant="nav-item">
@@ -66,17 +79,17 @@ const AppHeader = () => {
           </CDropdownMenu>
         </CDropdown>
       </CNavbarNav>
-    </CCollapse>
+    </CCollapse> */}
 
         </CHeaderNav>
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
-      <CContainer fluid>
+      {/* <CHeaderDivider /> 
+       <CContainer fluid>
         <AppBreadcrumb />
-      </CContainer>
+      </CContainer> */}
     </CHeader>
   )
 }
