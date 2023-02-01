@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -21,8 +21,34 @@ import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 
 import LogoInter from 'src/assets/images/logo_inter.png'
+import { getCurrentRole } from 'src/services/AuthService'
 
 const AppHeader = () => {
+  const [isadmin, setAdmin] = useState(null);
+  const [isEngineer, setEngineer] = useState(null);
+  const [isEmployer, setEmployer] = useState(null);
+
+  useEffect(() =>
+  {
+    let role = getCurrentRole();
+    if(role === 1)
+    {
+      setAdmin("isadmin");
+      setEmployer(null);
+      setEngineer(null);
+    }
+    else if(role===2){
+      setAdmin(null);
+      setEmployer(null);
+      setEngineer("isengineer");
+    }
+    else if(role===3){
+      setAdmin(null);
+      setEmployer("isemployer");
+      setEngineer(null);
+    }
+  }, []);
+ 
   // const dispatch = useDispatch()
   // const sidebarShow = useSelector((state) => state.sidebarShow)
 
@@ -50,23 +76,40 @@ const AppHeader = () => {
                </CNavLink>
           </CNavItem>
         </CHeaderNav>
+        {isadmin && 
         <CHeaderNav className="d-none d-md-flex ms-auto">
-          <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
-              Dashboard
-              </CNavLink>
-          </CNavItem>
           <CNavItem>
             <CNavLink to="/funcionarios" component={NavLink}>
               Funcionarios
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/readobra" component={NavLink}>
+            <CNavLink to="/" component={NavLink}>
             Obras
             </CNavLink>
           </CNavItem>
-
+          </CHeaderNav>
+        }
+            {isEngineer && 
+        <CHeaderNav className="d-none d-md-flex ms-auto">
+          <CNavItem>
+            <CNavLink to="/" component={NavLink}>
+            Obras
+            </CNavLink>
+          </CNavItem>
+          </CHeaderNav>
+          
+        }
+            {isEmployer && 
+        <CHeaderNav className="d-none d-md-flex ms-auto">
+          <CNavItem>
+            <CNavLink to="/" component={NavLink}>
+            Obras
+            </CNavLink>
+          </CNavItem>
+          </CHeaderNav>
+          
+        }
 {/* 
           <CCollapse className="navbar-collapse" visible={true}>
       <CNavbarNav>
@@ -81,7 +124,7 @@ const AppHeader = () => {
       </CNavbarNav>
     </CCollapse> */}
 
-        </CHeaderNav>
+    
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>

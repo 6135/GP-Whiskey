@@ -213,7 +213,9 @@ SIMPLE_JWT = {
 # for React
 CORS_ORIGIN_WHITELIST = [
 'http://localhost:3000',
+'http://localhost:3001',
 'http://127.0.0.1:3000',
+'http://127.0.0.1:3001',
 'http://localhost:8000',
 'http://localhost:8080',
 'http://eb-django-app-dev.elasticbeanstalk.com',

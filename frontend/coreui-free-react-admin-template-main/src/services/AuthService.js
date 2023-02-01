@@ -22,7 +22,7 @@ export const getCurrentUser = () => {
 export const getCurrentRole = () => {
   const role = read_cookie(ROLE_KEY);
   if (role) {
-    return role;
+    return parseInt(role);
   }
   return null;
 };
