@@ -73,15 +73,19 @@ class ClienteAPIView(APIView):
 
     def delete(self, request):
         key = request.data.get('id')
-        #key = 1
+        #key = 3
         record = Cliente.objects.get(id=key)
+        print(record.arquivado)
 
-        if(record.arquivado == "False"):
-            record.arquivado = "True"
+        if record.arquivado == False:
+            record.arquivado = True
+            record.save(update_fields=['arquivado'])
 
-        content = {
-            'status': 'cliente arquivado com sucesso'
-        }
+            content = {
+                'status': 'cliente arquivado com sucesso'
+            }
+        else:
+            content = {'status': 'cliente NAO arquivado'}
 
         return Response(content)
 
@@ -124,12 +128,15 @@ class FuncionarioAPIView(APIView):
         #key = 1
         record = Funcionario.objects.get(id=key)
 
-        if(record.arquivado == "False"):
-            record.arquivado = "True"
+        if record.arquivado == False:
+            record.arquivado = True
+            record.save(update_fields=['arquivado'])
 
-        content = {
-            'status': 'funcionario arquivado com sucesso'
-        }
+            content = {
+                'status': 'funcionario arquivado com sucesso'
+            }
+        else:
+            content = {'status': 'funcionario NAO arquivado'}
 
         return Response(content)
 
