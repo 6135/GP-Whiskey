@@ -19,7 +19,7 @@ const Register = () => {
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={9} >
+          <CCol md={10} >
             <CCard className="mx-4">
               <CCardBody className="p-4">
                 <CForm>

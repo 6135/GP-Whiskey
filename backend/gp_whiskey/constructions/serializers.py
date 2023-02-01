@@ -22,15 +22,16 @@ class ReservaSerializer(serializers.ModelSerializer):
         model = Reserva
         fields = ('id', 'reserva_inicio', 'reserva_fim', 'arquivado')
 
-class RegEquipamentoSerializer(serializers.ModelSerializer):
+class EquipamentoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RegEquipamento
+        model = Equipamento
         fields = ('nome_equip', 'arquivado')
 
 class MedicacaoEquipSerializer(serializers.ModelSerializer):
+    funcionario = FuncionarioSerializer()
     class Meta:
         model = MedicaoEquip
-        fields = ('medicao', 'unidade_medida')
+        fields = ('medicao', 'unidade_medida','funcionario')
 
 class CarroSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,8 +57,3 @@ class RecursosHumanosSerializer(FornecedorSerializer):
     class Meta:
         model = RecursosHumanos
         fields = FornecedorSerializer.Meta.fields + ('especializacao',)
-
-class EquipamentoSerializer(FornecedorSerializer):
-    class Meta:
-        model = Equipamento
-        fields = FornecedorSerializer.Meta.fields

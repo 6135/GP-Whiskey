@@ -4,29 +4,30 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import {
-  CCardTitle,
-  CCard,
-  CCardBody,
-  CCardGroup,
-  CCol,
-  CContainer,
-  CForm,
-  CCardSubtitle,
-  CCardText,
-  CCardHeader,
-  CNavLink,
-  CNavItem,
-  CRow,
-  CFormInput,
-  CButton,
-  CInputGroup,
-  CFormCheck,
+	CCardTitle,
+	CCard,
+	CCardBody,
+	CCardGroup,
+	CCol,
+	CContainer,
+	CForm,
+	CCardSubtitle,
+	CCardText,
+	CCardHeader,
+	CNavLink,
+	CNavItem,
+	CRow,
+	CFormInput,
+	CButton,
+	CInputGroup,
+	CFormCheck,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { cilPencil, cilFolder,cilPlus,cilSearch} from '@coreui/icons';
+import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
 import DataTable from 'react-data-table-component';
+import CTableCell from '../../../components/CTableCell';
 
 const columns = [
 	{
@@ -34,30 +35,35 @@ const columns = [
 		selector: row => row.nome,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.nome} />
 	},
 	{
 		name: 'Telefone',
 		selector: row => row.telefone,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.telefone} />
 	},
 	{
 		name: 'Email',
 		selector: row => row.email,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.email} />
 	},
 	{
 		name: 'Morada',
 		selector: row => row.morada,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.morada} />
 	},
-  {
+	{
 		name: 'Localização',
 		selector: row => row.localizacao,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.localizacao} />
 	}, {
 		name: 'Ações',
 		cell: row => (
@@ -77,47 +83,47 @@ const temp = [{
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 }, {
 	nome: "obra2",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 }, {
 	nome: "obra3",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-  localizacao: "local",
+	localizacao: "local",
 },];
 
 
-function ReadFornecedores  ({detaildata})  {
-   
-  const [pendingData, setPendingData] = React.useState(true);
+function ReadFornecedores({ detaildata }) {
+
+	const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
 
-  function handleSearchData(event) {
+	function handleSearchData(event) {
 		setFilteredData(
 			data.filter(data => {
 				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
@@ -129,55 +135,55 @@ function ReadFornecedores  ({detaildata})  {
 			}));
 	}
 
-  useEffect(() => {
+	useEffect(() => {
 
 
 		const timeout = setTimeout(() => {
 			setData(detaildata.fornecedores);
 			setFilteredData(detaildata.fornecedores);
 			setPendingData(false);
-		}, 1000);
+		}, 2000);
 		return () => clearTimeout(timeout);
 
 	}, [detaildata])
 
-  return (
+	return (
 
-              <CCard className="p-4">
-                <CCardBody>
-                    
+		<CCard className="">
+			<CCardBody>
 
-                    <CRow className='pb-4'>
-										<CCol>
-											<h1>Fornecedores</h1>
-										</CCol>
-										<CCol className='justify-content-end'>
-											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" />
-												<CButton type="submit" color="dark" variant="outline">
-													<CIcon icon={cilSearch} size="xl" />
-												</CButton>&nbsp;
-												<CNavLink type="button" to="/addfornecedores" component={NavLink} className="btn btn-outline-dark ">
-													<CIcon icon={cilPlus} size="3xl" />
-												</CNavLink>
-											</CInputGroup>
-										</CCol>
-									</CRow>
 
-                  <DataTable
-                striped
-                pagination
-                columns={columns}
-                data={filteredData}
-                progressPending={pendingData}
-                highlightOnHover
-                paginationPerPage={5}
-                paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
-              />
-                </CCardBody>
-              </CCard>
-          
-  )
+				<CRow className='pb-4'>
+					<CCol>
+						<h1>Fornecedores</h1>
+					</CCol>
+					<CCol className='justify-content-end'>
+						<CInputGroup>
+							<CFormInput type="search" placeholder="Search" />
+							<CButton type="submit" color="dark" variant="outline">
+								<CIcon icon={cilSearch} size="xl" />
+							</CButton>&nbsp;
+							<CNavLink type="button" to="/addfornecedores" component={NavLink} className="btn btn-outline-dark ">
+								<CIcon icon={cilPlus} size="3xl" />
+							</CNavLink>
+						</CInputGroup>
+					</CCol>
+				</CRow>
+
+				<DataTable
+					striped
+					pagination
+					columns={columns}
+					data={filteredData}
+					progressPending={pendingData}
+					highlightOnHover responsive
+					paginationPerPage={5}
+					paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
+				/>
+			</CCardBody>
+		</CCard>
+
+	)
 }
 
 export default ReadFornecedores

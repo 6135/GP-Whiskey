@@ -31,13 +31,13 @@ class ReservaForm(forms.ModelForm):
     reserva_inicio = forms.DateField(label="Inicio da reserva", widget=forms.DateTimeInput)
     reserva_fim = forms.DateField(label="Inicio da reserva", widget=forms.DateTimeInput)
 
-class RegEquipamentoForm(forms.ModelForm):
+class EquipamentoForm(forms.ModelForm):
     nome_equip = forms.CharField(label="Nome: ", widget=forms.TextInput)
 #obra = forms.InlineForeignKeyField(Obra, null=True, blank=True)
     
 class MedicaoEquipForm(forms.ModelForm):
     medicao = forms.FloatField(label="Valor da medicao", widget=forms.NumberInput)
     unidade_medida = forms.CharField(label="Unidade de medida", widget=forms.TextInput)
-    #regEquipamento = forms.InlineForeignKeyField(RegEquipamento, null=True, blank=True)
+    #equipamento = forms.InlineForeignKeyField(Equipamento, null=True, blank=True)
 
     

@@ -40,7 +40,7 @@ const AppContent = () => {
   }, [navigate]);
   
   return (
-    <CContainer lg>
+    <CContainer>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Routes>
           {isEmployer && routesEmployer.map((route, idx) => {

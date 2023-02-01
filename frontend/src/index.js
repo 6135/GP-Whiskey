@@ -10,7 +10,7 @@ import CreateHotel from './components/createHotel/createHotel';
 import CreateClient from './components/createClient/createClient';
 import CreateGastos from './components/createGastosExtra/createGastosExtra';
 import CreateCarro from './components/createCarro/createCarro';
-import CreateRegEquip from './components/createRegEquipamentos/createRegEquipamentos';
+import CreateEquip from './components/createEquipamentos/createEquipamentos';
 import CreateFornecedor from './components/createFornecedor/createFornecedor';
 import UploadFile from './components/uploadFile/uploadFile';
 import DownloadFile from './components/downloadFile/downloadFile';
@@ -49,7 +49,7 @@ export default function App() {
         <Route path="createcarro" element={<CreateCarro />} />
 
         {/* ----- REG_EQUIPAMENTOS ---- */}
-        <Route path="createregequip" element={<CreateRegEquip />} />
+        <Route path="createequip" element={<CreateEquip />} />
 
         {/* ----- FORNECEDORES ---- */}
         <Route path="createfornecedor" element={<CreateFornecedor />} />
