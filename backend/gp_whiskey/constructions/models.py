@@ -39,15 +39,6 @@ class Fornecedor(models.Model):
     def __str__(self):
         return self.nome
 
-# Forecedor de Equipamentos? Devia ser mais explícito.
-
-
-class Equipamento(Fornecedor):
-
-    def str(self):
-        return self.nome
-
-# Forecedor de Equipamentos? Devia ser mais explícito.
 
 
 class RecursosHumanos(Fornecedor):
@@ -88,6 +79,10 @@ class Obra(models.Model):
     def hoteis(self):
         return Hotel.objects.filter(reservas__obra=self).distinct()
 
+    @property
+    def equipamentos(self):
+        return Equipamento.objects.filter(medicaoequip__obra=self).distinct()
+
     def __str__(self):
         return self.nome
 
@@ -101,13 +96,12 @@ class GastosExtra(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class RegEquipamento(models.Model):
+class Equipamento(models.Model):
     nome_equip = models.CharField(max_length=255)
     arquivado = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, null=True)
     
-    #
     def __str__(self):
         return str(self.id)
 
@@ -115,7 +109,7 @@ class RegEquipamento(models.Model):
 class MedicaoEquip(models.Model):
     obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
     reg_equipamento = models.ForeignKey(
-        RegEquipamento, on_delete=models.CASCADE, null=False)
+        Equipamento, on_delete=models.CASCADE, null=False)
     funcionario = models.ForeignKey(
         'administration.Funcionario', on_delete=models.CASCADE)
     medicao = models.FloatField()
@@ -156,6 +150,7 @@ class Reserva(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='reservas')
     reserva_inicio = models.DateField()
     reserva_fim = models.DateField()
+    arquivado = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return str(self.reserva_inicio) + " - " + str(self.reserva_fim)

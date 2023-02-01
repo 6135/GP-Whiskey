@@ -38,7 +38,7 @@ class FotoAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem fotos na obra'
+                'status': 404
             }
             return Response(content)
 
@@ -50,16 +50,18 @@ class FotoAPIView(APIView):
         binary_image = base64.b64decode(imgstr)
         print(binary_image)
 
-
-        f = Foto(id = request.data.get('id'), tipo = request.data['tipo'], report_bin = None)
+        f = Foto(id=request.data.get('id'),
+                 tipo=request.data['tipo'], report_bin=None)
         f.save()
-        f.report_bin.save(request.data['id'], ContentFile(binary_image), save=True)
+        f.report_bin.save(request.data['id'],
+                          ContentFile(binary_image), save=True)
 
         content = {
-            'status':'foto registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
+
 
 class DownloadFotoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -73,10 +75,14 @@ class DownloadFotoAPIView(APIView):
         print(f.id)
         file = f.foto_bin
 
-        response = HttpResponse(file.read(), content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename={}'.format(file.name)
+        response = HttpResponse(
+            file.read(), content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename={}'.format(
+            file.name)
 
         return response
+
+
 """
 
 class FotoAPIView(APIView):
@@ -111,15 +117,17 @@ class FotoAPIView(APIView):
         return Response(content)
 
 """
-class RegEquipamentoAPIView(APIView):
+
+
+class EquipamentoAPIView(APIView):
     permission_classes = (AllowAny, )
-    serializer_class = RegEquipamentoSerializer
+    serializer_class = EquipamentoSerializer
 
     def get(self, request):
 
-        if RegEquipamento.objects.exists():
+        if Equipamento.objects.exists():
             l = []
-            for equip in RegEquipamento.objects.all():
+            for equip in Equipamento.objects.all():
                 dic = {}
                 dic["id"] = equip.id
                 dic["nome_equip"] = f.nome_equip
@@ -127,34 +135,34 @@ class RegEquipamentoAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem equipamentos na obra'
+                'status': 404
             }
             return Response(content)
 
     def post(self, request):
-        equip = RegEquipamento(nome_equip=request.data.get('nome_equip'))
+        equip = Equipamento(nome_equip=request.data.get('nome_equip'))
         equip.save()
 
         content = {
-            'status': 'Equipamento registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
 
-
     def delete(self, request):
-        key =  request.GET['id_reg']
-        r = RegEquipamento.objects.get(id=key)
+        key = request.GET['id_reg']
+        r = Equipamento.objects.get(id=key)
 
         if r.arquivado == False:
             r.arquivado = True
             r.save(update_fields=['arquivado'])
-            
+
             content = {'status': 'Equipamento arquivado com sucesso'}
         else:
             content = {'status': 'Equipamento NAO arquivado'}
-        
+
         return Response(content)
+
 
 class HotelAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -173,20 +181,21 @@ class HotelAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem hoteis associados a obra'
+                'status': 404
             }
             return Response(content)
-    
+
     def post(self, request):
-        equip = Hotel(nome = request.data.get('nome'), email = request.data.get('email'), telefone = request.data.get('telefone'), morada = request.data.get('morada'))
+        equip = Hotel(nome=request.data.get('nome'), email=request.data.get(
+            'email'), telefone=request.data.get('telefone'), morada=request.data.get('morada'))
         equip.save()
 
         content = {
-            'status': 'Hotel registado na base de dados'
+            'status': 201
         }
 
-        return Response(content)        
-    
+        return Response(content)
+
     def delete(self, request):
         key = request.data.get('id_hotel')
         r = Hotel.objects.get(id=key)
@@ -194,13 +203,12 @@ class HotelAPIView(APIView):
         if r.arquivado == False:
             r.arquivado = True
             r.save(update_fields=['arquivado'])
-            
+
             content = {'status': 'Hotel arquivado com sucesso'}
         else:
             content = {'status': 'Hotel NAO arquivado'}
-    
+
         return Response(content)
-    
 
 
 class ReservaAPIView(APIView):
@@ -220,7 +228,7 @@ class ReservaAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem reservas hoteis associados a obra'
+                'status': 401
             }
             return Response(content)
 
@@ -233,15 +241,17 @@ class ReservaAPIView(APIView):
             "reserva_inicio"), request.data.get("reserva_fim"), hotel=hotel)
 
         hotel = Hotel.objects.get(id=hotel_id)
-        resHotel = Reserva(reserva_inicio = request.data.get("reserva_inicio"), reserva_fim = request.data.get("reserva_fim"), hotel=hotel)
+        resHotel = Reserva(reserva_inicio=request.data.get(
+            "reserva_inicio"), reserva_fim=request.data.get("reserva_fim"), hotel=hotel)
 
         resHotel.save()
 
         content = {
-            'status': 'reserva efetuada com sucesso'
+            'status': 201
         }
 
         return Response(content)
+
 
 class ObraAPIView(APIView):
     permission_classes = (IsAuthenticated, )
@@ -256,13 +266,13 @@ class ObraAPIView(APIView):
 
         c = Cliente.objects.get(id=request.data.get('cliente'))
 
-        o = Obra(cliente=c, nome=request.data.get('nome'),
-                 data_inicio=request.data.get('data_inicio'), data_conclusao=request.data.get('data_conclusao'),
-                 encerrada=strtobool(bool_e))
+        o = Obra(cliente=c, nr_obra=request.data.get('nr_obra'), nome=request.data.get('nome'),
+                 data_inicio=request.data.get('data_init'), data_conclusao=request.data.get('data_fim'),
+                 encerrada=strtobool(bool_e), transportadora=request.data.get('transportadora'))
         o.save()
 
         content = {
-            'status': 'obra criada com sucesso'
+            'status': 201
         }
 
         return Response(content)
@@ -296,18 +306,18 @@ class ObraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem obras'
+                'status': 404
             }
         return Response(content)
 
     def delete(self, request):
-        key =  request.GET['id_obra']
+        key = request.GET['id_obra']
         record = Obra.objects.get(id=key)
 
         if record.arquivado == False:
             record.arquivado = True
             record.save(update_fields=['arquivado'])
-            
+
             content = {'status': 'Obra arquivada com sucesso'}
         else:
             content = {'status': 'Obra não arquivada'}
@@ -375,7 +385,6 @@ class DetailsObraAPIView(APIView):
             print(e)
             dic["fornecedores"] = []
 
-
         # HOTEIS
         try:
             hoteis = o.hoteis
@@ -386,6 +395,15 @@ class DetailsObraAPIView(APIView):
         except Exception as e:
             print(e)
             dic["hoteis"] = []
+
+        # Equipamentos
+        try:
+            dic["equipamentos"] = [EquipamentoSerializer(e).data | {"medicoes": MedicacaoEquipSerializer(
+                instance=MedicaoEquip.objects.filter(reg_equipamento=e, obra=o), many=True).data}
+                for e in o.equipamentos]
+        except Exception as e:
+            print(e)
+            dic["equipamentos"] = []
 
         return Response(dic)
 
@@ -410,7 +428,7 @@ class CarroAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem carros'
+                'status': 404
             }
             return Response(content)
 
@@ -421,19 +439,19 @@ class CarroAPIView(APIView):
         c.save()
 
         content = {
-            'status': 'carro registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
 
     def delete(self, request):
-        key =  request.GET['id_carro']
+        key = request.GET['id_carro']
         record = Carro.objects.get(id=key)
 
         if record.arquivado == False:
             record.arquivado = True
             record.save(update_fields=['arquivado'])
-            
+
             content = {'status': 'carro arquivado com sucesso'}
         else:
             content = {'status': 'carro NAO arquivado'}
@@ -457,7 +475,7 @@ class GastosExtraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem GastosExtra associados a obra'
+                'status': 404
             }
             return Response(content)
 
@@ -468,10 +486,12 @@ class GastosExtraAPIView(APIView):
         g.save()
 
         content = {
-            'status': 'GastosExtra registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
+
+
 """
     def delete(self, request):
         key =  request.GET['id_gastos']
@@ -487,6 +507,7 @@ class GastosExtraAPIView(APIView):
 
         return Response(content)
 """
+
 
 class RestauranteAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -505,7 +526,7 @@ class RestauranteAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem Restaurantes'
+                'status': 404
             }
             return Response(content)
 
@@ -516,20 +537,20 @@ class RestauranteAPIView(APIView):
         r.save()
 
         content = {
-            'status': 'Restaurante registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
 
     def delete(self, request):
-        key =  request.GET['id_restaurante']
+        key = request.GET['id_restaurante']
 
         record = Restaurante.objects.get(id=key)
 
         if record.arquivado == False:
             record.arquivado = True
             record.save(update_fields=['arquivado'])
-            
+
             content = {'status': 'Restaurante arquivado com sucesso'}
         else:
             content = {'status': 'Restaurante NAO arquivado'}
@@ -554,7 +575,7 @@ class FornecedorAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem Fornecedores'
+                'status': 404
             }
             return Response(content)
 
@@ -571,27 +592,26 @@ class FornecedorAPIView(APIView):
             f.save()
 
         content = {
-            'status': 'Fornecedor registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
 
-    
     def delete(self, request):
-        key =  request.GET['id_fornecedor']
+        key = request.GET['id_fornecedor']
         r = Fornecedor.objects.get(id=key)
 
         if r.arquivado == False:
             r.arquivado = True
             r.save(update_fields=['arquivado'])
-            
-            content = {'status': 'Fornecedor arquivado com sucesso'}
+
+            content = {'status': 201}
         else:
-            content = {'status': 'Fornecedor NAO arquivado'}
+            content = {'status': 401}
         return Response(content)
 
 
-#Associações
+# Associações
 
 class AssociarFornecedorAObraAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -601,27 +621,26 @@ class AssociarFornecedorAObraAPIView(APIView):
         obra_id = request.data.get('obra_id')
         fornecedor_id = request.data.get('fornecedor_id')
 
-        o = Obra.objects.get(id = obra_id)
-        f = Fornecedor.objects.get(id = fornecedor_id)
+        o = Obra.objects.get(id=obra_id)
+        f = Fornecedor.objects.get(id=fornecedor_id)
 
         f.obra.add(o)
-        #o.fornecedores_all.add(f)
+        # o.fornecedores_all.add(f)
 
-        content = {'status': 'Fornecedor associado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
         obra_id = request.data.get('obra_id')
         fornecedor_id = request.data.get('fornecedor_id')
 
-        o = Obra.objects.get(id = obra_id)
-        f = Fornecedor.objects.get(id = fornecedor_id)
+        o = Obra.objects.get(id=obra_id)
+        f = Fornecedor.objects.get(id=fornecedor_id)
 
         f.obra.remove(o)
 
-        content = {'status': 'Fornecedor desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
-
 
 
 class AssociarViaturaAObraAPIView(APIView):
@@ -631,24 +650,24 @@ class AssociarViaturaAObraAPIView(APIView):
         obra_id = request.data.get('obra_id')
         carro_id = request.data.get('carro_id')
 
-        o = Obra.objects.get(id = obra_id)
-        c = Carro.objects.get(id = carro_id)
+        o = Obra.objects.get(id=obra_id)
+        c = Carro.objects.get(id=carro_id)
 
         c.obra.add(o)
 
-        content = {'status': 'Viatura associada com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
         obra_id = request.data.get('obra_id')
         carro_id = request.data.get('carro_id')
 
-        o = Obra.objects.get(id = obra_id)
-        c = Carro.objects.get(id = carro_id)
+        o = Obra.objects.get(id=obra_id)
+        c = Carro.objects.get(id=carro_id)
 
         c.obra.remove(o)
 
-        content = {'status': 'Viatura desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 
@@ -659,25 +678,26 @@ class AssociarRestauranteAObraAPIView(APIView):
         obra_id = request.data.get('obra_id')
         restaurante_id = request.data.get('restaurante_id')
 
-        o = Obra.objects.get(id = obra_id)
-        r = Restaurante.objects.get(id = restaurante_id)
+        o = Obra.objects.get(id=obra_id)
+        r = Restaurante.objects.get(id=restaurante_id)
 
         r.obra.add(o)
 
-        content = {'status': 'Restaurante associado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
         obra_id = request.data.get('obra_id')
         restaurante_id = request.data.get('restaurante_id')
 
-        o = Obra.objects.get(id = obra_id)
-        r = Restaurante.objects.get(id = restaurante_id)
+        o = Obra.objects.get(id=obra_id)
+        r = Restaurante.objects.get(id=restaurante_id)
 
         r.obra.remove(o)
 
-        content = {'status': 'Restaurante desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
+
 
 class AssociarMedicaoEquipamentoAPIView(APIView):
     permission_classes = (AllowAny, )
@@ -689,14 +709,15 @@ class AssociarMedicaoEquipamentoAPIView(APIView):
         medicao_valor = request.data.get('medicao')
         unidade_medida_valor = request.data.get('unidade_medida')
 
-        o = Obra.objects.get(id = obra_id)
-        r = RegEquipamento.objects.get(id = reg_equipamento_id)
-        f = Funcionario.objects.get(id = funcionario_id)
-        m = MedicaoEquip(obra = o, reg_equipamento = r, funcionario = f, medicao = medicao_valor, unidade_medida_valor = unidade_medida_valor)
+        o = Obra.objects.get(id=obra_id)
+        r = Equipamento.objects.get(id=reg_equipamento_id)
+        f = Funcionario.objects.get(id=funcionario_id)
+        m = MedicaoEquip(obra=o, reg_equipamento=r, funcionario=f,
+                         medicao=medicao_valor, unidade_medida_valor=unidade_medida_valor)
 
         m.save()
 
-        content = {'status': 'Medição guardada com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 
@@ -708,12 +729,13 @@ class AssociarReservaAPIView(APIView):
         hotel_id = request.data.get('hotel_id')
         reserva_inicio_valor = request.data.get('reserva_inicio')
         reserva_fim_valor = request.data.get('reserva_fim')
-        
-        o = Obra.objects.get(id = obra_id)
-        h = Hotel.objects.get(id = hotel_id)
-        r = Reserva(obra = o, hotel = h, reserva_inicio = reserva_inicio_valor, reserva_fim = reserva_fim_valor)
+
+        o = Obra.objects.get(id=obra_id)
+        h = Hotel.objects.get(id=hotel_id)
+        r = Reserva(obra=o, hotel=h, reserva_inicio=reserva_inicio_valor,
+                    reserva_fim=reserva_fim_valor)
 
         r.save()
 
-        content = {'status': 'Reserva de Hotel guardada com sucesso'}
+        content = {'status': 201}
         return Response(content)

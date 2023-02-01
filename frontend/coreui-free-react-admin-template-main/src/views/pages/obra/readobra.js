@@ -53,7 +53,7 @@ function Readobra() {
              if (!authenticated)
                navigate("/Login");
                 console.log(authenticated)
-             if(response.status != "nao existem obras")
+             if(response.status !== 404)
                 setObra(response);
 
         }
@@ -74,9 +74,9 @@ function Readobra() {
         <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
             <CContainer>
                 <CRow className="justify-content-center">
-                    <CCol md={9}>
+                    <CCol md={10}>
                         <CCardGroup>
-                            <CCard className="p-4">
+                            <CCard className="">
                                 <CCardBody>
                                     <CRow className='pb-4'>
                                         <CCol>

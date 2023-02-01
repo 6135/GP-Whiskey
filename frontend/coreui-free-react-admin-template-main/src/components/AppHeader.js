@@ -79,7 +79,7 @@ const AppHeader = () => {
         {isadmin && 
         <CHeaderNav className="d-none d-md-flex ms-auto">
              <CNavItem>
-            <CNavLink to="/" component={NavLink}>
+            <CNavLink to="/readobra" component={NavLink}>
             Obras
             </CNavLink>
           </CNavItem>

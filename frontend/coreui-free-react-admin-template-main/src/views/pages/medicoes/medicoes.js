@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../services/serviceapi';
-import { useNavigate } from "react-router-dom";
-import { NavLink } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import {
   CCardTitle,
   CCard,
@@ -11,16 +7,10 @@ import {
   CCol,
   CContainer,
   CForm,
-  CCardSubtitle,
-  CCardText,
   CCardHeader,
-  CNavLink,
-  CNavItem,
   CRow,
-  CFormInput,
   CButton,
   CHeaderNav,
-  CFormCheck,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -40,9 +30,9 @@ function ReadMedicoes  ()  {
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={9}>
+          <CCol md={10}>
             <CCardGroup>
-              <CCard className="p-4">
+              <CCard className="">
                 <CCardBody>
                   <CForm>
                     <CRow >

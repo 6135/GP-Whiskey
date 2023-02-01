@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../services/serviceapi';
-import { useNavigate } from "react-router-dom";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import {
-	CCardTitle,
 	CCard,
 	CCardBody,
-	CCardGroup,
 	CCol,
-	CContainer,
-	CForm,
 	CNavLink,
 	CRow,
 	CFormInput,
@@ -18,8 +12,9 @@ import {
 
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser, cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons'
+import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons'
 import DataTable from 'react-data-table-component';
+import CTableCell from '../../../components/CTableCell';
 
 
 const columns = [
@@ -28,36 +23,42 @@ const columns = [
 		selector: row => row.matricula,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.matricula} />
 	},
 	{
 		name: 'Marca',
 		selector: row => row.marca,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.marca} />
 	},
 	{
 		name: 'Ano',
 		selector: row => row.ano,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.ano} />
 	},
 	{
 		name: 'Seguradora',
 		selector: row => row.seguradora,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.seguradora} />
 	},
 	{
 		name: 'Data Inicio',
 		selector: row => row.data_inicio,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.data_inicio} />
 	},
 	{
 		name: 'Data fim',
 		selector: row => row.data_fim,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.data_fim} />
 	}, {
 		name: 'Ações',
 		cell: row => (
@@ -115,14 +116,13 @@ const temp = [{
 	data_inicio: "01-01-2021",
 	data_fim: "02-02-2022",
 },];
-function ReadViaturas({detaildata}) {
+function ReadViaturas({ detaildata }) {
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
 
 
 	function handleSearchViatura(event) {
-		console.log(event.target.value);
 		setFilteredViaturas(
 			viaturas.filter(viatura => {
 				return (viatura.matricula && viatura.matricula.toLowerCase().includes(event.target.value.toLowerCase())) ||
@@ -139,11 +139,10 @@ function ReadViaturas({detaildata}) {
 
 
 		const timeout = setTimeout(() => {
-			console.log(detaildata.carros);
 			setViaturas(detaildata.carros);
 			setFilteredViaturas(detaildata.carros);
 			setPendingViaturas(false);
-		}, 1000);
+		}, 2000);
 		return () => clearTimeout(timeout);
 
 	}, [detaildata])
@@ -151,26 +150,26 @@ function ReadViaturas({detaildata}) {
 
 	return (
 
-		<CCard className="p-4">
+		<CCard className="">
 			<CCardBody>
-				
+
 
 				<CRow className='pb-4'>
-										<CCol>
-											<h1>Viaturas</h1>
-										</CCol>
-										<CCol className='justify-content-end'>
-											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
-												<CButton type="submit" color="dark" variant="outline">
-													<CIcon icon={cilSearch} size="xl" />
-												</CButton>&nbsp;
-												<CNavLink type="button" to="/addviaturas" component={NavLink} className="btn btn-outline-dark ">
-													<CIcon icon={cilPlus} size="3xl" />
-												</CNavLink>
-											</CInputGroup>
-										</CCol>
-									</CRow>
+					<CCol>
+						<h1>Viaturas</h1>
+					</CCol>
+					<CCol className='justify-content-end'>
+						<CInputGroup>
+							<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
+							<CButton type="submit" color="dark" variant="outline">
+								<CIcon icon={cilSearch} size="xl" />
+							</CButton>&nbsp;
+							<CNavLink type="button" to="/addviaturas" component={NavLink} className="btn btn-outline-dark ">
+								<CIcon icon={cilPlus} size="3xl" />
+							</CNavLink>
+						</CInputGroup>
+					</CCol>
+				</CRow>
 
 				<DataTable
 					striped
@@ -178,7 +177,7 @@ function ReadViaturas({detaildata}) {
 					columns={columns}
 					data={filteredViaturas}
 					progressPending={pendingViaturas}
-					highlightOnHover
+					highlightOnHover responsive
 					paginationPerPage={5}
 					paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
 				/>
