@@ -52,6 +52,7 @@ function Readobra() {
               //login mal
              if (!authenticated)
                navigate("/Login");
+                console.log(authenticated)
              if(response.status != "nao existem obras")
                 setObra(response);
 

@@ -128,7 +128,7 @@ const temp = [{
 },];
 
 
-function ReadFuncionarios() {
+function ReadFuncionarios({detaildata}) {
 
 
 	
@@ -154,13 +154,13 @@ function ReadFuncionarios() {
 
 
 		const timeout = setTimeout(() => {
-			setFuncionarios(temp);
-			setFilteredFuncionarios(temp);
+			setFuncionarios(detaildata.funcionarios);
+			setFilteredFuncionarios(detaildata.funcionarios);
 			setPendingFuncionarios(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
 
 	return (

@@ -33,10 +33,53 @@ import ReadGastosObra from '../gastosextra/gastosextra';
 import ReadRestaurantes from '../Restaurantes/readrestaurantes';
 import ReadFornecedores from '../fornecedores/fornecedores';
 
+const temp = [{
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+}, {
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+}, {
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+}, {
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+}, {
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+}, {
+	nome: "Ana",
+	email: "ana@gmail",
+	cargo: "Engenheiro de Obra",
+	seguro_saude: "Fidelidade",
+	data_inicio: "01-01-2023",
+	data_conclusao: "01-01-2024",
+},];
 
 function ReadDetalhes() {
  //Neste ecra, entramos no scope de apenas UMA obra
- const [obra, setObra] = useState([]);
+ const [obra, setObra] = useState(temp);
  const location = useLocation();
  const navigate = useNavigate();
 
@@ -50,7 +93,6 @@ function ReadDetalhes() {
         setObra(response);
       }
       func();
-      console.log(obra)
 }, []);
 
 	return (
@@ -58,12 +100,13 @@ function ReadDetalhes() {
 			<CContainer>
 				<CRow className="justify-content-center">
 					<CCol md={9}>
-						<CCardGroup>
-                            <ReadFuncionarios/>
+						<CCardGroup >
+                            <ReadFuncionarios detaildata= {{funcionarios: obra.funcionarios}}/>
+							
                             {/* detaildata={{funcionarios: obra.funcionarios}} */}
                         </CCardGroup>
-                        <CCardGroup className='mt-3' detaildata= {{viaturas: obra.carros}}>
-                            <ReadViaturas/>
+                        <CCardGroup className='mt-3' >
+                            <ReadViaturas detaildata= {{carros: obra.carros}}/>
                         </CCardGroup>
                         <CCardGroup className='mt-3'>
                             <ReadGastosObra/>
