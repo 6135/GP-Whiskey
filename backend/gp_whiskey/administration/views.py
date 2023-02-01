@@ -47,7 +47,7 @@ class ClienteAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem clientes registados'
+                'status': 404
             }
 
             return Response(content)
@@ -66,7 +66,7 @@ class ClienteAPIView(APIView):
         c.save()
 
         content = {
-            'status': 'cliente registado com sucesso'
+            'status': 201
         }
 
         return Response(content)
@@ -82,10 +82,10 @@ class ClienteAPIView(APIView):
             record.save(update_fields=['arquivado'])
 
             content = {
-                'status': 'cliente arquivado com sucesso'
+                'status': 201
             }
         else:
-            content = {'status': 'cliente NAO arquivado'}
+            content = {'status': 401}
 
         return Response(content)
 
@@ -108,7 +108,7 @@ class FuncionarioAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem funcionarios'
+                'status': 404
             }
             return Response(content)
 
@@ -118,7 +118,7 @@ class FuncionarioAPIView(APIView):
         f.save()
 
         content = {
-            'status':'funcionario registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -133,10 +133,10 @@ class FuncionarioAPIView(APIView):
             record.save(update_fields=['arquivado'])
 
             content = {
-                'status': 'funcionario arquivado com sucesso'
+                'status': 200
             }
         else:
-            content = {'status': 'funcionario NAO arquivado'}
+            content = {'status': 401}
 
         return Response(content)
 

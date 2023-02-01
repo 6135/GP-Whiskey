@@ -38,7 +38,7 @@ class FotoAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status':'nao existem fotos na obra'
+                'status': 404
             }
             return Response(content)
 
@@ -56,7 +56,7 @@ class FotoAPIView(APIView):
         f.report_bin.save(request.data['id'], ContentFile(binary_image), save=True)
 
         content = {
-            'status':'foto registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -127,7 +127,7 @@ class RegEquipamentoAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem equipamentos na obra'
+                'status': 404
             }
             return Response(content)
 
@@ -136,7 +136,7 @@ class RegEquipamentoAPIView(APIView):
         equip.save()
 
         content = {
-            'status': 'Equipamento registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -173,7 +173,7 @@ class HotelAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem hoteis associados a obra'
+                'status': 404
             }
             return Response(content)
     
@@ -182,7 +182,7 @@ class HotelAPIView(APIView):
         equip.save()
 
         content = {
-            'status': 'Hotel registado na base de dados'
+            'status': 201
         }
 
         return Response(content)        
@@ -220,7 +220,7 @@ class ReservaAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem reservas hoteis associados a obra'
+                'status': 401
             }
             return Response(content)
 
@@ -238,7 +238,7 @@ class ReservaAPIView(APIView):
         resHotel.save()
 
         content = {
-            'status': 'reserva efetuada com sucesso'
+            'status': 201
         }
 
         return Response(content)
@@ -249,20 +249,21 @@ class ObraAPIView(APIView):
 
     def post(self, request):
 
+        
         bool_e = request.data.get('encerrada')
 
         if bool_e == None:
             bool_e = "False"
-
+        
         c = Cliente.objects.get(id=request.data.get('cliente'))
-
-        o = Obra(cliente=c, nome=request.data.get('nome'),
-                 data_inicio=request.data.get('data_inicio'), data_conclusao=request.data.get('data_conclusao'),
-                 encerrada=strtobool(bool_e))
+        
+        o = Obra(cliente=c, nr_obra=request.data.get('nr_obra'), nome=request.data.get('nome'),
+                 data_inicio=request.data.get('data_init'), data_conclusao=request.data.get('data_fim'),
+                 encerrada=strtobool(bool_e), transportadora=request.data.get('transportadora'))
         o.save()
 
         content = {
-            'status': 'obra criada com sucesso'
+            'status': 201
         }
 
         return Response(content)
@@ -296,7 +297,7 @@ class ObraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem obras'
+                'status': 404
             }
         return Response(content)
 
@@ -410,7 +411,7 @@ class CarroAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem carros'
+                'status': 404
             }
             return Response(content)
 
@@ -421,7 +422,7 @@ class CarroAPIView(APIView):
         c.save()
 
         content = {
-            'status': 'carro registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -457,7 +458,7 @@ class GastosExtraAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem GastosExtra associados a obra'
+                'status': 404
             }
             return Response(content)
 
@@ -468,7 +469,7 @@ class GastosExtraAPIView(APIView):
         g.save()
 
         content = {
-            'status': 'GastosExtra registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -505,7 +506,7 @@ class RestauranteAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem Restaurantes'
+                'status': 404
             }
             return Response(content)
 
@@ -516,7 +517,7 @@ class RestauranteAPIView(APIView):
         r.save()
 
         content = {
-            'status': 'Restaurante registada na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -554,7 +555,7 @@ class FornecedorAPIView(APIView):
             return Response(l)
         else:
             content = {
-                'status': 'nao existem Fornecedores'
+                'status': 404
             }
             return Response(content)
 
@@ -571,7 +572,7 @@ class FornecedorAPIView(APIView):
             f.save()
 
         content = {
-            'status': 'Fornecedor registado na base de dados'
+            'status': 201
         }
 
         return Response(content)
@@ -585,9 +586,9 @@ class FornecedorAPIView(APIView):
             r.arquivado = True
             r.save(update_fields=['arquivado'])
             
-            content = {'status': 'Fornecedor arquivado com sucesso'}
+            content = {'status': 201}
         else:
-            content = {'status': 'Fornecedor NAO arquivado'}
+            content = {'status': 401}
         return Response(content)
 
 
@@ -607,7 +608,7 @@ class AssociarFornecedorAObraAPIView(APIView):
         f.obra.add(o)
         #o.fornecedores_all.add(f)
 
-        content = {'status': 'Fornecedor associado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
@@ -619,7 +620,7 @@ class AssociarFornecedorAObraAPIView(APIView):
 
         f.obra.remove(o)
 
-        content = {'status': 'Fornecedor desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 
@@ -636,7 +637,7 @@ class AssociarViaturaAObraAPIView(APIView):
 
         c.obra.add(o)
 
-        content = {'status': 'Viatura associada com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
@@ -648,7 +649,7 @@ class AssociarViaturaAObraAPIView(APIView):
 
         c.obra.remove(o)
 
-        content = {'status': 'Viatura desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 
@@ -664,7 +665,7 @@ class AssociarRestauranteAObraAPIView(APIView):
 
         r.obra.add(o)
 
-        content = {'status': 'Restaurante associado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
     def delete(self, request):
@@ -676,7 +677,7 @@ class AssociarRestauranteAObraAPIView(APIView):
 
         r.obra.remove(o)
 
-        content = {'status': 'Restaurante desassociado com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 class AssociarMedicaoEquipamentoAPIView(APIView):
@@ -696,7 +697,7 @@ class AssociarMedicaoEquipamentoAPIView(APIView):
 
         m.save()
 
-        content = {'status': 'Medição guardada com sucesso'}
+        content = {'status': 201}
         return Response(content)
 
 
@@ -715,5 +716,5 @@ class AssociarReservaAPIView(APIView):
 
         r.save()
 
-        content = {'status': 'Reserva de Hotel guardada com sucesso'}
+        content = {'status': 201}
         return Response(content)

@@ -40,7 +40,7 @@ class CarroSerializer(serializers.ModelSerializer):
 class GastosExtraSerializer(serializers.ModelSerializer):
     class Meta:
         model = GastosExtra
-        fields = ('descricao', 'data', 'preco', 'arquivado')
+        fields = ('descricao', 'data', 'preco')
 
 class RestauranteSerializer(serializers.ModelSerializer):
     class Meta:
