@@ -128,7 +128,7 @@ const temp = [{
 },];
 
 
-function ReadFuncionarios() {
+function ReadFuncionarios({detaildata}) {
 
 
 	
@@ -154,13 +154,13 @@ function ReadFuncionarios() {
 
 
 		const timeout = setTimeout(() => {
-			setFuncionarios(temp);
-			setFilteredFuncionarios(temp);
+			setFuncionarios(detaildata.funcionarios);
+			setFilteredFuncionarios(detaildata.funcionarios);
 			setPendingFuncionarios(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
 
 	return (
@@ -173,7 +173,7 @@ function ReadFuncionarios() {
 										</CCol>
 										<CCol className='justify-content-end'>
 											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" />
+												<CFormInput type="search" placeholder="Search" onChange={handleSearchFuncionarios}/>
 												<CButton type="submit" color="dark" variant="outline">
 													<CIcon icon={cilSearch} size="xl" />
 												</CButton>&nbsp;

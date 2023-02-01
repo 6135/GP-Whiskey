@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../hooks/serviceapi';
+import { getAPI } from '../../../services/serviceapi';
 import { useNavigate } from "react-router-dom";
 import { NavLink, Link } from 'react-router-dom';
 import {
@@ -14,7 +14,7 @@ import {
 	CRow,
 	CFormInput,
 	CButton,
-	CHeaderNav,
+	CInputGroup,
 
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -38,6 +38,12 @@ const columns = [
 	{
 		name: 'Ano',
 		selector: row => row.ano,
+		sortable: true,
+		reorder: true,
+	},
+	{
+		name: 'Seguradora',
+		selector: row => row.seguradora,
 		sortable: true,
 		reorder: true,
 	},
@@ -109,7 +115,7 @@ const temp = [{
 	data_inicio: "01-01-2021",
 	data_fim: "02-02-2022",
 },];
-function ReadViaturas(detaildata) {
+function ReadViaturas({detaildata}) {
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
@@ -133,36 +139,38 @@ function ReadViaturas(detaildata) {
 
 
 		const timeout = setTimeout(() => {
-			setViaturas(detaildata.viaturas);
-			setFilteredViaturas(detaildata.viaturas);
+			console.log(detaildata.carros);
+			setViaturas(detaildata.carros);
+			setFilteredViaturas(detaildata.carros);
 			setPendingViaturas(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
 
 	return (
 
 		<CCard className="p-4">
 			<CCardBody>
-				<CRow >
-					<CHeaderNav >
-						<h1>Viaturas</h1>
-						<CForm className="d-flex" style={{ maxHeight: '75%', marginLeft: '10Rem' }}>
-							<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
-							<CButton type="submit" color="dark" variant="outline">
-								<CIcon icon={cilSearch} size="xl" />
-							</CButton>
-						</CForm>
+				
 
-						<CNavLink to="/addviaturas" component={NavLink} style={{ marginLeft: '1Rem' }}>
-							<CCard className={`mb-3 border-${"dark"}`}>
-								<CIcon icon={cilPlus} size="3xl" />
-							</CCard>
-						</CNavLink>
-					</CHeaderNav>
-				</CRow>
+				<CRow className='pb-4'>
+										<CCol>
+											<h1>Viaturas</h1>
+										</CCol>
+										<CCol className='justify-content-end'>
+											<CInputGroup>
+												<CFormInput type="search" placeholder="Search" onChange={handleSearchViatura} />
+												<CButton type="submit" color="dark" variant="outline">
+													<CIcon icon={cilSearch} size="xl" />
+												</CButton>&nbsp;
+												<CNavLink type="button" to="/addviaturas" component={NavLink} className="btn btn-outline-dark ">
+													<CIcon icon={cilPlus} size="3xl" />
+												</CNavLink>
+											</CInputGroup>
+										</CCol>
+									</CRow>
 
 				<DataTable
 					striped

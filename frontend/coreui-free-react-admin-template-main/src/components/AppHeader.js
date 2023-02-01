@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -10,6 +10,7 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CImage,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
@@ -19,12 +20,40 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 
+import LogoInter from 'src/assets/images/logo_inter.png'
+import { getCurrentRole } from 'src/services/AuthService'
+
 const AppHeader = () => {
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const [isadmin, setAdmin] = useState(null);
+  const [isEngineer, setEngineer] = useState(null);
+  const [isEmployer, setEmployer] = useState(null);
+
+  useEffect(() =>
+  {
+    let role = getCurrentRole();
+    if(role === 1)
+    {
+      setAdmin("isadmin");
+      setEmployer(null);
+      setEngineer(null);
+    }
+    else if(role===2){
+      setAdmin(null);
+      setEmployer(null);
+      setEngineer("isengineer");
+    }
+    else if(role===3){
+      setAdmin(null);
+      setEmployer("isemployer");
+      setEngineer(null);
+    }
+  }, []);
+ 
+  // const dispatch = useDispatch()
+  // const sidebarShow = useSelector((state) => state.sidebarShow)
 
   return (
-    <CHeader position="sticky" className="mb-4">
+    <CHeader position="sticky" className="navbar-color mb-4">
       <CContainer fluid>
         {/* <CHeaderToggler
           className="ps-1"
@@ -35,26 +64,84 @@ const AppHeader = () => {
         <CHeaderBrand className="mx-auto d-md-none" to="/">
           <CIcon icon={logo} height={48} alt="Logo" />
         </CHeaderBrand>
-        <CHeaderNav className="d-none d-md-flex me-auto">
+        <CHeaderNav className="ml-3 d-none d-md-flex me-auto">
           <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
-              Dashboard
-            </CNavLink>
+          <CNavLink to="/" component={NavLink}>
+          <CImage
+                style={{maxWidth: "125px"}}
+                src={LogoInter}
+                alt="Logo_Interagua"
+                draggable="false"
+              />
+               </CNavLink>
           </CNavItem>
-          <CNavItem>
-            <CNavLink to="/funcionarios" component={NavLink}>
-              Funcionarios
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink to="/readobra" component={NavLink}>
+        </CHeaderNav>
+        {isadmin && 
+        <CHeaderNav className="d-none d-md-flex ms-auto">
+             <CNavItem>
+            <CNavLink to="/" component={NavLink}>
             Obras
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
+            <CNavLink to="/readmedicoes" component={NavLink}>
+            Medições
+            </CNavLink>
           </CNavItem>
-
+          <CNavItem>
+            <CNavLink to="/gastosextra" component={NavLink}>
+            Gastos Extra
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/funcionarios" component={NavLink}>
+              Funcionários
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/readhotel" component={NavLink}>
+            Hoteis
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/readrestaurante" component={NavLink}>
+            Restaurantes
+            </CNavLink>
+          </CNavItem>
+   
+          <CNavItem>
+            <CNavLink to="/readviaturas" component={NavLink}>
+            Viaturas
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/readfornecedores" component={NavLink}>
+            Fornecedores
+            </CNavLink>
+          </CNavItem>
+          </CHeaderNav>
+        }
+            {isEngineer && 
+        <CHeaderNav className="d-none d-md-flex ms-auto">
+          <CNavItem>
+            <CNavLink to="/" component={NavLink}>
+            Obras
+            </CNavLink>
+          </CNavItem>
+          </CHeaderNav>
+          
+        }
+            {isEmployer && 
+        <CHeaderNav className="d-none d-md-flex ms-auto">
+          <CNavItem>
+            <CNavLink to="/" component={NavLink}>
+            Obras
+            </CNavLink>
+          </CNavItem>
+          </CHeaderNav>
+          
+        }
+{/* 
           <CCollapse className="navbar-collapse" visible={true}>
       <CNavbarNav>
         <CDropdown dark component="li" variant="nav-item">
@@ -66,17 +153,17 @@ const AppHeader = () => {
           </CDropdownMenu>
         </CDropdown>
       </CNavbarNav>
-    </CCollapse>
+    </CCollapse> */}
 
-        </CHeaderNav>
+    
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
-      <CContainer fluid>
+      {/* <CHeaderDivider /> 
+       <CContainer fluid>
         <AppBreadcrumb />
-      </CContainer>
+      </CContainer> */}
     </CHeader>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAPI } from '../../../hooks/serviceapi';
+import { getAPI } from '../../../services/serviceapi';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -111,7 +111,7 @@ const temp = [{
 },];
 
 
-function ReadFornecedores  ()  {
+function ReadFornecedores  ({detaildata})  {
    
   const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
@@ -133,13 +133,13 @@ function ReadFornecedores  ()  {
 
 
 		const timeout = setTimeout(() => {
-			setData(temp);
-			setFilteredData(temp);
+			setData(detaildata.fornecedores);
+			setFilteredData(detaildata.fornecedores);
 			setPendingData(false);
 		}, 1000);
 		return () => clearTimeout(timeout);
 
-	}, [])
+	}, [detaildata])
 
   return (
 

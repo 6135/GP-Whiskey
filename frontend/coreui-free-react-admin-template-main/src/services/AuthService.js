@@ -22,7 +22,7 @@ export const getCurrentUser = () => {
 export const getCurrentRole = () => {
   const role = read_cookie(ROLE_KEY);
   if (role) {
-    return role;
+    return parseInt(role);
   }
   return null;
 };
@@ -30,7 +30,6 @@ export const getCurrentRole = () => {
 export const saveToken = (token) => {
   bake_cookie(TOKEN_KEY, token);
 }
-
 export const getToken = () => {
   return read_cookie(TOKEN_KEY);
 }
@@ -45,7 +44,7 @@ export const saveRole = (role) => {
 
 export const isLoggedIn = () => {
   const authToken = read_cookie(TOKEN_KEY);
-  return (!Array.isArray(authToken)) ? true : false;
+  return (authToken !== null) ? true : false;
 }
 
 export const login_api = async (email, password) => {

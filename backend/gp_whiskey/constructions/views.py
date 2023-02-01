@@ -143,7 +143,7 @@ class RegEquipamentoAPIView(APIView):
 
 
     def delete(self, request):
-        key = request.data.get('id')
+        key =  request.GET['id_reg']
         r = RegEquipamento.objects.get(id=key)
 
         if r.arquivado == False:
@@ -188,7 +188,7 @@ class HotelAPIView(APIView):
         return Response(content)        
     
     def delete(self, request):
-        key = request.data.get('id')
+        key = request.data.get('id_hotel')
         r = Hotel.objects.get(id=key)
 
         if r.arquivado == False:
@@ -226,10 +226,10 @@ class ReservaAPIView(APIView):
 
     def post(self, request):
 
-        hotel_id = request.data.get("hotel_id")
+        hotel_id = request.data.get("id_hotel")
 
         hotel = Hotel.objects.filter(id=hotel_id)
-        resHotel = Reserva(request.data.get("id"), request.data.get(
+        resHotel = Reserva(request.data.get("id_hotel"), request.data.get(
             "reserva_inicio"), request.data.get("reserva_fim"), hotel=hotel)
 
         hotel = Hotel.objects.get(id=hotel_id)
@@ -244,7 +244,7 @@ class ReservaAPIView(APIView):
         return Response(content)
 
 class ObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = ObraSerializer
 
     def post(self, request):
@@ -301,17 +301,16 @@ class ObraAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        # key = request.data.get('id')
-        key = 1
+        key =  request.GET['id_obra']
         record = Obra.objects.get(id=key)
 
-        if record.encerrada == False:
-            record.encerrada = True
-            record.save(update_fields=['encerrada'])
+        if record.arquivado == False:
+            record.arquivado = True
+            record.save(update_fields=['arquivado'])
             
-            content = {'status': 'Obra encerrada com sucesso'}
+            content = {'status': 'Obra arquivada com sucesso'}
         else:
-            content = {'status': 'Obra NAO encerrada'}
+            content = {'status': 'Obra não arquivada'}
 
         return Response(content)
 
@@ -323,11 +322,9 @@ class DetailsObraAPIView(APIView):
     def post(self, request):
 
         print("TESTE: " + str(request.data['obraid']))
-        o = Obra.objects.prefetch_related(
-            'funcionario_set').get(id=request.data['obraid'])
+        o = Obra.objects.get(id=request.data['obraid'])
 
         dic = {}
-
         # OBRA_DETALHES
         dic["obra_nome"] = o.nome
         dic["obra_data_inicio"] = o.data_inicio
@@ -344,6 +341,7 @@ class DetailsObraAPIView(APIView):
         # FUNCIONARIOS
         # dicionario de dicionario
         try:
+            print(o.funcionario_set.all())
             dic["funcionarios"] = [FuncionarioSerializer(
                 f).data for f in o.funcionario_set.all()]
         except Exception as e:
@@ -376,6 +374,7 @@ class DetailsObraAPIView(APIView):
         except Exception as e:
             print(e)
             dic["fornecedores"] = []
+
 
         # HOTEIS
         try:
@@ -416,6 +415,7 @@ class CarroAPIView(APIView):
             return Response(content)
 
     def post(self, request):
+        print(request.data)
         c = Carro(matricula=request.data.get('matricula'), marca=request.data.get('marca'), ano=request.data.get(
             'ano'), seguradora=request.data.get('seguradora'), data_inicio=request.data.get('data_inicio'), data_fim=request.data.get('data_fim'))
         c.save()
@@ -427,8 +427,7 @@ class CarroAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_carro']
         record = Carro.objects.get(id=key)
 
         if record.arquivado == False:
@@ -475,8 +474,7 @@ class GastosExtraAPIView(APIView):
         return Response(content)
 """
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_gastos']
         record = GastosExtra.objects.get(id=key)
 
         if record.arquivado == False:
@@ -524,8 +522,8 @@ class RestauranteAPIView(APIView):
         return Response(content)
 
     def delete(self, request):
-        key = request.data.get('id')
-        # key = 1
+        key =  request.GET['id_restaurante']
+
         record = Restaurante.objects.get(id=key)
 
         if record.arquivado == False:
@@ -580,7 +578,7 @@ class FornecedorAPIView(APIView):
 
     
     def delete(self, request):
-        key = request.data.get('id')
+        key =  request.GET['id_fornecedor']
         r = Fornecedor.objects.get(id=key)
 
         if r.arquivado == False:

@@ -13,7 +13,7 @@ class ClienteSerializer(serializers.ModelSerializer):
 class FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
-        fields = ('nome', 'email', 'cargo', 'seguro_saude', 'data_inicio', 'data_conclusao')
+        fields = ('nome', 'email', 'password', 'role', 'seguro_saude', 'data_inicio', 'data_conclusao')
 
 class AuthUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
