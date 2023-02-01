@@ -8,9 +8,10 @@ function DownloadFile() {
     useEffect(() => {
         getAPI("http://127.0.0.1:8000/filetransfer/relatorio").then(result => {
             console.log(result);
-            setReport(result);
+            console.log(result.response);
+            setReport(result.response);
             //put first report in value as default
-            setValue(result[0].id);
+            setValue(JSON.stringify(result.response[0]));
         })
 
     }, []);
@@ -23,6 +24,7 @@ function DownloadFile() {
     const download = () => {
         //var a = document.createElement("a"); //Create <a>
         //a.click();
+        console.log(value);
         let dic = JSON.parse(value);
         downloadBytes("http://127.0.0.1:8000/filetransfer/downloadRelatorio", { "id": dic.id, "filename": dic.nome })
             .then(result => {

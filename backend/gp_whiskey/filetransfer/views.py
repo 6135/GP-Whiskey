@@ -38,17 +38,14 @@ class RelatorioAPIView(APIView):
 
     def post(self, request):
         
-        #print(request.data['report_bin'])
+        #key = request.data['obra_id']
         #alterar isto
         o = Obra.objects.get(id=1)
-        print(request.data['report_bin'])
 
         format, imgstr = request.data['report_bin'].split(';base64,')
         ext = format.split('/')[-1]
         binary_image = base64.b64decode(imgstr)
-        #print(binary_image)
 
-        
         r = Relatorio(obra_id = o, nome = request.data['nome'], tipo = request.data['tipo'], report_bin = None)
         r.save()
         r.report_bin.save(request.data['nome'], ContentFile(binary_image), save=True)
@@ -63,7 +60,7 @@ class DownloadRelatorioAPIView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
-        print(request.data)
+        #print(request.data)
         key = request.data["id"]
 
         r = Relatorio.objects.get(id=key)
