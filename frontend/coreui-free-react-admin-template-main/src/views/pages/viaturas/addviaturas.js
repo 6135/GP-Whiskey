@@ -16,22 +16,24 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser, cilCalendar, cilEuro } from '@coreui/icons'
 import { postAPI } from '../../../services/serviceapi';
 
-const temp = [{
+const temp = {
   matricula: '',
   marca: '',
   ano: '',
   seguradora: '',
   data_inicio: '',
   data_fim: ''
-}]
+}
 
-function addviaturas() {
+function AddViaturas() {
 
-  const [data, setData] = useState(temp);
+  const [data,setData] = useState(temp);
 
 
   function handleChange(event) {
-    setData({ [event.target.name]: event.target.value });
+    let tempdata=data;
+    tempdata[event.target.name]=event.target.value;
+    setData(tempdata);
     console.log(data);
   }
 
@@ -57,33 +59,33 @@ function addviaturas() {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Matrícula" autoComplete="matricula"
+                    <CFormInput placeholder="Matrícula" autoComplete="matricula"  name="matricula" 
                       value={data.matricula} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilCalendar} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Ano" autoComplete="ano" type="number" min="1900" max="2023" step="1"
+                    <CFormInput placeholder="Ano" autoComplete="ano" name="ano" type="number" min="1900" max="2023" step="1"
                       value={data.ano} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilEuro} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Seguradora" autoComplete="seguradora" value={data.seguradora} onChange={handleChange} />
+                    <CFormInput placeholder="Seguradora"  name="seguradora" autoComplete="seguradora" value={data.seguradora} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilEuro} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Data Inicio" value={data.data_inicio} onChange={handleChange} />
+                    <CFormInput placeholder="Data Inicio" name="data_inicio"  value={data.data_inicio} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilEuro} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Data Inicio" value={data.data_fim} onChange={handleChange} />
+                    <CFormInput placeholder="Data fim"  name="data_fim" value={data.data_fim} onChange={handleChange} />
                   </CInputGroup>
 
                   <div className="d-grid">
@@ -99,4 +101,4 @@ function addviaturas() {
   )
 }
 
-export default addviaturas
+export default AddViaturas

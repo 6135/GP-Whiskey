@@ -408,6 +408,7 @@ class CarroAPIView(APIView):
             return Response(content)
 
     def post(self, request):
+        print(request.data)
         c = Carro(matricula=request.data.get('matricula'), marca=request.data.get('marca'), ano=request.data.get(
             'ano'), seguradora=request.data.get('seguradora'), data_inicio=request.data.get('data_inicio'), data_fim=request.data.get('data_fim'))
         c.save()
