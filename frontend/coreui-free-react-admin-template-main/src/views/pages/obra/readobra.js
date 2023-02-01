@@ -53,7 +53,7 @@ function Readobra() {
              if (!authenticated)
                navigate("/Login");
                 console.log(authenticated)
-             if(response.status != "nao existem obras")
+             if(response.status !== 404)
                 setObra(response);
 
         }

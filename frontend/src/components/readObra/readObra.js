@@ -14,7 +14,7 @@ function ReadObra() {
       const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
       if (!authenticated)
         navigate("/Login");
-      if(response.status !== "nao existem obras")
+      if(response.status !== 404)
         setObra(response);
     }
     func();
