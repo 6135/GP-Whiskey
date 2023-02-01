@@ -61,7 +61,7 @@ class Funcionario(AbstractBaseUser, PermissionsMixin):
 
     @property
     def cargo(self):
-        return self.ROLE_CHOICES[self.role][1]
+        return self.ROLE_CHOICES[self.role-1][1]
 
     def __str__(self):
         return self.get_full_name() 

@@ -236,7 +236,7 @@ class ReservaAPIView(APIView):
         return Response(content)
 
 class ObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = ObraSerializer
 
     def post(self, request):
@@ -314,11 +314,9 @@ class DetailsObraAPIView(APIView):
     def post(self, request):
 
         print("TESTE: " + str(request.data['obraid']))
-        o = Obra.objects.prefetch_related(
-            'funcionario_set').get(id=request.data['obraid'])
+        o = Obra.objects.get(id=request.data['obraid'])
 
         dic = {}
-
         # OBRA_DETALHES
         dic["obra_nome"] = o.nome
         dic["obra_data_inicio"] = o.data_inicio
@@ -335,6 +333,7 @@ class DetailsObraAPIView(APIView):
         # FUNCIONARIOS
         # dicionario de dicionario
         try:
+            print(o.funcionario_set.all())
             dic["funcionarios"] = [FuncionarioSerializer(
                 f).data for f in o.funcionario_set.all()]
         except Exception as e:
@@ -367,6 +366,7 @@ class DetailsObraAPIView(APIView):
         except Exception as e:
             print(e)
             dic["fornecedores"] = []
+
 
         # HOTEIS
         try:
@@ -407,6 +407,7 @@ class CarroAPIView(APIView):
             return Response(content)
 
     def post(self, request):
+        print(request.data)
         c = Carro(matricula=request.data.get('matricula'), marca=request.data.get('marca'), ano=request.data.get(
             'ano'), seguradora=request.data.get('seguradora'), data_inicio=request.data.get('data_inicio'), data_fim=request.data.get('data_fim'))
         c.save()
