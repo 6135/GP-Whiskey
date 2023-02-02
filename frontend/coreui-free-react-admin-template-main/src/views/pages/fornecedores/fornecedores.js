@@ -75,12 +75,13 @@ const columns = [
 	 {
 		name: 'Ações',
 		cell: row => (
-			<><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
+			<><><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
 				<CIcon icon={cilPencil} size="xl" />
 			</CNavLink>
 				<CNavLink type="button" className='mx-1'>
 					{/* onChange={} */}
 					<CIcon icon={cilFolder} size="xl" />
+				</CNavLink></><CNavLink>
 				</CNavLink></>
 		)
 	}
@@ -168,8 +169,6 @@ function ReadFornecedores({ detaildata }) {
 
 		<CCard className="">
 			<CCardBody>
-
-
 				<CRow className='pb-4'>
 					<CCol className='col-md-6 col-12'>
 						<h1>Fornecedores</h1>
