@@ -165,7 +165,7 @@ func();
                             <CButton type="submit" color="dark" variant="outline">
                                 <CIcon icon={cilSearch} size="xl" />
                             </CButton>&nbsp;
-                            <CNavLink type="button" to="/addgasto" component={NavLink} className="btn btn-outline-dark ">
+                            <CNavLink type="button" to="/addequipamento" component={NavLink} className="btn btn-outline-dark ">
                                 <CIcon icon={cilPlus} size="3xl" />
                             </CNavLink>
                         </CInputGroup>
