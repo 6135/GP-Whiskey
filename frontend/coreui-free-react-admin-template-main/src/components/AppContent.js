@@ -16,7 +16,7 @@ const AppContent = () => {
   useEffect(() =>
   {
     let role = getCurrentRole();
-    console.log(role);
+    // console.log(role);
     if(role === 1)
     {
       setAdmin("isadmin");

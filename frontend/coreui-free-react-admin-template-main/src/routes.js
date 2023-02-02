@@ -1,4 +1,6 @@
 import React from 'react'
+import ReadClientes from './views/pages/clientes/clientes'
+import AddClientes from './views/pages/clientes/addClientes'
 
 const ReadFuncionarios = React.lazy(() => import('./views/pages/funcionarios/ReadFuncionarios'))
 const AddFuncionarios = React.lazy(() => import('./views/pages/addFuncionarios/AddFuncionarios'))
@@ -25,27 +27,29 @@ export const routesAdmin = [
   { path: '/gastosextra', name: 'GastosExtra', element: GastosExtra },
   { path: '/addgasto', name: 'AdicionarGasto', element: AddGasto },
   { path: '/addObra', name: 'AdicionarObra', element: AddObra },
-  { path: '/readhotel', name: 'Hoteis', element: ReadHotel },
+  { path: '/hotel', name: 'Hoteis', element: ReadHotel },
   { path: '/addhotel', name: 'AdicionarHotel', element: AddHotel },
-  { path: '/readrestaurante', name: 'Restaurantes', element: ReadRestaurantes },
+  { path: '/restaurante', name: 'Restaurantes', element: ReadRestaurantes },
   { path: '/addRestaurante', name: 'AdicionarRestaurante', element: AddRestaurante },
-  { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
-  { path: '/readviaturas', name: 'Viaturas', element: ReadViaturas },
+  { path: '/medicoes', name: 'Medições', element: ReadMedicoes },
+  { path: '/viaturas', name: 'Viaturas', element: ReadViaturas },
   { path: '/addviaturas', name: 'AdicionarViatura', element: AddViatura },
-  { path: '/readfornecedores', name: 'Fornecedores', element: ReadFornecedores },
-  { path: '/addfornecedores', name: 'AdiconarFornecedor', element: AddFornecedores },
-  { path: '/readdetalhes', name: 'DetalhesObra', element: ReadDetails },
+  { path: '/fornecedores', name: 'Fornecedores', element: ReadFornecedores },
+  { path: '/addfornecedores', name: 'AdicionarFornecedores', element: AddFornecedores },
+  { path: '/detalhes', name: 'DetalhesObra', element: ReadDetails },
+  { path: '/clientes', name: 'Clientes', element: ReadClientes },
+  { path: '/addclientes', name: 'AdicionarClientes', element: AddClientes },
   { path: '*', name: 'Home', element: Readobra },
 ]
 
 export const routesEmployer = [
   { path: '/', name: 'Obra', element: Readobra },
-  // { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
+  // { path: '/medicoes', name: 'Medições', element: ReadMedicoes },
   { path: '*', name: 'Home', element: Readobra },
 ]
 
 export const routesEngineer = [
   { path: '/', name: 'Obra', element: Readobra },
-  // { path: '/readmedicoes', name: 'Medições', element: ReadMedicoes },
+  // { path: '/medicoes', name: 'Medições', element: ReadMedicoes },
   { path: '*', name: 'Home', element: Readobra },
 ]

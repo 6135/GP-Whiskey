@@ -86,10 +86,8 @@ function ReadDetalhes() {
  useEffect(() => {
     async function func() {
         const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid });
-        //if (!authenticated)
-        //  navigate("/Login");
-  
-          
+        if (!authenticated)
+         navigate("/Login");          
         setObra(response);
       }
       func();
