@@ -63,7 +63,7 @@ function Readobra() {
         let v = event.target.value;
         console.log("a minha avo")
         console.log("Obraid" + v)
-        navigate('/readdetalhes', { state: { obraid: v, } });
+        navigate('/detalhes', { state: { obraid: v, } });
     }
 
     function handleSearch(event){
@@ -79,10 +79,10 @@ function Readobra() {
                             <CCard className="">
                                 <CCardBody>
                                     <CRow className='pb-4'>
-                                        <CCol>
+                                        <CCol className='col-md-6 col-12'>
                                             <h1>Obras</h1>
                                         </CCol>
-                                        <CCol className='justify-content-end'>
+                                        <CCol className='col-md-6 col-12 justify-content-end'>
                                             <CInputGroup>
                                                 <CFormInput type="search" placeholder="Search" onChange={handleSearch}/>
                                                 <CButton type="submit" color="dark" variant="outline">
@@ -92,9 +92,10 @@ function Readobra() {
                                                     <CIcon icon={cilPlus} size="3xl" />
                                                 </CNavLink>
                                             </CInputGroup>
-                                            <CFormCheck id="flexCheckDefault" label="Terminadas" className='mt-2' />
-
-
+                                         <CCol className='d-md-flex justify-content-center'>
+                                            <CFormCheck id="CheckEncerradas" label="Terminadas" className='mt-2' />
+                                            <CFormCheck id="CheckArquivadas" label="Arquivadas" className='mt-2 mx-md-4' />
+                                            </CCol>
                                         </CCol>
 
                                     </CRow>
@@ -110,7 +111,7 @@ function Readobra() {
                                                     <CCardHeader>
                                                         <CHeaderNav>
                                                             <h5>{item.nome}</h5>
-                                                            <CNavLink to="/readmedicoes" component={NavLink} style={{ marginLeft: '40%' }}>
+                                                            <CNavLink to="/medicoes" component={NavLink} style={{ marginLeft: '40%' }}>
                                                                 <CButton color="light">
                                                                     Medições
                                                                 </CButton>

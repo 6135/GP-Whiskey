@@ -24,16 +24,15 @@ function ReadDetalhes() {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		async function func() {
-			const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid });
-			if (!authenticated)
-			 navigate("/Login");
-
-			setObra(response);
-		}
-		func();
-	}, []);
+ useEffect(() => {
+    async function func() {
+        const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/detailsobra", { "obraid": location.state.obraid });
+        if (!authenticated)
+         navigate("/Login");          
+        setObra(response);
+      }
+      func();
+}, []);
 
 	return (
 		<div className="bg-light d-flex flex-row align-items-top">
@@ -50,7 +49,7 @@ function ReadDetalhes() {
 							<ReadViaturas detaildata={{ carros: obra.carros }} />
 						</CCardGroup>
 						<CCardGroup className='mt-3 min-vh-25'>
-							<ReadGastosObra detaildata={{ gastos_extra: obra.gastos_extra }} />
+							<ReadGastosObra detaildata={{ gastos_extra: obra.gastos_extra, id_obra: location.state.obraid  }} />
 						</CCardGroup>
 						<CCardGroup className='mt-3 min-vh-25'>
 							<ReadRestaurantes detaildata={{ restaurantes: obra.restaurantes }} />

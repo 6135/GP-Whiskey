@@ -111,13 +111,15 @@ function Addobra() {
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
-                      <CIcon icon={cilCalendar} />
+                      <CIcon icon={cilCalendar} /> 
+                      <span className='px-1'>Data Inicio</span>
                     </CInputGroupText>
                     <CFormInput name="data_init" type='date' placeholder="Data Início" autoComplete="data início" value={data.data_init} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilCalendar} />
+                      <span className='px-1'>Data Conclusão</span>
                     </CInputGroupText>
                     <CFormInput name="data_fim" type='date' placeholder="Data Conclusão" autoComplete="data conclusao" value={data.data_fim} onChange={handleChange} />
                   </CInputGroup>

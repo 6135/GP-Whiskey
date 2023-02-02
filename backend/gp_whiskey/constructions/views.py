@@ -175,7 +175,8 @@ class HotelAPIView(APIView):
                 dic = {}
                 dic["id"] = h.id
                 dic["nome"] = h.nome
-                dic["mail"] = h.mail
+                dic["email"] = h.email
+                dic["telefone"] = h.telefone
                 dic["morada"] = h.morada
                 l.append(dic)
             return Response(l)
@@ -482,7 +483,7 @@ class GastosExtraAPIView(APIView):
     def post(self, request):
 
         g = GastosExtra(descricao=request.data.get('descricao'), data=request.data.get(
-            'data'), preco=request.data.get('preco'))
+            'data'), preco=request.data.get('preco'),obra=Obra.objects.get(id=request.data.get("obra_id")))
         g.save()
 
         content = {
@@ -563,15 +564,30 @@ class FornecedorAPIView(APIView):
     serializer_class = FornecedorSerializer
 
     def get(self, request):
+        l = []
         if Fornecedor.objects.exists():
-            l = []
-            for h in Fornecedor.objects.all():
+            ids = []
+            for h in RecursosHumanos.objects.all():
+                ids.append(h.id);
                 dic = {}
                 dic["nome"] = h.nome
                 dic["email"] = h.email
                 dic["telefone"] = h.telefone
                 dic["morada"] = h.morada
+                dic["localizacao"] = h.localizacao
+                dic["especializacao"] = h.localizacao
                 l.append(dic)
+
+            for h in Fornecedor.objects.exclude(id__in=ids):
+                dic = {}
+                dic["nome"] = h.nome
+                dic["email"] = h.email
+                dic["telefone"] = h.telefone
+                dic["morada"] = h.morada
+                dic["localizacao"] = h.localizacao
+                l.append(dic)
+                
+
             return Response(l)
         else:
             content = {
@@ -583,12 +599,12 @@ class FornecedorAPIView(APIView):
 
         if (request.data.get('tipo') == "Recursos Humanos"):
             f = RecursosHumanos(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
-                                morada=request.data.get('morada'), especializacao=request.data.get('especializacao'))
+                                morada=request.data.get('morada'), especializacao=request.data.get('especializacao'), localizacao= request.data.get('localizacao'))
             f.save()
 
         elif (request.data.get('tipo') == "Equipamentos"):
-            f = Equipamento(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
-                            morada=request.data.get('morada'))
+            f = Fornecedor(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
+                            morada=request.data.get('morada'), localizacao= request.data.get('localizacao'))
             f.save()
 
         content = {

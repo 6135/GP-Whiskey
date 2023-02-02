@@ -113,15 +113,22 @@ class FuncionarioAPIView(APIView):
             return Response(content)
 
     def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        valid = serializer.is_valid(raise_exception=True)
 
-        f = Funcionario(nome = request.data.get('nome'), email = request.data.get('email'), cargo = request.data.get('cargo'), seguro_saude = request.data.get('seguro_saude'), data_inicio = request.data.get('data_inicio'), data_conclusao = request.data.get('data_conclusao'))
-        f.save()
+        if valid:
+            serializer.save()
+            status_code = status.HTTP_201_CREATED
 
-        content = {
-            'status': 201
-        }
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'User successfully registered!',
+                'user': serializer.data
+            }
 
-        return Response(content)
+            return Response(response, status=status_code)
+        
 
     def delete(self, request):
         key = request.data.get('id')

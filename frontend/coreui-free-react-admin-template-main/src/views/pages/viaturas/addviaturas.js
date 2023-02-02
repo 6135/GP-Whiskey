@@ -13,12 +13,13 @@ import {
 	CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser, cilCalendar, cilEuro } from '@coreui/icons'
+import { cilLockLocked, cilUser, cilCalendar, cilEuro, cilAddressBook } from '@coreui/icons'
 import { postAPI } from '../../../services/serviceapi';
+import { useNavigate } from 'react-router-dom';
 
 
 function AddViaturas() {
-
+	const navigate = useNavigate();
 	const [data, setData] = useState(
 		{
 			matricula: '',
@@ -35,15 +36,19 @@ function AddViaturas() {
 			...item,
 			[event.target.name]: event.target.value
 		}))
-		console.log(data);
+		// console.log(data);
 	}
 
-	function handleSubmit() {
-		console.log(data);
-		postAPI("http://127.0.0.1:8000/constructions/carro", data).then(result => {
-			console.log(result.status);
-		})
-		
+	async function handleSubmit() {
+
+        if (data.ano.trim() !== "" && data.seguradora.trim() !== "" && data.matricula.trim() !== "" && data.marca.trim() !== "" && data.data_inicio.trim() !== "" && data.data_fim.trim() !== "") {
+
+            const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/carro", data);
+            if (!authenticated)
+                navigate("/login");
+            if (response.status === 201)
+                navigate("/viaturas");
+        }
 	}
 
 
@@ -66,6 +71,13 @@ function AddViaturas() {
 									</CInputGroup>
 									<CInputGroup className="mb-3">
 										<CInputGroupText>
+											<CIcon icon={cilAddressBook} />
+										</CInputGroupText>
+										<CFormInput placeholder="Marca" autoComplete="marca" name="marca"
+											value={data.marca} onChange={handleChange} />
+									</CInputGroup>
+									<CInputGroup className="mb-3">
+										<CInputGroupText>
 											<CIcon icon={cilCalendar} />
 										</CInputGroupText>
 										<CFormInput placeholder="Ano" autoComplete="ano" name="ano" type="number" min="1900" max="2023" step="1"
@@ -79,15 +91,18 @@ function AddViaturas() {
 									</CInputGroup>
 									<CInputGroup className="mb-3">
 										<CInputGroupText>
-											<CIcon icon={cilEuro} />
+											<CIcon icon={cilCalendar} />
+											<span className='px-1'>Data Inicio</span>
+
 										</CInputGroupText>
-										<CFormInput placeholder="Data Inicio" name="data_inicio" value={data.data_inicio} onChange={handleChange} />
+										<CFormInput type="date" placeholder="Data Inicio" name="data_inicio" value={data.data_inicio} onChange={handleChange} />
 									</CInputGroup>
 									<CInputGroup className="mb-3">
 										<CInputGroupText>
-											<CIcon icon={cilEuro} />
+											<CIcon icon={cilCalendar} />
+											<span className='px-1'>Data fim</span>
 										</CInputGroupText>
-										<CFormInput placeholder="Data fim" name="data_fim" value={data.data_fim} onChange={handleChange} />
+										<CFormInput type="date" placeholder="Data fim" name="data_fim" value={data.data_fim} onChange={handleChange} />
 									</CInputGroup>
 
 									<div className="d-grid">

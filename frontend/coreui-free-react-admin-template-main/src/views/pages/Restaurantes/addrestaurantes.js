@@ -12,12 +12,13 @@ import {
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser,cilCalendar,cilEuro,cilPhone,cilHome,cilLocationPin} from '@coreui/icons'
+import { cilLockLocked, cilUser,cilCalendar,cilEuro,cilPhone,cilHome,cilLocationPin, cilBookmark} from '@coreui/icons'
 import { postAPI } from '../../../services/serviceapi';
+import { useNavigate } from 'react-router-dom';
 
 
 function AddRestaurante  ()  {
-
+  const navigate = useNavigate();
   const [data, setData] = useState(
 		{
 			nome: '',
@@ -35,13 +36,17 @@ function AddRestaurante  ()  {
       console.log(data);
     }
   
-    function handleSubmit() {
-      console.log(data);
-      postAPI("http://127.0.0.1:8000/constructions/restaurante", data).then(result => {
-        console.log(result.status);
-      })
-      
-    }
+  	async function handleSubmit() {
+
+      if (data.nome.trim() !== "" && data.email.trim() !== "" && data.telefone.trim() !== "" && data.morada.trim() !== "") {
+
+          const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/restaurante", data);
+          if (!authenticated)
+              navigate("/login");
+          if (response.status === 201)
+              navigate("/restaurantes");
+      }
+}
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-top">
@@ -63,17 +68,17 @@ function AddRestaurante  ()  {
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
-                        <CIcon icon={cilCalendar} />
+                        @
                     </CInputGroupText>
                     <CFormInput placeholder="Email" autoComplete="email"
-                     name="email"
+                     name="email" type="email"
                      value={data.email} onChange={handleChange} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                         <CIcon icon={cilPhone} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Telefone" autoComplete="telefone" 
+                    <CFormInput type="number" placeholder="Telefone" autoComplete="telefone" 
                      name="telefone"
                      value={data.telefone} onChange={handleChange}/>
                   </CInputGroup>

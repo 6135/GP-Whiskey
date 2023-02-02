@@ -15,6 +15,10 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         model = Funcionario
         fields = ('nome', 'email', 'password', 'role', 'seguro_saude', 'data_inicio', 'data_conclusao')
 
+    def create(self, validated_data):
+        auth_user = Funcionario.objects.create_user(**validated_data)
+        return auth_user
+        
 class AuthUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
@@ -63,7 +67,7 @@ class AuthUserLoginSerializer(serializers.Serializer):
                 'access': access_token,
                 'refresh': refresh_token,
                 'email': user.email,
-                'full_name': user.get_full_name(),
+                'full_name': user.nome,
                 'role': user.role,
             }
 

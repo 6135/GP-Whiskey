@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink} from 'react-router-dom';
+import { NavLink, useNavigate} from 'react-router-dom';
 import {
 	CCard,
 	CCardBody,
@@ -15,6 +15,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons'
 import DataTable from 'react-data-table-component';
 import CTableCell from '../../../components/CTableCell';
+import { getAPI } from 'src/services/serviceapi';
 
 
 const columns = [
@@ -120,8 +121,7 @@ function ReadViaturas({ detaildata }) {
 	const [pendingViaturas, setPendingViaturas] = React.useState(true);
 	const [viaturas, setViaturas] = React.useState([]);
 	const [filteredViaturas, setFilteredViaturas] = React.useState([]);
-
-
+	const navigate = useNavigate();
 	function handleSearchViatura(event) {
 		setFilteredViaturas(
 			viaturas.filter(viatura => {
@@ -137,15 +137,29 @@ function ReadViaturas({ detaildata }) {
 
 	useEffect(() => {
 
+		async function func() {
 
+			if (detaildata) {
 		const timeout = setTimeout(() => {
 			setViaturas(detaildata.carros);
 			setFilteredViaturas(detaildata.carros);
 			setPendingViaturas(false);
 		}, 2000);
 		return () => clearTimeout(timeout);
-
-	}, [detaildata])
+	}
+	else {
+		const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/carro");
+		if (!authenticated)
+			navigate("/Login");
+		if (response.status !== 404) {
+			setViaturas(response);
+			setFilteredViaturas(response);
+		}
+		setPendingViaturas(false);
+	}
+}
+func();
+	}, [])
 
 
 	return (

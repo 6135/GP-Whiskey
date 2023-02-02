@@ -79,18 +79,13 @@ const AppHeader = () => {
         {isadmin && 
         <CHeaderNav className="d-none d-md-flex ms-auto">
              <CNavItem>
-            <CNavLink to="/readobra" component={NavLink}>
+            <CNavLink to="/" component={NavLink}>
             Obras
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/readmedicoes" component={NavLink}>
+            <CNavLink to="/medicoes" component={NavLink}>
             Medições
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink to="/gastosextra" component={NavLink}>
-            Gastos Extra
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -99,23 +94,28 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/readhotel" component={NavLink}>
+            <CNavLink to="/clientes" component={NavLink}>
+              Clientes
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/hoteis" component={NavLink}>
             Hoteis
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/readrestaurante" component={NavLink}>
+            <CNavLink to="/restaurantes" component={NavLink}>
             Restaurantes
             </CNavLink>
           </CNavItem>
    
           <CNavItem>
-            <CNavLink to="/readviaturas" component={NavLink}>
+            <CNavLink to="/viaturas" component={NavLink}>
             Viaturas
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/readfornecedores" component={NavLink}>
+            <CNavLink to="/fornecedores" component={NavLink}>
             Fornecedores
             </CNavLink>
           </CNavItem>

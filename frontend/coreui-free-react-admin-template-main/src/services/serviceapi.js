@@ -109,5 +109,6 @@ export const downloadBytes = (url, data) => {
   }
 
   var r = getData(url, data);
+  //console.log(r);
   return r;
 }
