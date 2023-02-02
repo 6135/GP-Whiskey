@@ -159,7 +159,7 @@ function ReadViaturas({ detaildata }) {
 	}
 }
 func();
-	}, [])
+	}, [detaildata])
 
 
 	return (

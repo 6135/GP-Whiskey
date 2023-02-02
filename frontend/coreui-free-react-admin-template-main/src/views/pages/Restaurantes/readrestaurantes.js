@@ -145,7 +145,7 @@ function ReadRestaurantes({ detaildata }) {
 			}
 		}
 		func();
-	}, [])
+	}, [detaildata])
 	return (
 
 		<CCard className="">
