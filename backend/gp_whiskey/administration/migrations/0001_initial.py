@@ -50,6 +50,7 @@ class Migration(migrations.Migration):
                 ('created_by', models.EmailField(max_length=254)),
                 ('modified_by', models.EmailField(max_length=254)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
+                ('obra',models.ManyToManyField(to='constructions.obra')),
             ],
             options={
                 'verbose_name': 'user',

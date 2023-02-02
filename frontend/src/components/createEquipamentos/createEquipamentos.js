@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class RegEquipForm extends Component {
+class EquipForm extends Component {
 
     constructor(props) {
         super(props);
@@ -20,18 +20,18 @@ class RegEquipForm extends Component {
         
         /*
         event.preventDefault();
-        const newRegEquip = {
+        const newEquip = {
             nome_equip: this.state.nome_equip
         };
         // Send newHotel data to your server or database
-        url = 'http://127.0.0.1:8000/construction/regequipamento'; // Temos de ver isto com o Fevereiro!
+        url = 'http://127.0.0.1:8000/construction/equipamento'; // Temos de ver isto com o Fevereiro!
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                newRegEquip // the data you want to send in the request body
+                newEquip // the data you want to send in the request body
             }),
         })
             .then(response => response.json())
@@ -61,4 +61,4 @@ class RegEquipForm extends Component {
     }
 }
 
-export default RegEquipForm;
+export default EquipForm;

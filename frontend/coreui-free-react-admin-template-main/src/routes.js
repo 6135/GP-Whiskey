@@ -2,17 +2,19 @@ import React from 'react'
 import ReadClientes from './views/pages/clientes/clientes'
 import AddClientes from './views/pages/clientes/addClientes'
 
+const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ReadFuncionarios = React.lazy(() => import('./views/pages/funcionarios/ReadFuncionarios'))
 const AddFuncionarios = React.lazy(() => import('./views/pages/addFuncionarios/AddFuncionarios'))
 const Readobra = React.lazy(() => import('./views/pages/obra/readobra'))
 const GastosExtra = React.lazy(() => import('./views/pages/gastosextra/gastosextra'))
 const AddGasto = React.lazy(() => import('./views/pages/gastosextra/addGasto'))
 const AddObra = React.lazy(() => import('./views/pages/obra/addObra'))
-const ReadHotel = React.lazy(() => import('./views/pages/hoteis/readHoteis'))
+const ReadHotel = React.lazy(() => import('./views/pages/hoteis/hoteis'))
 const AddHotel = React.lazy(() => import('./views/pages/hoteis/addhotel'))
 const ReadRestaurantes = React.lazy(() => import('./views/pages/Restaurantes/readrestaurantes'))
 const AddRestaurante = React.lazy(() => import('./views/pages/Restaurantes/addrestaurantes'))
 const ReadMedicoes = React.lazy(() => import('./views/pages/medicoes/medicoes'))
+const ReadEquipamentos = React.lazy(() => import('./views/pages/medicoes/equipamentos'))
 const ReadViaturas = React.lazy(() => import('./views/pages/viaturas/readviaturas'))
 const AddViatura = React.lazy(() => import('./views/pages/viaturas/addviaturas'))
 const ReadFornecedores = React.lazy(() => import('./views/pages/fornecedores/fornecedores'))
@@ -41,7 +43,6 @@ export const routesAdmin = [
   { path: '/addclientes', name: 'AdicionarClientes', element: AddClientes },
   { path: '*', name: 'Home', element: Readobra },
 ]
-
 export const routesEmployer = [
   { path: '/', name: 'Obra', element: Readobra },
   // { path: '/medicoes', name: 'Medições', element: ReadMedicoes },

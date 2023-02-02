@@ -27,6 +27,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import { cilPencil, cilFolder,cilPlus,cilSearch} from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
 import DataTable from 'react-data-table-component';
+import CTableCell from '../../../components/CTableCell';
 
 const columns = [
 	{
@@ -34,24 +35,28 @@ const columns = [
 		selector: row => row.nome,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.nome}/>
 	},
 	{
 		name: 'Email',
 		selector: row => row.email,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.email}/>
 	},
 	{
 		name: 'Telefone',
 		selector: row => row.telefone,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.telefone}/>
 	},
 	{
 		name: 'Morada',
 		selector: row => row.morada,
 		sortable: true,
 		reorder: true,
+		cell: row => <CTableCell data={row.morada}/>
 	}, {
 		name: 'Ações',
 		cell: row => (
@@ -123,13 +128,13 @@ function ReadRestaurantes  ({detaildata})  {
 			setData(detaildata.restaurantes);
 			setFilteredData(detaildata.restaurantes);
 			setPendingData(false);
-		}, 1000);
+		}, 2000);
 		return () => clearTimeout(timeout);
 
 	}, [detaildata])
   return (
 
-              <CCard className="p-4">
+              <CCard className="">
                 <CCardBody>
                     <CRow className='pb-4'>
 										<CCol>
@@ -153,7 +158,7 @@ function ReadRestaurantes  ({detaildata})  {
                       columns={columns}
                       data={filteredData}
                       progressPending={pendingData}
-                      highlightOnHover
+                      highlightOnHover responsive
                       paginationPerPage={5}
                       paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
               />
