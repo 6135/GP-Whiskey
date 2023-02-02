@@ -110,7 +110,7 @@ function Readobra() {
                                                 >
                                                     <CCardHeader>
                                                         <CHeaderNav className='align-items-center'>
-                                                            <h5>{item.nome}</h5>
+                                                            <h5>{item.nome} #{item.nr_obra}</h5>
                                                             <CButton onClick={handleDetails} color="light" value={item.id} className='justify-content-end ms-auto'>
                                                                 Detalhes
                                                             </CButton>
