@@ -170,7 +170,7 @@ class AuthUserRegistrationView(APIView):
 
 class AuthUserLoginView(APIView):
     serializer_class = AuthUserLoginSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (AllowAny, )
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
