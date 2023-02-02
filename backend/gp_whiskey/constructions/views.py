@@ -23,7 +23,7 @@ from administration.models import *
 
 
 class FotoAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = FotoSerializer
 
     # ---- changes 30/1
@@ -64,7 +64,7 @@ class FotoAPIView(APIView):
 
 
 class DownloadFotoAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         print(request.data)
@@ -86,7 +86,7 @@ class DownloadFotoAPIView(APIView):
 """
 
 class FotoAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = FotoSerializer
 
     def get(self, request):
@@ -120,7 +120,7 @@ class FotoAPIView(APIView):
 
 
 class EquipamentoAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = EquipamentoSerializer
 
     def get(self, request):
@@ -163,7 +163,7 @@ class EquipamentoAPIView(APIView):
 
 
 class HotelAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = HotelSerializer
 
     def get(self, request):
@@ -213,7 +213,7 @@ class HotelAPIView(APIView):
 
 
 class ReservaAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = ReservaSerializer
 
     def get(self, request):
@@ -328,7 +328,7 @@ class ObraAPIView(APIView):
 
 class DetailsObraAPIView(APIView):
     # TODO: Change back to isAuthenicated when done testing
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
 
@@ -419,7 +419,7 @@ class DetailsObraAPIView(APIView):
 
 
 class CarroAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = CarroSerializer
 
     def get(self, request):
@@ -470,7 +470,7 @@ class CarroAPIView(APIView):
 
 
 class GastosExtraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = GastosExtraSerializer
 
     def get(self, request):
@@ -520,7 +520,7 @@ class GastosExtraAPIView(APIView):
 
 
 class RestauranteAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = RestauranteSerializer
 
     def get(self, request):
@@ -569,7 +569,7 @@ class RestauranteAPIView(APIView):
 
 
 class FornecedorAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = FornecedorSerializer
 
     def get(self, request):
@@ -638,7 +638,7 @@ class FornecedorAPIView(APIView):
 # Associações
 
 class AssociarFornecedorAObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         print(request.data)
@@ -668,7 +668,7 @@ class AssociarFornecedorAObraAPIView(APIView):
 
 
 class AssociarViaturaAObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         obra_id = request.data.get('obra_id')
@@ -696,7 +696,7 @@ class AssociarViaturaAObraAPIView(APIView):
 
 
 class AssociarRestauranteAObraAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         obra_id = request.data.get('obra_id')
@@ -724,7 +724,7 @@ class AssociarRestauranteAObraAPIView(APIView):
 
 
 class AssociarMedicaoEquipamentoAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         obra_id = request.data.get('obra_id')
@@ -746,7 +746,7 @@ class AssociarMedicaoEquipamentoAPIView(APIView):
 
 
 class AssociarReservaAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         obra_id = request.data.get('obra_id')

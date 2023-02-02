@@ -15,7 +15,7 @@ from django.db.models import Count
 
 
 class ClienteAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = ClienteSerializer
 
     def get(self, request):
@@ -90,7 +90,7 @@ class ClienteAPIView(APIView):
         return Response(content)
 
 class FuncionarioAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = FuncionarioSerializer
 
     def get(self, request): 
@@ -149,7 +149,7 @@ class FuncionarioAPIView(APIView):
 
 class AuthUserRegistrationView(APIView):
     serializer_class = AuthUserRegistrationSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -170,7 +170,7 @@ class AuthUserRegistrationView(APIView):
 
 class AuthUserLoginView(APIView):
     serializer_class = AuthUserLoginSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)

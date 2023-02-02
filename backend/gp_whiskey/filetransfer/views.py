@@ -15,7 +15,7 @@ from .models import *
 from django.db.models import Count
 
 class RelatorioAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = RelatorioSerializer
 
     def get(self, request):
@@ -57,7 +57,7 @@ class RelatorioAPIView(APIView):
         return Response(content)
 
 class DownloadRelatorioAPIView(APIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         #print(request.data)
