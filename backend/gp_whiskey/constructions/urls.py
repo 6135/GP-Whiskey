@@ -11,6 +11,7 @@ urlpatterns = [
     path('gastosextra', GastosExtraAPIView.as_view()),
     path('restaurante', RestauranteAPIView.as_view()),
     path('fornecedor', FornecedorAPIView.as_view()),
+    path('equipamento', EquipamentoAPIView.as_view()),
     path('downloadfoto', DownloadFotoAPIView.as_view()),
     path('associarfornecedoraobra', AssociarFornecedorAObraAPIView.as_view()),
     path('associarviaturaobra', AssociarViaturaAObraAPIView.as_view()),

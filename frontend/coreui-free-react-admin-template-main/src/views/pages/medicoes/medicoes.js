@@ -21,6 +21,7 @@ import { CTableBody, CTableRow, CTableDataCell, CTableHeaderCell, CTable, CTable
 
 
 function ReadMedicoes() {
+  const [equipamentos, setEquipamentos] = useState([]);
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (buttonId) => {
@@ -47,11 +48,11 @@ function ReadMedicoes() {
                       <CRow>
                         <CCol xs={4} >
                           <CCard
-                            className={`mb-3 border-$dark`}
+                            className={`mb-3 border-$dark`} 
                           >
-                            <CCardBody>
+                            <CCardBody >
                               <CCardTitle> Equipamentos </CCardTitle>
-                              <CCol>
+                              <CCol style={{maxHeight: '20rem', overflowY: 'auto', overflowX: 'clip'}}>
                                 {[
                                   /* { color: 'primary', textColor: 'primary' },
                                   { color: 'secondary', textColor: 'secondary' },
@@ -60,6 +61,16 @@ function ReadMedicoes() {
                                   { color: 'warning', textColor: 'warning' },
                                   { color: 'info', textColor: 'info' }, 
                                   colocar array de funcionarios */
+                                  { color: 'light', id: '1' },
+                                  { color: 'dark', id: '2' },
+                                  { color: 'light', id: '1' },
+                                  { color: 'dark', id: '2' },
+                                  { color: 'light', id: '1' },
+                                  { color: 'dark', id: '2' },
+                                  { color: 'light', id: '1' },
+                                  { color: 'dark', id: '2' },
+                                  { color: 'light', id: '1' },
+                                  { color: 'dark', id: '2' },
                                   { color: 'light', id: '1' },
                                   { color: 'dark', id: '2' },
                                 ].map((item, index) => (

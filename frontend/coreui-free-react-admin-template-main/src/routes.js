@@ -41,6 +41,7 @@ export const routesAdmin = [
   { path: '/detalhes', name: 'DetalhesObra', element: ReadDetails },
   { path: '/clientes', name: 'Clientes', element: ReadClientes },
   { path: '/addclientes', name: 'AdicionarClientes', element: AddClientes },
+  { path: '/equipamentos', name: 'Equipamentos', element: ReadEquipamentos },
   { path: '*', name: 'Home', element: Readobra },
 ]
 export const routesEmployer = [

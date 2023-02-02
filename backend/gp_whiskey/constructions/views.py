@@ -128,10 +128,8 @@ class EquipamentoAPIView(APIView):
         if Equipamento.objects.exists():
             l = []
             for equip in Equipamento.objects.all():
-                dic = {}
-                dic["id"] = equip.id
-                dic["nome_equip"] = f.nome_equip
-                l.append(dic)
+                l.append(EquipamentoSerializer(instance=equip).data | {"medicoes": MedicacaoEquipSerializer(
+                    instance=MedicaoEquip.objects.filter(reg_equipamento=equip), many=True).data})
             return Response(l)
         else:
             content = {
@@ -178,6 +176,8 @@ class HotelAPIView(APIView):
                 dic["email"] = h.email
                 dic["telefone"] = h.telefone
                 dic["morada"] = h.morada
+                dic['reservas'] = ReservaSerializer(
+                    instance=h.reservas.all(), many=True).data
                 l.append(dic)
             return Response(l)
         else:
@@ -406,6 +406,15 @@ class DetailsObraAPIView(APIView):
             print(e)
             dic["equipamentos"] = []
 
+        # gastos_extra
+        try:
+            print
+            dic["gastos_extra"] = [GastosExtraSerializer(
+                g).data for g in o.gastosextra_set.all()]
+        except Exception as e:
+            print(e)
+            dic["gastos_extra"] = []
+
         return Response(dic)
 
 
@@ -483,7 +492,7 @@ class GastosExtraAPIView(APIView):
     def post(self, request):
 
         g = GastosExtra(descricao=request.data.get('descricao'), data=request.data.get(
-            'data'), preco=request.data.get('preco'),obra=Obra.objects.get(id=request.data.get("obra_id")))
+            'data'), preco=request.data.get('preco'), obra=Obra.objects.get(id=request.data.get("obra_id")))
         g.save()
 
         content = {
@@ -568,7 +577,7 @@ class FornecedorAPIView(APIView):
         if Fornecedor.objects.exists():
             ids = []
             for h in RecursosHumanos.objects.all():
-                ids.append(h.id);
+                ids.append(h.id)
                 dic = {}
                 dic["nome"] = h.nome
                 dic["email"] = h.email
@@ -586,7 +595,6 @@ class FornecedorAPIView(APIView):
                 dic["morada"] = h.morada
                 dic["localizacao"] = h.localizacao
                 l.append(dic)
-                
 
             return Response(l)
         else:
@@ -599,12 +607,12 @@ class FornecedorAPIView(APIView):
 
         if (request.data.get('tipo') == "Recursos Humanos"):
             f = RecursosHumanos(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
-                                morada=request.data.get('morada'), especializacao=request.data.get('especializacao'), localizacao= request.data.get('localizacao'))
+                                morada=request.data.get('morada'), especializacao=request.data.get('especializacao'), localizacao=request.data.get('localizacao'))
             f.save()
 
         elif (request.data.get('tipo') == "Equipamentos"):
             f = Fornecedor(nome=request.data.get('nome'), telefone=request.data.get('telefone'), email=request.data.get('email'),
-                            morada=request.data.get('morada'), localizacao= request.data.get('localizacao'))
+                           morada=request.data.get('morada'), localizacao=request.data.get('localizacao'))
             f.save()
 
         content = {

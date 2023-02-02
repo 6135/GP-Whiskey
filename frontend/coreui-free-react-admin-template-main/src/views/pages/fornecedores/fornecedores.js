@@ -42,7 +42,12 @@ const columns = [
 		selector: row => row.especializacao,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.especializacao} />
+		cell: row => {
+			if (row.especializacao) 
+				return (<CTableCell data={row.especializacao} />);
+			else 
+				return (<CTableCell data={'--'} />);
+		}
 	},
 	{
 		name: 'Telefone',
@@ -131,6 +136,7 @@ function ReadFornecedores({ detaildata }) {
 		setFilteredData(
 			data.filter(data => {
 				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.especializacao && data.especializacao.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.telefone && data.telefone.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.email && data.email.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.morada && data.morada.toLowerCase().includes(event.target.value.toLowerCase())) ||
@@ -163,7 +169,7 @@ function ReadFornecedores({ detaildata }) {
 			}
 		}
 		func();
-	}, [])
+	}, [detaildata])
 
 	return (
 

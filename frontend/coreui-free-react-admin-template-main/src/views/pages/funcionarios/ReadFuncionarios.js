@@ -181,7 +181,7 @@ function ReadFuncionarios({ detaildata }) {
 			}
 		}
 		func();
-	}, [])
+	}, [detaildata])
 
 
 	return (

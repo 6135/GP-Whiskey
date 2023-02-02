@@ -28,13 +28,13 @@ import {
     // CCollapse
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { 
+import {
     // cilLockLocked, 
     // cilUser, 
     // cilPencil, 
-    cilTrash, 
-    cilPlus, 
-    cilSearch 
+    cilTrash,
+    cilPlus,
+    cilSearch
 } from '@coreui/icons'
 
 import moment from 'moment';
@@ -49,11 +49,11 @@ function Readobra() {
         async function func() {
             const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/obra");
 
-              //login mal
-             if (!authenticated)
-               navigate("/Login");
-                console.log(authenticated)
-             if(response.status !== 404)
+            //login mal
+            if (!authenticated)
+                navigate("/Login");
+            console.log(authenticated)
+            if (response.status !== 404)
                 setObra(response);
 
         }
@@ -66,7 +66,7 @@ function Readobra() {
         navigate('/detalhes', { state: { obraid: v, } });
     }
 
-    function handleSearch(event){
+    function handleSearch(event) {
         setSearch(event.target.value);
     }
 
@@ -84,7 +84,7 @@ function Readobra() {
                                         </CCol>
                                         <CCol className='col-md-6 col-12 justify-content-end'>
                                             <CInputGroup>
-                                                <CFormInput type="search" placeholder="Search" onChange={handleSearch}/>
+                                                <CFormInput type="search" placeholder="Search" onChange={handleSearch} />
                                                 <CButton type="submit" color="dark" variant="outline">
                                                     <CIcon icon={cilSearch} size="xl" />
                                                 </CButton>&nbsp;
@@ -92,9 +92,9 @@ function Readobra() {
                                                     <CIcon icon={cilPlus} size="3xl" />
                                                 </CNavLink>
                                             </CInputGroup>
-                                         <CCol className='d-md-flex justify-content-center'>
-                                            <CFormCheck id="CheckEncerradas" label="Terminadas" className='mt-2' />
-                                            <CFormCheck id="CheckArquivadas" label="Arquivadas" className='mt-2 mx-md-4' />
+                                            <CCol className='d-md-flex justify-content-center'>
+                                                <CFormCheck id="CheckEncerradas" label="Terminadas" className='mt-2' />
+                                                <CFormCheck id="CheckArquivadas" label="Arquivadas" className='mt-2 mx-md-4' />
                                             </CCol>
                                         </CCol>
 
@@ -109,27 +109,19 @@ function Readobra() {
                                                     key={item.id}
                                                 >
                                                     <CCardHeader>
-                                                        <CHeaderNav>
+                                                        <CHeaderNav className='align-items-center'>
                                                             <h5>{item.nome}</h5>
-                                                            <CNavLink to="/medicoes" component={NavLink} style={{ marginLeft: '40%' }}>
-                                                                <CButton color="light">
-                                                                    Medições
-                                                                </CButton>
-                                                            </CNavLink>
-                                                            <CButton color="light" style={{ marginLeft: '3%' }}>
+                                                            <CButton onClick={handleDetails} color="light" value={item.id} className='justify-content-end ms-auto'>
+                                                                Detalhes
+                                                            </CButton>
+                                                            <CButton color="light" className='mx-1'>
                                                                 Upload photo
                                                             </CButton>
-                                                            <CIcon icon={cilTrash} size="xl" style={{ marginLeft: '3%' }} />
+                                                            <CIcon icon={cilTrash} size="xl" style={{ marginLeft: '3%' }} className='mx-1 ' />
                                                             {/* arquivar obra */}
                                                         </CHeaderNav>
                                                     </CCardHeader>
-                                                    <CCardBody>
-                                                        {/* <CCardTitle>{item.color} card title</CCardTitle> */}
-                                                        <CButtonGroup style={{ padding: '2%' }}>
-                                                                <CButton onClick={handleDetails} color="light" value={item.id}>
-                                                                    Detalhes
-                                                                </CButton>
-                                                        </CButtonGroup>
+                                                    <CCardBody >
                                                         <CContainer fluid>
                                                             <CListGroup>
                                                                 <CListGroupItem>

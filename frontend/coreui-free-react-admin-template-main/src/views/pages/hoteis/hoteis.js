@@ -22,6 +22,7 @@ const columns = [
         selector: row => row.nome,
         sortable: true,
         reorder: true,
+        
         cell: row => <CTableCell data={row.nome} />
     },
     {
@@ -82,12 +83,42 @@ const columnsNested = [
     },
 ];
 
+const columnsNested2 = [
+    { //obra
+        name: 'Obra',
+        selector: row => row.obra,
+        sortable: true,
+        reorder: true,
+        cell: row => <CTableCell data={row.obra} />
+    },
+    {
+        name: 'Reserva Inicio',
+        selector: row => row.reserva_inicio,
+        sortable: true,
+        reorder: true,
+        cell: row => <CTableCell data={row.reserva_inicio} />
+    },
+    {
+        name: 'Reserva Fim',
+        selector: row => row.reserva_fim,
+        sortable: true,
+        reorder: true,
+        cell: row => <CTableCell data={row.reserva_fim} />
+    },
+    {
+        name: 'Arquivado',
+        selector: row => row.arquivado,
+        sortable: true,
+        reorder: true,
+        cell: row => <CTableCell data={row.arquivado ? "Sim" : "Não"} />
+    },
+];
 
-const ReservasExpandableRow = ({ data }) => {
+const ReservasExpandableRow = ({ data}) => {
     return (
         <DataTable
             striped
-            columns={columnsNested}
+            columns={columnsNested2}
             data={data.reservas}
             highlightOnHover
             responsive
@@ -95,13 +126,14 @@ const ReservasExpandableRow = ({ data }) => {
         />
     );
     
-}
-;
+};
 
 function ReadHoteis({ detaildata }) {
     const [pendingData, setPendingData] = React.useState(true);
     const [data, setData] = React.useState([]);
     const [filteredData, setFilteredData] = React.useState([]);
+    const [generalData, setGeneralData] = React.useState(false);
+
 	const navigate = useNavigate();
     function handleSearchData(event) {
         setFilteredData(
@@ -132,12 +164,13 @@ function ReadHoteis({ detaildata }) {
         if (response.status !== 404) {
             setData(response);
             setFilteredData(response);
+            setGeneralData(true)
         }
         setPendingData(false);
     }
 }
 func();
-    }, [])
+    }, [detaildata])
 
     return (
 
@@ -160,7 +193,6 @@ func();
                         </CInputGroup>
                     </CCol>
                 </CRow>
-
 
                 <DataTable
                     striped
