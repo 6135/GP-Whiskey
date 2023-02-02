@@ -144,8 +144,9 @@ function ReadGastosObra({ detaildata }) {
         if (response.status !== 404) {
             setData(response);
             setFilteredData(response);
+            setPendingData(false);
         }
-        setPendingData(false);
+        
     }
 }
 func();
