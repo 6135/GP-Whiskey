@@ -42,7 +42,12 @@ const columns = [
 		selector: row => row.especializacao,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.especializacao} />
+		cell: row => {
+			if (row.especializacao) 
+				return (<CTableCell data={row.especializacao} />);
+			else 
+				return (<CTableCell data={'--'} />);
+		}
 	},
 	{
 		name: 'Telefone',
@@ -75,12 +80,13 @@ const columns = [
 	 {
 		name: 'Ações',
 		cell: row => (
-			<><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
+			<><><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
 				<CIcon icon={cilPencil} size="xl" />
 			</CNavLink>
 				<CNavLink type="button" className='mx-1'>
 					{/* onChange={} */}
 					<CIcon icon={cilFolder} size="xl" />
+				</CNavLink></><CNavLink>
 				</CNavLink></>
 		)
 	}
@@ -130,6 +136,7 @@ function ReadFornecedores({ detaildata }) {
 		setFilteredData(
 			data.filter(data => {
 				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
+					(data.especializacao && data.especializacao.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.telefone && data.telefone.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.email && data.email.toLowerCase().includes(event.target.value.toLowerCase())) ||
 					(data.morada && data.morada.toLowerCase().includes(event.target.value.toLowerCase())) ||
@@ -162,14 +169,12 @@ function ReadFornecedores({ detaildata }) {
 			}
 		}
 		func();
-	}, [])
+	}, [detaildata])
 
 	return (
 
 		<CCard className="">
 			<CCardBody>
-
-
 				<CRow className='pb-4'>
 					<CCol className='col-md-6 col-12'>
 						<h1>Fornecedores</h1>

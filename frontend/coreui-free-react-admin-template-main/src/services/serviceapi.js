@@ -22,7 +22,8 @@ export const getAPI = async (url, data) => {
       'Authorization': token,
       'Accept': "application/json",
       "Content-Type": "application/json",
-    } };
+    }
+  };
 
   let args = token !== null ? isdata : { signal: abortCont.signal };
 
@@ -63,6 +64,43 @@ export const postAPI = async (url, data) => {
   let authenticated = true;
 
   await axios.post(url, data, token !== null ? { headers: headers } : null)
+    .then((res) => {
+      if (res.status !== 200 && res.status !== 201) {
+        throw Error("Could not fetch the data for that resource");
+      }
+      response = res.data;
+    }).catch(function (error) {
+
+      if (error.response.status === 403 || error.response.status === 401) {
+        authlogout();
+        authenticated = false;
+      }
+      err = error.message;
+    });
+
+  return { response, err, authenticated }
+}
+
+export const deleteAPI = async (url, data) => {
+  let token = getToken();
+  let headers;
+  if (token !== null)
+    headers = {
+      'Authorization': token,
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+    };
+  else
+    headers = {
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+    };
+
+  let response = null;
+  let err = "";
+  let authenticated = true;
+
+  await axios.delete(url, { data: data, headers: headers })
     .then((res) => {
       if (res.status !== 200 && res.status !== 201) {
         throw Error("Could not fetch the data for that resource");

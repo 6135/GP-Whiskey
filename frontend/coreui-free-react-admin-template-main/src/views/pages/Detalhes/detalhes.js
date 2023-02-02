@@ -57,7 +57,7 @@ function ReadDetalhes() {
 						<CCardGroup className='my-3 min-vh-25'>
 							<ReadHoteis detaildata={{ hoteis: obra.hoteis }} />
 						</CCardGroup>
-						<CCardGroup className='mt-3 min-vh-25'>
+						<CCardGroup className='mt-3 mb-5 min-vh-25'>
 							<ReadFornecedores detaildata={{ fornecedores: obra.fornecedores }} />
 						</CCardGroup>
 

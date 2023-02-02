@@ -18,9 +18,10 @@ class HotelSerializer(serializers.ModelSerializer):
         fields = ('nome', 'email', 'telefone', 'morada', 'arquivado' )
 
 class ReservaSerializer(serializers.ModelSerializer):
+    obra = serializers.CharField(source='obra.nome')
     class Meta:
         model = Reserva
-        fields = ('id', 'reserva_inicio', 'reserva_fim', 'arquivado')
+        fields = ('id', 'reserva_inicio', 'reserva_fim', 'arquivado','obra')
 
 class EquipamentoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,9 +30,11 @@ class EquipamentoSerializer(serializers.ModelSerializer):
 
 class MedicacaoEquipSerializer(serializers.ModelSerializer):
     funcionario = FuncionarioSerializer()
+    obra = serializers.CharField(source='obra.nome')
+
     class Meta:
         model = MedicaoEquip
-        fields = ('medicao', 'unidade_medida','funcionario')
+        fields = ('medicao', 'unidade_medida','funcionario','obra')
 
 class CarroSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
     CCard,
     CCardBody,
@@ -10,8 +10,8 @@ import {
     CButton,
     CInputGroup,
     CContainer,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons';
 import DataTable from 'react-data-table-component';
 import CTableCell from '../../../components/CTableCell';
@@ -61,6 +61,13 @@ const columns = [
 ];
 //nested columns with medicao,unidade_medida and funcionario.nome and funcionario.email
 const columnsNested = [
+    {
+        name: 'Obra',
+        selector: row => row.obra,
+        sortable: true,
+        reorder: true,
+        cell: row => <CTableCell data={row.obra} />
+    },
     {
         name: 'Medição',
         selector: row => row.medicao,
@@ -131,18 +138,18 @@ function ReadGastosObra({ detaildata }) {
         return () => clearTimeout(timeout);
     }
     else {
-        // const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/equipamento");
-        // if (!authenticated)
-        //     navigate("/Login");
-        // if (response.status !== 404) {
-        //     setData(response);
-        //     setFilteredData(response);
-        // }
-        // setPendingData(false);
+        const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/equipamento");
+        if (!authenticated)
+            navigate("/Login");
+        if (response.status !== 404) {
+            setData(response);
+            setFilteredData(response);
+        }
+        setPendingData(false);
     }
 }
 func();
-    }, [])
+    }, [detaildata])
 
     return (
 

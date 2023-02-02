@@ -32,13 +32,6 @@ import CTableCell from '../../../components/CTableCell';
 
 const columns = [
 	{
-		name: 'Obra',
-		selector: row => row.obra,
-		sortable: true,
-		reorder: true,
-		cell: row => <CTableCell data={row.obra} />
-	},
-	{
 		name: 'Descrição',
 		selector: row => row.descricao,
 		sortable: true,
@@ -147,7 +140,7 @@ function ReadGastosObra({ detaildata }) {
 			}
 		}
 		func();
-	}, [])
+	}, [detaildata])
 
 	function handlenavgasto()
 	{
