@@ -49,7 +49,7 @@ function ReadDetalhes() {
 							<ReadViaturas detaildata={{ carros: obra.carros }} />
 						</CCardGroup>
 						<CCardGroup className='mt-3 min-vh-25'>
-							<ReadGastosObra detaildata={{ gastos_extra: obra.gastos_extra }} />
+							<ReadGastosObra detaildata={{ gastos_extra: obra.gastos_extra, id_obra: location.state.obraid  }} />
 						</CCardGroup>
 						<CCardGroup className='mt-3 min-vh-25'>
 							<ReadRestaurantes detaildata={{ restaurantes: obra.restaurantes }} />

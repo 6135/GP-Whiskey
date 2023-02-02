@@ -79,18 +79,13 @@ const AppHeader = () => {
         {isadmin && 
         <CHeaderNav className="d-none d-md-flex ms-auto">
              <CNavItem>
-            <CNavLink to="/readobra" component={NavLink}>
+            <CNavLink to="/" component={NavLink}>
             Obras
             </CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink to="/medicoes" component={NavLink}>
             Medições
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink to="/gastosextra" component={NavLink}>
-            Gastos Extra
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -104,12 +99,12 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/hotel" component={NavLink}>
+            <CNavLink to="/hoteis" component={NavLink}>
             Hoteis
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink to="/restaurante" component={NavLink}>
+            <CNavLink to="/restaurantes" component={NavLink}>
             Restaurantes
             </CNavLink>
           </CNavItem>

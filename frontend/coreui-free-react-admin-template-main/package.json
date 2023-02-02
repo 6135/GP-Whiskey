@@ -38,6 +38,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@wcj/generate-password": "^1.0.3",
     "axios": "^1.2.5",
     "chart.js": "^3.9.1",
     "classnames": "^2.3.1",

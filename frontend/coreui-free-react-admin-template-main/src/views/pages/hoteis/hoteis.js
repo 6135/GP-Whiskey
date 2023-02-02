@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
     CCard,
     CCardBody,
@@ -14,6 +14,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons';
 import DataTable from 'react-data-table-component';
 import CTableCell from '../../../components/CTableCell';
+import { getAPI } from 'src/services/serviceapi';
 
 const columns = [
     {
@@ -101,7 +102,7 @@ function ReadHoteis({ detaildata }) {
     const [pendingData, setPendingData] = React.useState(true);
     const [data, setData] = React.useState([]);
     const [filteredData, setFilteredData] = React.useState([]);
-
+	const navigate = useNavigate();
     function handleSearchData(event) {
         setFilteredData(
             data.filter(data => {
@@ -114,6 +115,9 @@ function ReadHoteis({ detaildata }) {
     }
 
     useEffect(() => {
+        async function func() {
+
+			if (detaildata) {
 
         const timeout = setTimeout(() => {
             setData(detaildata.hoteis);
@@ -121,8 +125,19 @@ function ReadHoteis({ detaildata }) {
             setPendingData(false);
         }, 2000);
         return () => clearTimeout(timeout);
-
-    }, [detaildata])
+    }else {
+        const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/hotel");
+        if (!authenticated)
+            navigate("/Login");
+        if (response.status !== 404) {
+            setData(response);
+            setFilteredData(response);
+        }
+        setPendingData(false);
+    }
+}
+func();
+    }, [])
 
     return (
 
@@ -130,16 +145,16 @@ function ReadHoteis({ detaildata }) {
             <CCardBody>
 
                 <CRow className='pb-4'>
-                    <CCol>
+                    <CCol className='col-md-6 col-12'>
                         <h1>Hoteis</h1>
                     </CCol>
-                    <CCol className='justify-content-end'>
+                    <CCol className='col-md-6 col-12 justify-content-end'>
                         <CInputGroup>
                             <CFormInput type="search" placeholder="Search" onChange={handleSearchData} />
                             <CButton type="submit" color="dark" variant="outline">
                                 <CIcon icon={cilSearch} size="xl" />
                             </CButton>&nbsp;
-                            <CNavLink type="button" to="/addgasto" component={NavLink} className="btn btn-outline-dark ">
+                            <CNavLink type="button" to="/addhotel" component={NavLink} className="btn btn-outline-dark ">
                                 <CIcon icon={cilPlus} size="3xl" />
                             </CNavLink>
                         </CInputGroup>

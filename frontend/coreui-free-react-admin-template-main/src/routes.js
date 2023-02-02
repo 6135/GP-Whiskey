@@ -4,7 +4,7 @@ import AddClientes from './views/pages/clientes/addClientes'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ReadFuncionarios = React.lazy(() => import('./views/pages/funcionarios/ReadFuncionarios'))
-const AddFuncionarios = React.lazy(() => import('./views/pages/addFuncionarios/AddFuncionarios'))
+const AddFuncionarios = React.lazy(() => import('./views/pages/funcionarios/AddFuncionarios'))
 const Readobra = React.lazy(() => import('./views/pages/obra/readobra'))
 const GastosExtra = React.lazy(() => import('./views/pages/gastosextra/gastosextra'))
 const AddGasto = React.lazy(() => import('./views/pages/gastosextra/addGasto'))
@@ -29,9 +29,9 @@ export const routesAdmin = [
   { path: '/gastosextra', name: 'GastosExtra', element: GastosExtra },
   { path: '/addgasto', name: 'AdicionarGasto', element: AddGasto },
   { path: '/addObra', name: 'AdicionarObra', element: AddObra },
-  { path: '/hotel', name: 'Hoteis', element: ReadHotel },
+  { path: '/hoteis', name: 'Hoteis', element: ReadHotel },
   { path: '/addhotel', name: 'AdicionarHotel', element: AddHotel },
-  { path: '/restaurante', name: 'Restaurantes', element: ReadRestaurantes },
+  { path: '/restaurantes', name: 'Restaurantes', element: ReadRestaurantes },
   { path: '/addRestaurante', name: 'AdicionarRestaurante', element: AddRestaurante },
   { path: '/medicoes', name: 'Medições', element: ReadMedicoes },
   { path: '/viaturas', name: 'Viaturas', element: ReadViaturas },

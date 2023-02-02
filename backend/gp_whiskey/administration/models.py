@@ -30,16 +30,15 @@ class Funcionario(AbstractBaseUser, PermissionsMixin):
     # Roles created here
     uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4, verbose_name='Public identifier')
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
+    nome = models.CharField(max_length=256, blank=True)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True, default=3)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
 
     seguro_saude = models.CharField(max_length=512)
-    data_inicio = models.DateTimeField(default=timezone.now)
-    data_conclusao = models.DateTimeField(default=timezone.now)
+    data_inicio = models.DateField(blank=False)
+    data_conclusao = models.DateField(blank=False)
     obra = models.ManyToManyField('constructions.Obra')
 
     created_date = models.DateTimeField(default=timezone.now)
@@ -51,20 +50,13 @@ class Funcionario(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
-    
-    def get_full_name(self):
-        return self.first_name + " " + self.last_name
-
-    @property
-    def nome(self):
-        return self.get_full_name()
 
     @property
     def cargo(self):
         return self.ROLE_CHOICES[self.role-1][1]
 
     def __str__(self):
-        return self.get_full_name() 
+        return self.nome
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=512, blank=False)

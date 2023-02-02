@@ -4,27 +4,27 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import {
-  CCardTitle,
-  CCard,
-  CCardBody,
-  CCardGroup,
-  CCol,
-  CContainer,
-  CForm,
-  CCardSubtitle,
-  CCardText,
-  CCardHeader,
-  CNavLink,
-  CNavItem,
-  CRow,
-  CFormInput,
-  CButton,
-  CHeaderNav,
-  CInputGroup,
+	CCardTitle,
+	CCard,
+	CCardBody,
+	CCardGroup,
+	CCol,
+	CContainer,
+	CForm,
+	CCardSubtitle,
+	CCardText,
+	CCardHeader,
+	CNavLink,
+	CNavItem,
+	CRow,
+	CFormInput,
+	CButton,
+	CHeaderNav,
+	CInputGroup,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { cilPencil, cilFolder,cilPlus,cilSearch} from '@coreui/icons';
+import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons';
 import { CCollapse } from '@coreui/react'
 import DataTable from 'react-data-table-component';
 import CTableCell from '../../../components/CTableCell';
@@ -35,28 +35,28 @@ const columns = [
 		selector: row => row.nome,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.nome}/>
+		cell: row => <CTableCell data={row.nome} />
 	},
 	{
 		name: 'Email',
 		selector: row => row.email,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.email}/>
+		cell: row => <CTableCell data={row.email} />
 	},
 	{
 		name: 'Telefone',
 		selector: row => row.telefone,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.telefone}/>
+		cell: row => <CTableCell data={row.telefone} />
 	},
 	{
 		name: 'Morada',
 		selector: row => row.morada,
 		sortable: true,
 		reorder: true,
-		cell: row => <CTableCell data={row.morada}/>
+		cell: row => <CTableCell data={row.morada} />
 	}, {
 		name: 'Ações',
 		cell: row => (
@@ -104,12 +104,12 @@ const temp = [{
 },];
 
 
-function ReadRestaurantes  ({detaildata})  {
-  const [pendingData, setPendingData] = React.useState(true);
+function ReadRestaurantes({ detaildata }) {
+	const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
-
-  function handleSearchData(event) {
+	const navigate = useNavigate();
+	function handleSearchData(event) {
 		setFilteredData(
 			data.filter(data => {
 				return (data.nome && data.nome.toLowerCase().includes(event.target.value.toLowerCase())) ||
@@ -121,52 +121,66 @@ function ReadRestaurantes  ({detaildata})  {
 			}));
 	}
 
-  useEffect(() => {
+	useEffect(() => {
 
+		async function func() {
 
-		const timeout = setTimeout(() => {
-			setData(detaildata.restaurantes);
-			setFilteredData(detaildata.restaurantes);
-			setPendingData(false);
-		}, 2000);
-		return () => clearTimeout(timeout);
+			if (detaildata) {
+				const timeout = setTimeout(() => {
+					setData(detaildata.restaurantes);
+					setFilteredData(detaildata.restaurantes);
+					setPendingData(false);
+				}, 2000);
+				return () => clearTimeout(timeout);
+			}
+			else {
+				const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/restaurante");
+				if (!authenticated)
+					navigate("/Login");
+				if (response.status !== 404) {
+					setData(response);
+					setFilteredData(response);
+				}
+				setPendingData(false);
+			}
+		}
+		func();
+	}, [])
+	return (
 
-	}, [detaildata])
-  return (
+		<CCard className="">
+			<CCardBody>
+				<CRow className='pb-4'>
+					<CCol>
+						<h1>Restaurantes</h1>
+					</CCol>
+					<CCol className='justify-content-end'>
+						<CInputGroup>
+							<CFormInput type="search" placeholder="Search" onChange={handleSearchData} />
+							<CButton type="submit" color="dark" variant="outline">
+								<CIcon icon={cilSearch} size="xl" />
+							</CButton>&nbsp;
+							<CNavLink type="button" to="/addRestaurante" component={NavLink} className="btn btn-outline-dark ">
+								<CIcon icon={cilPlus} size="3xl" />
+							</CNavLink>
+						</CInputGroup>
+					</CCol>
+				</CRow>
+				<DataTable
+					striped
+					pagination
+					columns={columns}
+					data={filteredData}
+					progressPending={pendingData}
+					highlightOnHover responsive
+					paginationPerPage={5}
+					paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
+				/>
 
-              <CCard className="">
-                <CCardBody>
-                    <CRow className='pb-4'>
-										<CCol>
-											<h1>Restaurantes</h1>
-										</CCol>
-										<CCol className='justify-content-end'>
-											<CInputGroup>
-												<CFormInput type="search" placeholder="Search" onChange={handleSearchData}/>
-												<CButton type="submit" color="dark" variant="outline">
-													<CIcon icon={cilSearch} size="xl" />
-												</CButton>&nbsp;
-												<CNavLink type="button" to="/addRestaurante" component={NavLink} className="btn btn-outline-dark ">
-													<CIcon icon={cilPlus} size="3xl" />
-												</CNavLink>
-											</CInputGroup>
-										</CCol>
-									</CRow>
-                  <DataTable
-                      striped
-                      pagination
-                      columns={columns}
-                      data={filteredData}
-                      progressPending={pendingData}
-                      highlightOnHover responsive
-                      paginationPerPage={5}
-                      paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
-              />
-               
-                </CCardBody>
-              </CCard>
-            
-  )
+			</CCardBody>
+		</CCard>
+
+	)
 }
 
 export default ReadRestaurantes

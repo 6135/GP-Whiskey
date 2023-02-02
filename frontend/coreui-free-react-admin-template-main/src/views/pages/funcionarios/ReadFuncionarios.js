@@ -53,28 +53,28 @@ const columns = [
 		selector: row => row.cargo,
 		sortable: true,
 		reorder: true,
-		cell : row => <CTableCell data={row.cargo} />
+		cell: row => <CTableCell data={row.cargo} />
 	},
 	{
 		name: 'Seguro de Saúde',
 		selector: row => row.seguro_saude,
 		sortable: true,
 		reorder: true,
-		cell : row => <CTableCell data={row.seguro_saude} />
+		cell: row => <CTableCell data={row.seguro_saude} />
 	},
 	{
 		name: 'Data Início',
 		selector: row => row.data_inicio,
 		sortable: true,
 		reorder: true,
-		cell : row => <CTableCell data={row.data_inicio} />
+		cell: row => <CTableCell data={row.data_inicio} />
 	},
 	{
 		name: 'Data Conclusão',
 		selector: row => row.data_conclusao,
 		sortable: true,
 		reorder: true,
-		cell : row => <CTableCell data={row.data_conclusao} />
+		cell: row => <CTableCell data={row.data_conclusao} />
 	}, {
 		name: 'Ações',
 		cell: row => (
@@ -142,7 +142,7 @@ function ReadFuncionarios({ detaildata }) {
 	const [pendingFuncionarios, setPendingFuncionarios] = React.useState(true);
 	const [funcionarios, setFuncionarios] = React.useState([]);
 	const [filteredFuncionarios, setFilteredFuncionarios] = React.useState([]);
-
+	const navigate = useNavigate();
 	function handleSearchFuncionarios(event) {
 		setFilteredFuncionarios(
 			funcionarios.filter(funcionario => {
@@ -157,15 +157,31 @@ function ReadFuncionarios({ detaildata }) {
 	}
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setFuncionarios(detaildata.funcionarios);
-			setFilteredFuncionarios(detaildata.funcionarios);
-			setPendingFuncionarios(false);
-		}, 2000);
-		return () => clearTimeout(timeout);
-	
 
-	}, [detaildata])
+		async function func() {
+
+			if (detaildata) {
+
+				const timeout = setTimeout(() => {
+					setFuncionarios(detaildata.funcionarios);
+					setFilteredFuncionarios(detaildata.funcionarios);
+					setPendingFuncionarios(false);
+				}, 2000);
+				return () => clearTimeout(timeout);
+			}
+			else {
+				const { response, err, authenticated } = await getAPI("http://localhost:8000/administration/funcionario");
+				if (!authenticated)
+					navigate("/Login");
+				if (response.status !== 404) {
+					setFuncionarios(response);
+					setFilteredFuncionarios(response);
+				}
+				setPendingFuncionarios(false);
+			}
+		}
+		func();
+	}, [])
 
 
 	return (
@@ -173,10 +189,10 @@ function ReadFuncionarios({ detaildata }) {
 		<CCard className="">
 			<CCardBody>
 				<CRow className='pb-4'>
-					<CCol>
+					<CCol className='col-md-6 col-12'>
 						<h1>Funcionários</h1>
 					</CCol>
-					<CCol className='justify-content-end'>
+					<CCol className='col-md-6 col-12 justify-content-end'>
 						<CInputGroup>
 							<CFormInput type="search" placeholder="Search" onChange={handleSearchFuncionarios} />
 							<CButton type="submit" color="dark" variant="outline">

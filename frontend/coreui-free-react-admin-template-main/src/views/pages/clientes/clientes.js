@@ -141,10 +141,10 @@ function ReadClientes({ detaildata }) {
 		<CCard className="">
 			<CCardBody>
 				<CRow className='pb-4'>
-					<CCol>
+					<CCol className='col-md-6 col-12'>
 						<h1>Clientes</h1>
 					</CCol>
-					<CCol className='justify-content-end'>
+					<CCol className='col-md-6 col-12 justify-content-end'>
 						<CInputGroup>
 							<CFormInput type="search" placeholder="Search" onChange={handleSearchClientes} />
 							<CButton type="submit" color="dark" variant="outline">
@@ -163,7 +163,7 @@ function ReadClientes({ detaildata }) {
 					columns={columns}
 					data={filteredClientes}
 					progressPending={pendingClientes}
-					highlightOnHover
+					highlightOnHover responsive
 					paginationPerPage={5}
 					paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 50, 75, 100]}
 				/>

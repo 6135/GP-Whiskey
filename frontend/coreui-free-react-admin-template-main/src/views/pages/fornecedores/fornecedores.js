@@ -38,6 +38,13 @@ const columns = [
 		cell: row => <CTableCell data={row.nome} />
 	},
 	{
+		name: 'Especialização',
+		selector: row => row.especializacao,
+		sortable: true,
+		reorder: true,
+		cell: row => <CTableCell data={row.especializacao} />
+	},
+	{
 		name: 'Telefone',
 		selector: row => row.telefone,
 		sortable: true,
@@ -64,7 +71,8 @@ const columns = [
 		sortable: true,
 		reorder: true,
 		cell: row => <CTableCell data={row.localizacao} />
-	}, {
+	},
+	 {
 		name: 'Ações',
 		cell: row => (
 			<><CNavLink type="button" to={`/funcionarios/editfuncionarios/${row.matricula}`}>
@@ -83,37 +91,31 @@ const temp = [{
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 }, {
 	nome: "obra2",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 }, {
 	nome: "obra3",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 }, {
 	nome: "obra1",
 	telefone: "9999999",
 	email: "4-3-5",
 	morada: "40",
-	localizacao: "local",
 },];
 
 
@@ -122,6 +124,7 @@ function ReadFornecedores({ detaildata }) {
 	const [pendingData, setPendingData] = React.useState(true);
 	const [data, setData] = React.useState([]);
 	const [filteredData, setFilteredData] = React.useState([]);
+	const navigate = useNavigate();
 
 	function handleSearchData(event) {
 		setFilteredData(
@@ -136,16 +139,30 @@ function ReadFornecedores({ detaildata }) {
 	}
 
 	useEffect(() => {
+		async function func() {
 
+			if (detaildata) {
 
-		const timeout = setTimeout(() => {
-			setData(detaildata.fornecedores);
-			setFilteredData(detaildata.fornecedores);
-			setPendingData(false);
-		}, 2000);
-		return () => clearTimeout(timeout);
-
-	}, [detaildata])
+				const timeout = setTimeout(() => {
+					setData(detaildata.fornecedores);
+					setFilteredData(detaildata.fornecedores);
+					setPendingData(false);
+				}, 2000);
+				return () => clearTimeout(timeout);
+			}
+			else {
+				const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/fornecedor");
+				if (!authenticated)
+					navigate("/Login");
+				if (response.status !== 404) {
+					setData(response);
+					setFilteredData(response);
+				}
+				setPendingData(false);
+			}
+		}
+		func();
+	}, [])
 
 	return (
 
@@ -154,10 +171,10 @@ function ReadFornecedores({ detaildata }) {
 
 
 				<CRow className='pb-4'>
-					<CCol>
+					<CCol className='col-md-6 col-12'>
 						<h1>Fornecedores</h1>
 					</CCol>
-					<CCol className='justify-content-end'>
+					<CCol className='col-md-6 col-12 justify-content-end'>
 						<CInputGroup>
 							<CFormInput type="search" placeholder="Search" />
 							<CButton type="submit" color="dark" variant="outline">

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
     CCard,
     CCardBody,
@@ -15,6 +15,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilFolder, cilPlus, cilSearch } from '@coreui/icons';
 import DataTable from 'react-data-table-component';
 import CTableCell from '../../../components/CTableCell';
+import { getAPI } from 'src/services/serviceapi';
 
 const columns = [
     {
@@ -109,6 +110,7 @@ function ReadGastosObra({ detaildata }) {
     const [pendingData, setPendingData] = React.useState(true);
     const [data, setData] = React.useState([]);
     const [filteredData, setFilteredData] = React.useState([]);
+	const navigate = useNavigate();
 
     function handleSearchData(event) {
         setFilteredData(
@@ -118,24 +120,39 @@ function ReadGastosObra({ detaildata }) {
     }
 
     useEffect(() => {
+        async function func() {
+
+			if (detaildata) {
         const timeout = setTimeout(() => {
             setData(detaildata.equipamentos);
             setFilteredData(detaildata.equipamentos);
             setPendingData(false);
         }, 2000);
         return () => clearTimeout(timeout);
-
-    }, [detaildata])
+    }
+    else {
+        // const { response, err, authenticated } = await getAPI("http://localhost:8000/constructions/equipamento");
+        // if (!authenticated)
+        //     navigate("/Login");
+        // if (response.status !== 404) {
+        //     setData(response);
+        //     setFilteredData(response);
+        // }
+        // setPendingData(false);
+    }
+}
+func();
+    }, [])
 
     return (
 
         <CCard className="">
             <CCardBody>
                 <CRow className='pb-4'>
-                    <CCol>
+                    <CCol className='col-md-6 col-12'>
                         <h1>Equipamentos</h1>
                     </CCol>
-                    <CCol className='justify-content-end'>
+                    <CCol className='col-md-6 col-12 justify-content-end'>
                         <CInputGroup>
                             <CFormInput type="search" placeholder="Search" onChange={handleSearchData} />
                             <CButton type="submit" color="dark" variant="outline">

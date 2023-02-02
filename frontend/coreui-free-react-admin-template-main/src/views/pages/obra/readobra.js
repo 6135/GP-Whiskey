@@ -79,10 +79,10 @@ function Readobra() {
                             <CCard className="">
                                 <CCardBody>
                                     <CRow className='pb-4'>
-                                        <CCol>
+                                        <CCol className='col-md-6 col-12'>
                                             <h1>Obras</h1>
                                         </CCol>
-                                        <CCol className='justify-content-end align-items-center'>
+                                        <CCol className='col-md-6 col-12 justify-content-end'>
                                             <CInputGroup>
                                                 <CFormInput type="search" placeholder="Search" onChange={handleSearch}/>
                                                 <CButton type="submit" color="dark" variant="outline">

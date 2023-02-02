@@ -14,17 +14,27 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser,cilCalendar,cilEuro} from '@coreui/icons'
 import { postAPI } from '../../../services/serviceapi';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function AddGasto () {
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const [data, setData] = useState(
 		{
 			descricao: '',
 			data: '',
 			preco: '',
-			
+      obra_id: location.state.id_obra
 		});
 
+    useEffect(() => {
+      // console.log(location.state.id_obra);
+     if(!(location.state))
+     {
+      navigate("/");
+     }
+    }, [])
+    
     function handleChange(event) {
       setData(item => ({
         ...item,
@@ -33,11 +43,15 @@ function AddGasto () {
       console.log(data);
     }
   
-    function handleSubmit() {
-      console.log(data);
-      postAPI("http://127.0.0.1:8000/constructions/gastosextra", data).then(result => {
-        console.log(result.status);
-      })
+   async function handleSubmit() {
+      if (data.descricao.trim() !== "" && data.data.trim() !== "" && data.preco.trim() !== "") {
+
+          const { response, err, authenticated } = await postAPI("http://127.0.0.1:8000/constructions/gastosextra", data);
+          if (!authenticated)
+              navigate("/login");
+          if (response.status === 201)
+              navigate("/gastosextra");
+      }
       
     }
 
@@ -63,7 +77,7 @@ function AddGasto () {
                     <CInputGroupText>
                         <CIcon icon={cilCalendar} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Data" autoComplete="data" 
+                    <CFormInput type="date" placeholder="Data" autoComplete="data" 
                     name="data"
                     value={data.data} onChange={handleChange}/>
                   </CInputGroup>
@@ -72,7 +86,7 @@ function AddGasto () {
                         <CIcon icon={cilEuro} />
                     </CInputGroupText>
                     <CFormInput placeholder="Valor" autoComplete="valor" 
-                    name="preco"
+                    name="preco" type='number'
                     value={data.preco} onChange={handleChange}/>
                   </CInputGroup>
                   <div className="d-grid">
